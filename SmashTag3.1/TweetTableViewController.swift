@@ -7,16 +7,22 @@
 //
 
 import UIKit
+import Twitter
+
 
 class TweetTableViewController: UITableViewController {
 
  
     //model 
     
-    private var tweets: [[Twitter.Tweet]] = [[]]
+    private var tweets: [[Twitter.Tweet]] = [[]] {
+        didSet {
+//            print(tweets)
+//            tableView.reloadData()
+        }
+    }
     
     var searchText: String? {
-        
         didSet {
             //reeset tweets array
             tweets.removeAll()
@@ -26,9 +32,36 @@ class TweetTableViewController: UITableViewController {
         }
     }
     
-    private func searchForTweets() {
-        
+    //model helper funcs 
+    
+    //create a valid twitter request
+    private func twitterRequest() -> Twitter.Request? {
+        if let searchText = searchText, !searchText.isEmpty {
+            return Twitter.Request(search: searchText, count: 10)
+        }
+        return nil
     }
+    
+    //check if request still valid
+    private var lastTwitterRequest: Twitter.Request?
+    
+    private func searchForTweets() {
+        if let request = twitterRequest() {
+            lastTwitterRequest = request
+            request.fetchTweets { [weak self] newTweets in
+                //get mainQ
+                DispatchQueue.main.async {
+                    //new tweets returned. check if request still valid
+                    if request == self?.lastTwitterRequest {
+                        self?.tweets.insert(newTweets, at: 0)
+                        self?.tableView.insertSections([0], with: UITableViewRowAnimation.fade)
+                    }
+                }
+            }
+        }
+    }
+    
+
     
     
     //lifecycle 
@@ -43,23 +76,24 @@ class TweetTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return tweets.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return tweets[section].count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Tweet Cell", for: indexPath)
 
         // Configure the cell...
+        cell.textLabel?.text = tweets[indexPath.section][indexPath.row].text
+        cell.detailTextLabel?.text = tweets[indexPath.section][indexPath.row].user.name
+        
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.

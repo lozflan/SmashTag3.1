@@ -37,7 +37,7 @@ class TweetTableViewController: UITableViewController {
     //create a valid twitter request
     private func twitterRequest() -> Twitter.Request? {
         if let searchText = searchText, !searchText.isEmpty {
-            return Twitter.Request(search: searchText, count: 10)
+            return Twitter.Request(search: searchText, count: 20)
         }
         return nil
     }
@@ -69,6 +69,8 @@ class TweetTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         searchText = "#stanford"
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     
@@ -86,14 +88,24 @@ class TweetTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Tweet Cell", for: indexPath)
-
-        // Configure the cell...
-        cell.textLabel?.text = tweets[indexPath.section][indexPath.row].text
-        cell.detailTextLabel?.text = tweets[indexPath.section][indexPath.row].user.name
         
 
+        // Configure the cell...
+        let tweet = tweets[indexPath.section][indexPath.row]
+//        cell.textLabel?.text = tweet.text
+//        cell.detailTextLabel?.text = tweet.user.name
+        
+        //Friday, 28 April 2017 - rather than cast cell above to TweetTableViewCell, do conditionally here to set the subclass's tweet var 
+        if let tweetCell = cell as? TweetTableViewCell {
+            tweetCell.tweet = tweet
+        }
+        
         return cell
     }
+    
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        code
+//    }
 
     /*
     // Override to support conditional editing of the table view.

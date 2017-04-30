@@ -10,7 +10,32 @@ import UIKit
 import Twitter
 
 
-class TweetTableViewController: UITableViewController {
+class TweetTableViewController: UITableViewController, UITextFieldDelegate {
+
+    //outlets and related functionality
+    @IBOutlet weak var searchTextField: UITextField! {
+        didSet {
+            //set delegate when iboutlet set up
+            searchTextField.delegate = self
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        //check if this message is coming from the searchTextField
+        if textField == searchTextField {
+                self.title = textField.text
+                searchText = textField.text
+        }
+        return true
+    }
+    
+    
+    @IBAction func refresh(_ sender: UIRefreshControl) {
+        //call searchForTweets but within that func check if there is a newer search 
+        searchForTweets()
+        
+    }
+
 
  
     //model 
@@ -28,7 +53,11 @@ class TweetTableViewController: UITableViewController {
             tweets.removeAll()
             tableView.reloadData() // reload will be light because table now empty.
             searchForTweets()
+            //set title bar
             title = searchText
+            //set searchTextField & remove keyboard (either if return tapped or seach text set in code)
+            searchTextField?.text = searchText
+            searchTextField?.resignFirstResponder()
         }
     }
     
@@ -36,11 +65,15 @@ class TweetTableViewController: UITableViewController {
     
     //create a valid twitter request
     private func twitterRequest() -> Twitter.Request? {
-        if let searchText = searchText, !searchText.isEmpty {
-            return Twitter.Request(search: searchText, count: 20)
+        if let query = searchText, !query.isEmpty {
+            return Twitter.Request(search: "\(query) -filter:safe -filter:retweets", count: 10)
+            //original form of request below
+//            return Twitter.Request(search: query, count: 10)
         }
         return nil
     }
+    
+    //MARK:- Main twitter search call
     
     //check if request still valid
     private var lastTwitterRequest: Twitter.Request?

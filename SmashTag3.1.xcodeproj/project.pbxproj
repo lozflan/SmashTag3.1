@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		244D073A1EB2999900A228E9 /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244D07391EB2999900A228E9 /* TweetTableViewCell.swift */; };
 		246494131EB6B5DE000A0816 /* SmashTag3.1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 246494111EB6B5DE000A0816 /* SmashTag3.1.xcdatamodeld */; };
+		246601A01EB7D826001038CE /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2466019F1EB7D826001038CE /* Tweet.swift */; };
+		246601A21EB7D83C001038CE /* TwitterUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246601A11EB7D83C001038CE /* TwitterUser.swift */; };
 		24AC1A391EB1574A005252C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC1A381EB1574A005252C0 /* AppDelegate.swift */; };
 		24AC1A3E1EB1574A005252C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24AC1A3C1EB1574A005252C0 /* Main.storyboard */; };
 		24AC1A401EB1574A005252C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24AC1A3F1EB1574A005252C0 /* Assets.xcassets */; };
@@ -35,6 +37,8 @@
 /* Begin PBXFileReference section */
 		244D07391EB2999900A228E9 /* TweetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
 		246494121EB6B5DE000A0816 /* SmashTag3.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SmashTag3.1.xcdatamodel; sourceTree = "<group>"; };
+		2466019F1EB7D826001038CE /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
+		246601A11EB7D83C001038CE /* TwitterUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterUser.swift; sourceTree = "<group>"; };
 		24AC1A351EB1574A005252C0 /* SmashTag3.1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmashTag3.1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24AC1A381EB1574A005252C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		24AC1A3D1EB1574A005252C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -57,6 +61,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		246601A31EB7D84C001038CE /* ManagedObjectSubclasses */ = {
+			isa = PBXGroup;
+			children = (
+				2466019F1EB7D826001038CE /* Tweet.swift */,
+				246601A11EB7D83C001038CE /* TwitterUser.swift */,
+			);
+			name = ManagedObjectSubclasses;
+			sourceTree = "<group>";
+		};
 		24AC1A2C1EB1574A005252C0 = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +92,7 @@
 			children = (
 				24AC1A381EB1574A005252C0 /* AppDelegate.swift */,
 				246494111EB6B5DE000A0816 /* SmashTag3.1.xcdatamodeld */,
+				246601A31EB7D84C001038CE /* ManagedObjectSubclasses */,
 				24AC1A3C1EB1574A005252C0 /* Main.storyboard */,
 				24AC1A4B1EB1580D005252C0 /* TweetTableViewController.swift */,
 				244D07391EB2999900A228E9 /* TweetTableViewCell.swift */,
@@ -172,6 +186,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				24AC1A391EB1574A005252C0 /* AppDelegate.swift in Sources */,
+				246601A01EB7D826001038CE /* Tweet.swift in Sources */,
+				246601A21EB7D83C001038CE /* TwitterUser.swift in Sources */,
 				24AC1A4C1EB1580D005252C0 /* TweetTableViewController.swift in Sources */,
 				246494131EB6B5DE000A0816 /* SmashTag3.1.xcdatamodeld in Sources */,
 				244D073A1EB2999900A228E9 /* TweetTableViewCell.swift in Sources */,

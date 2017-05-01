@@ -49,15 +49,14 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     var searchText: String? {
         didSet {
-            //reeset tweets array
-            tweets.removeAll()
-            tableView.reloadData() // reload will be light because table now empty.
-            searchForTweets()
-            //set title bar
-            title = searchText
-            //set searchTextField & remove keyboard (either if return tapped or seach text set in code)
             searchTextField?.text = searchText
             searchTextField?.resignFirstResponder()
+            lastTwitterRequest = nil //reset to nil for refresh control 
+            //reeset tweets array
+            tweets.removeAll()
+            tableView.reloadData() //reload will be light because table now empty.
+            searchForTweets()
+            title = searchText
         }
     }
     
@@ -79,7 +78,12 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     private var lastTwitterRequest: Twitter.Request?
     
     private func searchForTweets() {
-        if let request = twitterRequest() {
+        //change next line for refresh control functionality. just checks if there is a newer form of Twitter.Request
+        if let test = lastTwitterRequest?.newer {
+        print("lastTwitterRequest.newer = \(test)")
+        }
+        if let request = lastTwitterRequest?.newer ?? twitterRequest() {
+//            if let request = twitterRequest() { //orig request
             lastTwitterRequest = request
             request.fetchTweets { [weak self] newTweets in
                 //get mainQ
@@ -88,9 +92,12 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
                     if request == self?.lastTwitterRequest {
                         self?.tweets.insert(newTweets, at: 0)
                         self?.tableView.insertSections([0], with: UITableViewRowAnimation.fade)
+                        self?.refreshControl?.endRefreshing()
                     }
                 }
             }
+        } else {
+            self.refreshControl?.endRefreshing()
         }
     }
     
@@ -134,6 +141,10 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "\(tweets.count)"
     }
     
 //    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

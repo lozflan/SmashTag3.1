@@ -90,8 +90,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
                 DispatchQueue.main.async {
                     //new tweets returned. check if request still valid
                     if request == self?.lastTwitterRequest {
-                        self?.tweets.insert(newTweets, at: 0)
-                        self?.tableView.insertSections([0], with: UITableViewRowAnimation.fade)
+                        self?.insertTweets(newTweets)
                         self?.refreshControl?.endRefreshing()
                     }
                 }
@@ -99,6 +98,12 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         } else {
             self.refreshControl?.endRefreshing()
         }
+    }
+    
+    //refactor code in searchForTweets to make more subclassable for coredata functionality
+    func insertTweets(_ newTweets: [Twitter.Tweet]) {
+        self.tweets.insert(newTweets, at: 0)
+        self.tableView.insertSections([0], with: UITableViewRowAnimation.fade)
     }
     
 

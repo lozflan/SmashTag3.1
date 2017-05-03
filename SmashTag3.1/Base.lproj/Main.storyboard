@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tweet Table View Controller-->
+        <!--Smash Tweet Table View Controller-->
         <scene sceneID="z5L-e5-diF">
             <objects>
-                <tableViewController id="tBH-BA-RXt" customClass="TweetTableViewController" customModule="SmashTag3_1" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="tBH-BA-RXt" customClass="SmashTweetTableViewController" customModule="SmashTag3_1" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="BBa-Qr-kSt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

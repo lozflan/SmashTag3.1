@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2405E7C11EB7DFC70086873E /* SmashTweetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2405E7C01EB7DFC70086873E /* SmashTweetTableViewController.swift */; };
 		244D073A1EB2999900A228E9 /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244D07391EB2999900A228E9 /* TweetTableViewCell.swift */; };
 		246494131EB6B5DE000A0816 /* SmashTag3.1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 246494111EB6B5DE000A0816 /* SmashTag3.1.xcdatamodeld */; };
 		246601A01EB7D826001038CE /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2466019F1EB7D826001038CE /* Tweet.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2405E7C01EB7DFC70086873E /* SmashTweetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmashTweetTableViewController.swift; sourceTree = "<group>"; };
 		244D07391EB2999900A228E9 /* TweetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
 		246494121EB6B5DE000A0816 /* SmashTag3.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SmashTag3.1.xcdatamodel; sourceTree = "<group>"; };
 		2466019F1EB7D826001038CE /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				246601A31EB7D84C001038CE /* ManagedObjectSubclasses */,
 				24AC1A3C1EB1574A005252C0 /* Main.storyboard */,
 				24AC1A4B1EB1580D005252C0 /* TweetTableViewController.swift */,
+				2405E7C01EB7DFC70086873E /* SmashTweetTableViewController.swift */,
 				244D07391EB2999900A228E9 /* TweetTableViewCell.swift */,
 				24AC1A441EB1574A005252C0 /* Info.plist */,
 				24AC1A4A1EB1576F005252C0 /* Supporting Files */,
@@ -185,6 +188,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2405E7C11EB7DFC70086873E /* SmashTweetTableViewController.swift in Sources */,
 				24AC1A391EB1574A005252C0 /* AppDelegate.swift in Sources */,
 				246601A01EB7D826001038CE /* Tweet.swift in Sources */,
 				246601A21EB7D83C001038CE /* TwitterUser.swift in Sources */,

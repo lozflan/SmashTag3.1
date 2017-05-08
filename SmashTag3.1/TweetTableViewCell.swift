@@ -23,6 +23,9 @@ class TweetTableViewCell: UITableViewCell {
         tweetUserLabel.text = tweet?.user.name
         tweetProfileImageView.image = getProfileImage()
         tweetTextLabel.text = tweet?.text
+        //format tweet text
+        let attribText = formatTweetCellText()
+        tweetTextLabel.attributedText = attribText
         tweetCreatedLabel.text = formatCreatedDate()
     }
     
@@ -51,26 +54,43 @@ class TweetTableViewCell: UITableViewCell {
         }
     }
     
+    private struct MentionColor {
+        static let hashtag = UIColor.red
+        static let urls = UIColor.blue
+        static let userMentions = UIColor.green
+        
+    }
     
+    //smashtag mentions project - add colour to user mentions 
     
+    private func formatTweetCellText() -> NSMutableAttributedString {
+        let mainString = tweet!.text
+        let attributedString = NSMutableAttributedString(string: mainString)
+        if let tweet = tweet {
+ 
+            //lf-my solution
+            _ = addMentionsColor(attribString: attributedString, mentions: tweet.hashtags, color: MentionColor.hashtag)
+            _ = addMentionsColor(attribString: attributedString, mentions: tweet.urls, color: MentionColor.urls)
+            _ = addMentionsColor(attribString: attributedString, mentions: tweet.userMentions, color: MentionColor.userMentions)
+            
+            //alternative solution using extension on NSAttributedString
+//            attributedString.setMentionsColor(mentions: hashtagMentions, color: MentionColor.hashtag)
+//            attributedString.setMentionsColor(mentions: urlMentions, color: MentionColor.urls)
+//            attributedString.setMentionsColor(mentions: userMentions, color: MentionColor.userMentions)
+
+        }
+        return attributedString
+    }
     
+    private func addMentionsColor(attribString: NSMutableAttributedString, mentions: [Mention], color: UIColor) -> NSMutableAttributedString {
+        let string = attribString
+        for mention in mentions {
+            string.addAttribute(NSForegroundColorAttributeName, value: color, range: mention.nsrange)
+        }
+        return string
+    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     
     
@@ -88,4 +108,13 @@ class TweetTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+}
+
+extension NSMutableAttributedString {
+    
+    func setMentionsColor(mentions: [Mention], color: UIColor ) {
+        for mention in mentions {
+            addAttribute(NSForegroundColorAttributeName, value: color, range: mention.nsrange)
+        }
+    }
 }

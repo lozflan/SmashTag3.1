@@ -21,6 +21,7 @@
 		24AC1A4C1EB1580D005252C0 /* TweetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC1A4B1EB1580D005252C0 /* TweetTableViewController.swift */; };
 		24AC1A4E1EB16067005252C0 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24AC1A4D1EB16067005252C0 /* Twitter.framework */; };
 		24AC1A4F1EB16067005252C0 /* Twitter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 24AC1A4D1EB16067005252C0 /* Twitter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		24ED7D381EBBE70500F2E919 /* UITableViewDataSource+NSFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ED7D371EBBE70500F2E919 /* UITableViewDataSource+NSFetchedResultsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +54,7 @@
 		24AC1A441EB1574A005252C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24AC1A4B1EB1580D005252C0 /* TweetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewController.swift; sourceTree = "<group>"; };
 		24AC1A4D1EB16067005252C0 /* Twitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Twitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		24ED7D371EBBE70500F2E919 /* UITableViewDataSource+NSFetchedResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewDataSource+NSFetchedResultsController.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 				2466019F1EB7D826001038CE /* Tweet.swift */,
 				246601A11EB7D83C001038CE /* TwitterUser.swift */,
 				240275EC1EBA93F800004204 /* FetchedResultsTableViewController.swift */,
+				24ED7D371EBBE70500F2E919 /* UITableViewDataSource+NSFetchedResultsController.swift */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 			files = (
 				2405E7C11EB7DFC70086873E /* SmashTweetTableViewController.swift in Sources */,
 				240275ED1EBA93F800004204 /* FetchedResultsTableViewController.swift in Sources */,
+				24ED7D381EBBE70500F2E919 /* UITableViewDataSource+NSFetchedResultsController.swift in Sources */,
 				24AC1A391EB1574A005252C0 /* AppDelegate.swift in Sources */,
 				246601A01EB7D826001038CE /* Tweet.swift in Sources */,
 				240275EB1EBA804E00004204 /* SmashTweetersTableViewController.swift in Sources */,

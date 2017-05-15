@@ -40,7 +40,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
  
     //model 
     
-    private var tweets: [[Twitter.Tweet]] = [[]] {
+    var tweets: [[Twitter.Tweet]] = [[]] {
         didSet {
 //            print(tweets)
 //            tableView.reloadData()

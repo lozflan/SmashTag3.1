@@ -65,7 +65,6 @@ class MentionsTableViewController: UITableViewController {
             var urls: [MentionItem] = []
             var userMentions: [MentionItem] = []
             
-            //Friday, 12 May 2017 UP TO HERE 
             for media in tweet.media {
                 let item = MentionItem.images(media)
                 mediaItems.append(item)
@@ -82,9 +81,10 @@ class MentionsTableViewController: UITableViewController {
                 let item = MentionItem.users(userMention.keyword)
                 userMentions.append(item)
             }
-            mentionItems.insert(hashtags, at: 0)
-            mentionItems.insert(urls, at: 1)
-            mentionItems.insert(userMentions, at: 2)
+            mentionItems.insert(mediaItems, at: 0)
+            mentionItems.insert(hashtags, at: 1)
+            mentionItems.insert(urls, at: 2)
+            mentionItems.insert(userMentions, at: 3)
             
             //now i have an array of arrays of mentionitem but how to extract the assoc value.
             
@@ -135,9 +135,9 @@ class MentionsTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Mention Cell", for: indexPath)
-        cell.textLabel?.text = mentionItems[indexPath.section][indexPath.row].description
-        //Thursday, 11 May 2017 UP TO HERE
+        //need to deque up to 2 different types of cell - one for images and one for string mentions
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Image Cell", for: indexPath) as! ImageTableViewCell
+        cell.urlString = mentionItems[indexPath.section][indexPath.row].description
         return cell
     }
 

@@ -122,34 +122,33 @@
         <scene sceneID="59U-Ot-heZ">
             <objects>
                 <tableViewController id="mmI-yA-LfS" customClass="MentionsTableViewController" customModule="SmashTag3_1" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="VC6-IP-alj">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="103" sectionHeaderHeight="28" sectionFooterHeight="28" id="VC6-IP-alj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Mention Cell" textLabel="Qyt-XO-uC6" detailTextLabel="zK2-y7-6jG" style="IBUITableViewCellStyleSubtitle" id="IP2-7f-a5S">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Image Cell" rowHeight="150" id="IP2-7f-a5S" customClass="ImageTableViewCell" customModule="SmashTag3_1" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IP2-7f-a5S" id="qF1-9P-vIg">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Qyt-XO-uC6">
-                                            <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zK2-y7-6jG">
-                                            <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8Qs-UW-Js6">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                        </imageView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="8Qs-UW-Js6" firstAttribute="leading" secondItem="qF1-9P-vIg" secondAttribute="leading" id="N4g-tP-pw9"/>
+                                        <constraint firstAttribute="trailing" secondItem="8Qs-UW-Js6" secondAttribute="trailing" id="OTf-Q2-DmF"/>
+                                        <constraint firstItem="8Qs-UW-Js6" firstAttribute="top" secondItem="qF1-9P-vIg" secondAttribute="top" id="mjs-ZR-Dk3"/>
+                                        <constraint firstItem="8Qs-UW-Js6" firstAttribute="centerY" secondItem="qF1-9P-vIg" secondAttribute="centerY" id="qIE-3U-vvo"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="imageView" destination="8Qs-UW-Js6" id="Dcs-Qx-OaH"/>
+                                    <outlet property="mentionImageView" destination="8Qs-UW-Js6" id="W00-xs-SnY"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -160,7 +159,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u33-X8-DOz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1862" y="217"/>
+            <point key="canvasLocation" x="1861.5999999999999" y="216.34182908545728"/>
         </scene>
         <!--Smash Tweeters Table View Controller-->
         <scene sceneID="5Pb-nd-2fs">

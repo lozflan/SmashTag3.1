@@ -194,22 +194,17 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - Navigation
 
-    //segue
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if let identifier = segue.identifier {
-            switch identifier {
-            case "Show Mentions":
-                if let cell = sender as? UITableViewCell {
-                    let mentionsTVC = segue.destination as? MentionsTableViewController
-                    if let indexPath = tableView.indexPath(for: cell) {
-                        mentionsTVC?.tweet = tweets[indexPath.section][indexPath.row]
-                    }
-                }
-            default:
-                break
-            }
-        }
-    }
-
+    
+    
+    
+    
 }
+
+
+
+
+
+
+
+
+

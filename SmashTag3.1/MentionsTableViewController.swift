@@ -30,6 +30,7 @@ class MentionsTableViewController: UITableViewController {
             switch  self {
             case .images(let mediaItem):
                 return mediaItem.url.absoluteString
+//                return mediaItem.url.absoluteString
             case .hashtags(let hashtag):
                 return hashtag
             case .users(let user):
@@ -50,6 +51,15 @@ class MentionsTableViewController: UITableViewController {
                 return "Users"
             case .urls:
                 return "Urls"
+            }
+        }
+        
+        var aspectRatio: Double {
+            switch self {
+            case .images(let mediaItem):
+                return mediaItem.aspectRatio
+            default:
+                return 1.0
             }
         }
     }
@@ -133,12 +143,42 @@ class MentionsTableViewController: UITableViewController {
         return mentionItems[section].count
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        //Sanjib Ahmad method
+//        let mention = mentionItems[indexPath.section][indexPath.row]
+//        switch mention {
+//        case .images(let media):
+//            return view.bounds.width / CGFloat(media.aspectRatio)
+//        default:
+//            return UITableViewAutomaticDimension
+//        }
+        
+        //lf method. sanjibs way better because section is hardcoded here.
+        if indexPath.section == 0 {
+            //media items have an aspect ration from the image when tweetTVC originally loaded
+            let mediaItem = mentionItems[indexPath.section][indexPath.row]
+            let aspectRatio = mediaItem.aspectRatio
+            let width = view.bounds.width
+            let height = width / CGFloat(aspectRatio)
+            return height
+            
+        } else {
+            return UITableViewAutomaticDimension
+        }
+    }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //need to deque up to 2 different types of cell - one for images and one for string mentions
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Image Cell", for: indexPath) as! ImageTableViewCell
-        cell.urlString = mentionItems[indexPath.section][indexPath.row].description
-        return cell
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Image Cell", for: indexPath) as! ImageTableViewCell
+            cell.urlString = mentionItems[indexPath.section][indexPath.row].description
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Mention Cell", for: indexPath)
+            return cell
+        }
     }
 
     

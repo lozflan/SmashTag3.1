@@ -24,7 +24,6 @@ class ImageTableViewCell: UITableViewCell {
     }
     
     
-    
     private func updateUI() {
 
         if let imageURL = imageURL {

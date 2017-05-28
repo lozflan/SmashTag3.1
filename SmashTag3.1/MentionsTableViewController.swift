@@ -207,6 +207,8 @@ class MentionsTableViewController: UITableViewController {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Mention Cell", for: indexPath)
+            let mention = mentionItems[indexPath.section][indexPath.row]
+            cell.textLabel?.text = mention.description
             return cell
         }
     }

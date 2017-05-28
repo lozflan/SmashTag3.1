@@ -156,7 +156,7 @@
                                     <outlet property="tweetImage" destination="8Qs-UW-Js6" id="pND-bc-Cvd"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Mention Cell" textLabel="PNf-z4-tYU" detailTextLabel="waV-Sm-wbz" rowHeight="73" style="IBUITableViewCellStyleSubtitle" id="b5X-2x-m8B" customClass="ImageTableViewCell" customModule="SmashTag3_1" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Mention Cell" textLabel="PNf-z4-tYU" rowHeight="73" style="IBUITableViewCellStyleDefault" id="b5X-2x-m8B" customClass="ImageTableViewCell" customModule="SmashTag3_1" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="178" width="375" height="73"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b5X-2x-m8B" id="VgE-Ce-S7v">
@@ -164,16 +164,9 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PNf-z4-tYU">
-                                            <rect key="frame" x="15" y="19" width="33.5" height="20.5"/>
+                                            <rect key="frame" x="15" y="0.0" width="345" height="72.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="waV-Sm-wbz">
-                                            <rect key="frame" x="15" y="39.5" width="44" height="14.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>

@@ -15,6 +15,7 @@
 		246601A01EB7D826001038CE /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2466019F1EB7D826001038CE /* Tweet.swift */; };
 		246601A21EB7D83C001038CE /* TwitterUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246601A11EB7D83C001038CE /* TwitterUser.swift */; };
 		2481612D1ECA5A2B00159908 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2481612C1ECA5A2B00159908 /* ImageTableViewCell.swift */; };
+		248EEAAF1ECD0B1C009D2485 /* MentionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248EEAAE1ECD0B1C009D2485 /* MentionTableViewCell.swift */; };
 		248FD2371EC13B4300A918FC /* MentionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FD2361EC13B4300A918FC /* MentionsTableViewController.swift */; };
 		24A300DE1EC3C8D3007B12C7 /* VCLoggingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A300DD1EC3C8D3007B12C7 /* VCLoggingViewController.swift */; };
 		24AC1A391EB1574A005252C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC1A381EB1574A005252C0 /* AppDelegate.swift */; };
@@ -50,6 +51,7 @@
 		2466019F1EB7D826001038CE /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		246601A11EB7D83C001038CE /* TwitterUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterUser.swift; sourceTree = "<group>"; };
 		2481612C1ECA5A2B00159908 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
+		248EEAAE1ECD0B1C009D2485 /* MentionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionTableViewCell.swift; sourceTree = "<group>"; };
 		248FD2361EC13B4300A918FC /* MentionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsTableViewController.swift; sourceTree = "<group>"; };
 		24A300DD1EC3C8D3007B12C7 /* VCLoggingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCLoggingViewController.swift; sourceTree = "<group>"; };
 		24AC1A351EB1574A005252C0 /* SmashTag3.1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmashTag3.1.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +89,16 @@
 			name = CoreData;
 			sourceTree = "<group>";
 		};
+		248EEAAD1ECCF67B009D2485 /* CustomTableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				248EEAAE1ECD0B1C009D2485 /* MentionTableViewCell.swift */,
+				244D07391EB2999900A228E9 /* TweetTableViewCell.swift */,
+				2481612C1ECA5A2B00159908 /* ImageTableViewCell.swift */,
+			);
+			name = CustomTableViewCells;
+			sourceTree = "<group>";
+		};
 		24AC1A2C1EB1574A005252C0 = {
 			isa = PBXGroup;
 			children = (
@@ -115,8 +127,7 @@
 				240275EA1EBA804E00004204 /* SmashTweetersTableViewController.swift */,
 				248FD2361EC13B4300A918FC /* MentionsTableViewController.swift */,
 				24AC1A441EB1574A005252C0 /* Info.plist */,
-				244D07391EB2999900A228E9 /* TweetTableViewCell.swift */,
-				2481612C1ECA5A2B00159908 /* ImageTableViewCell.swift */,
+				248EEAAD1ECCF67B009D2485 /* CustomTableViewCells */,
 				246601A31EB7D84C001038CE /* CoreData */,
 				24AC1A4A1EB1576F005252C0 /* Supporting Files */,
 				24F8EFED1ECB9EBF00F8AEF3 /* MyPlayground.playground */,
@@ -218,6 +229,7 @@
 				246601A21EB7D83C001038CE /* TwitterUser.swift in Sources */,
 				2481612D1ECA5A2B00159908 /* ImageTableViewCell.swift in Sources */,
 				24AC1A4C1EB1580D005252C0 /* TweetTableViewController.swift in Sources */,
+				248EEAAF1ECD0B1C009D2485 /* MentionTableViewCell.swift in Sources */,
 				246494131EB6B5DE000A0816 /* SmashTag3.1.xcdatamodeld in Sources */,
 				244D073A1EB2999900A228E9 /* TweetTableViewCell.swift in Sources */,
 				248FD2371EC13B4300A918FC /* MentionsTableViewController.swift in Sources */,

@@ -50,6 +50,10 @@ class SmashTweetTableViewController: TweetTableViewController {
                 if let tweetCount = (try? context.fetch(request))?.count{
                     print("\(tweetCount) tweets in coredata")
                 }
+                let tweeterRequest: NSFetchRequest<TwitterUser> = TwitterUser.fetchRequest()
+                if let twitterCount = try? context.count(for: tweeterRequest) {
+                    print("\(twitterCount) twitter users in coredata")
+                }
             }
         }
     }

@@ -102,10 +102,7 @@ class MentionsTableViewController: UITableViewController {
         }
     }
     
-    
-    
 
-    
     
     
     //MARK: - Lifecycle functions
@@ -146,43 +143,73 @@ class MentionsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         //Sanjib Ahmad method
-//        let mention = mentionItems[indexPath.section][indexPath.row]
-//        switch mention {
-//        case .images(let media):
-//            return view.bounds.width / CGFloat(media.aspectRatio)
-//        default:
-//            return UITableViewAutomaticDimension
-//        }
-        
-        //lf method. sanjibs way better because section is hardcoded here.
-        if indexPath.section == 0 {
-            //media items have an aspect ration from the image when tweetTVC originally loaded
-            let mediaItem = mentionItems[indexPath.section][indexPath.row]
-            let aspectRatio = mediaItem.aspectRatio
-            let width = view.bounds.width
-            let height = width / CGFloat(aspectRatio)
-            return height
-            
-        } else {
+        let mention = mentionItems[indexPath.section][indexPath.row]
+        switch mention {
+        case .images(let media):
+            return view.bounds.width / CGFloat(media.aspectRatio)
+        default:
             return UITableViewAutomaticDimension
         }
+        
+        //lf method. sanjibs way better because section is hardcoded here.
+//        if indexPath.section == 0 {
+//            //media items have an aspect ration from the image when tweetTVC originally loaded
+//            let mediaItem = mentionItems[indexPath.section][indexPath.row]
+//            let aspectRatio = mediaItem.aspectRatio
+//            let width = view.bounds.width
+//            let height = width / CGFloat(aspectRatio)
+//            return height
+//            
+//        } else {
+//            return UITableViewAutomaticDimension
+//        }
     }
     
+    
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        //need to deque up to 2 different types of cell - one for images and one for string mentions
+//        if indexPath.section == 0 {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "Image Cell", for: indexPath) as! ImageTableViewCell
+//            let mention = mentionItems[indexPath.section][indexPath.row]
+//            switch mention {
+//            case .images(let mediaItem):
+//                cell.mediaItem = mediaItem
+//            default:
+//                break
+//            }
+//            return cell
+//        } else {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "Mention Cell", for: indexPath)
+//            let mention = mentionItems[indexPath.section][indexPath.row]
+//            switch mention {
+//            case .hashtags(let str), .users(let str), .urls(let str):
+//                cell.textLabel?.text = str
+//                cell.detailTextLabel?.text = "hello"
+//            default:
+//                break
+//            }
+//            return cell
+//        }
+//    }
+
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //need to deque up to 2 different types of cell - one for images and one for string mentions
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Image Cell", for: indexPath) as! ImageTableViewCell
-            cell.urlString = mentionItems[indexPath.section][indexPath.row].description
+            let mention  = mentionItems[indexPath.section][indexPath.row]
+            switch mention {
+            case .images(let media):
+                cell.imageURL = media.url
+            default:
+                break
+            }
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Mention Cell", for: indexPath)
             return cell
         }
     }
-
-    
-    
     
     
     

@@ -7,40 +7,62 @@
 //
 
 import UIKit
+import Twitter
 
 class ImageTableViewCell: UITableViewCell {
 
 
-    @IBOutlet weak var mentionImageView: UIImageView!
+    @IBOutlet weak var tweetImage: UIImageView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+ 
     
     
-    var urlString: String? {
+    var imageURL: URL? {
         didSet {
             updateUI()
         }
     }
     
-    private func updateUI() {
-        mentionImageView?.image = nil
-        if let newImg = fetchImage() {
-            mentionImageView?.image = newImg
-        }
-    }
     
-    private func fetchImage() -> UIImage? {
-        if let urlString = urlString {
-            if let url = URL(string: urlString) {
-                ////FIXME: blocks mainQ
-                if let data = try? Data(contentsOf: url) {
-                    let image = UIImage(data: data)
-                    return image
+    
+    private func updateUI() {
+
+        if let imageURL = imageURL {
+            spinner.startAnimating()
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                if let imageData = try? Data(contentsOf: imageURL) {
+                    DispatchQueue.main.async {
+                        if imageURL == self?.imageURL {
+                            let image = UIImage(data: imageData)
+                            self?.tweetImage.image = image
+                        }
+                        self?.spinner.stopAnimating()
+                    }
                 }
             }
         }
-        return nil
     }
-
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

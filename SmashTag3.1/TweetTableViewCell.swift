@@ -57,7 +57,7 @@ class TweetTableViewCell: UITableViewCell {
     private struct MentionColor {
         static let hashtag = UIColor.red
         static let urls = UIColor.blue
-        static let userMentions = UIColor.green
+        static let userMentions = UIColor.orange
         
     }
     

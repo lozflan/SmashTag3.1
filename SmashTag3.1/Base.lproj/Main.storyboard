@@ -172,6 +172,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="tBH-BA-RXt" kind="show" identifier="From Keyword" id="7o6-wp-sCp"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -182,7 +185,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u33-X8-DOz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1861.5999999999999" y="216.34182908545728"/>
+            <point key="canvasLocation" x="1956" y="181"/>
         </scene>
         <!--Smash Tweeters Table View Controller-->
         <scene sceneID="5Pb-nd-2fs">
@@ -247,4 +250,7 @@
             <point key="canvasLocation" x="-34.399999999999999" y="175.86206896551727"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="7o6-wp-sCp"/>
+    </inferredMetricsTieBreakers>
 </document>

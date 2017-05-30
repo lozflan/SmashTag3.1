@@ -8,6 +8,7 @@
 
 import UIKit
 import Twitter
+import SafariServices
 
 class MentionsTableViewController: UITableViewController {
     
@@ -165,32 +166,6 @@ class MentionsTableViewController: UITableViewController {
 //        }
     }
     
-    
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        //need to deque up to 2 different types of cell - one for images and one for string mentions
-//        if indexPath.section == 0 {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "Image Cell", for: indexPath) as! ImageTableViewCell
-//            let mention = mentionItems[indexPath.section][indexPath.row]
-//            switch mention {
-//            case .images(let mediaItem):
-//                cell.mediaItem = mediaItem
-//            default:
-//                break
-//            }
-//            return cell
-//        } else {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "Mention Cell", for: indexPath)
-//            let mention = mentionItems[indexPath.section][indexPath.row]
-//            switch mention {
-//            case .hashtags(let str), .users(let str), .urls(let str):
-//                cell.textLabel?.text = str
-//                cell.detailTextLabel?.text = "hello"
-//            default:
-//                break
-//            }
-//            return cell
-//        }
-//    }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -212,6 +187,68 @@ class MentionsTableViewController: UITableViewController {
             return cell
         }
     }
+    
+    //control segue to tweetTVC from mention cells by shouldPerformSugue
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        //check if sender is url cell and if so dont perform From Keyword segue
+        if identifier == "From Keyword" {
+            if let cell = sender as? UITableViewCell {
+                if let indexPath = tableView.indexPath(for: cell) {
+                    let mention = mentionItems[indexPath.section][indexPath.row]
+                    if case .urls(let url) = mention {
+                        if let url = URL(string: url) {
+                            showURL(url: url)
+                        }
+                        return false
+                    }
+                }
+            }
+        }
+        return true
+    }
+    
+    //func to show url 
+    func showURL(url:URL) {
+        
+        //lecturer method
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(url)
+        }
+        
+        //TK method. opens safari within your app.
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true, completion: nil)
+        
+        
+    }
+    
+    
+    //prepareForSegue either back to TweetTVC if from keyword or to imageVC if from image
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let tweetTVC = segue.destination as? TweetTableViewController {
+            if segue.identifier == "From Keyword" {
+                if let cell = sender as? UITableViewCell {
+                    if let indexPath = tableView.indexPath(for: cell) {
+                        let mention = mentionItems[indexPath.section][indexPath.row]
+                        switch mention {
+                        case .hashtags(let hashtag):
+                            tweetTVC.searchText = hashtag
+                        case .users(let user):
+                            tweetTVC.searchText = user
+                        default:
+                            break
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+    
+    
+
+    
+    
     
     
     

@@ -17,6 +17,9 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         didSet {
             //set delegate when iboutlet set up
             searchTextField.delegate = self
+            
+            //reset searchTextField text if set before outlets set.
+            searchTextField.text = searchText
         }
     }
     
@@ -113,7 +116,10 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchText = "#sunset"
+        if searchText == nil {
+            searchText = "#sunset"
+        }
+        
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
     }

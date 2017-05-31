@@ -108,7 +108,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
 
         //add the imageview as a subview to the scrollview in vdl but remember bounds not set
-        scrollView.addSubview(imageView)
+        scrollView?.addSubview(imageView)
 
         //for testing - set the image url starting off the whole process
 //        imageURL = NSURL(string: "https://engineering.stanford.edu/sites/default/files/styles/full-width-banner-short/public/QuadNew-cropped.png?itok=rQiRy977")
@@ -117,8 +117,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
 
         //testing introspection getting prop names obj c extension (seeObjCExtensions file) using http://derpturkey.com/get-property-names-of-object-in-swift/
 
-        let props = self.propertyNames()
-        print(props)
+//        let props = self.propertyNames()
+//        print(props)
 
 
 

@@ -225,21 +225,31 @@ class MentionsTableViewController: UITableViewController {
     
     //prepareForSegue either back to TweetTVC if from keyword or to imageVC if from image
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let tweetTVC = segue.destination as? TweetTableViewController {
-            if segue.identifier == "From Keyword" {
-                if let cell = sender as? UITableViewCell {
-                    if let indexPath = tableView.indexPath(for: cell) {
-                        let mention = mentionItems[indexPath.section][indexPath.row]
-                        switch mention {
-                        case .hashtags(let hashtag):
-                            tweetTVC.searchText = hashtag
-                        case .users(let user):
-                            tweetTVC.searchText = user
-                        default:
-                            break
+        if let identifier = segue.identifier {
+            if let cell = sender as? UITableViewCell {
+                if let indexPath = tableView.indexPath(for: cell) {
+                    let mention = mentionItems[indexPath.section][indexPath.row]
+                    switch identifier {
+                    case "From Keyword":
+                        if let tweetTVC = segue.destination as? TweetTableViewController {
+                            switch mention {
+                            case .hashtags(let hashtag):
+                                tweetTVC.searchText = hashtag
+                            case .users(let user):
+                                tweetTVC.searchText = user
+                            default:
+                                break
+                            }
                         }
+                    case "Show Image":
+                        if let imageVC = segue.destination as? ImageViewController {
+                            if case .images(let mediaItem) = mention {
+                                imageVC.imageURL = URL(string: mediaItem.description)
+                            }
+                        }
+                    default:
+                        break
                     }
-                    
                 }
             }
         }

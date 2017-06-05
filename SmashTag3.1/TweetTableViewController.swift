@@ -202,12 +202,20 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     // MARK: - Navigation
 
     
+
+
     
     
     
 }
 
 
+
+extension UINavigationController {
+    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .all
+    }
+}
 
 
 

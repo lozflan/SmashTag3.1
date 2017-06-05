@@ -38,9 +38,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             let heightRatio = self.view.bounds.size.height / imageView.bounds.size.height
             let widthRatio = self.view.bounds.size.width / imageView.bounds.size.width
             sv.zoomScale = (heightRatio > widthRatio) ? heightRatio : widthRatio
-            print(sv.zoomScale)
-            sv.contentOffset = CGPoint(x: (imageView.bounds.size.width - scrollView.bounds.size.width)/2,
-                                       y: (imageView.bounds.size.height - scrollView.bounds.size.height)/2)
+            sv.contentOffset = CGPoint(x: (imageView.frame.size.width - sv.frame.size.width)/2,
+                                       y: (imageView.frame.size.height - sv.frame.size.height)/2)
             autoZoomed = false
             
         
@@ -151,9 +150,12 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
 
     }
     
+    
+    //delegate method - called when view geometry changes so call zoomScaleToFit here again.
     override func viewDidLayoutSubviews() {
         zoomScaleToFit()
     }
+    
 
 
 
@@ -168,6 +170,11 @@ extension ImageViewController {
     //asks scrollview delegate for the view to scale when zooming
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
+    }
+    
+    //delegate method called just before user zooming starts
+    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        autoZoomed = false //prevents autozoom occuring after user takes over zoom control
     }
     
 }

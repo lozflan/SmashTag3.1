@@ -215,9 +215,9 @@ class MentionsTableViewController: UITableViewController {
             UIApplication.shared.open(url)
         }
         
-        //TK method. opens safari within your app.
-        let safariVC = SFSafariViewController(url: url)
-        present(safariVC, animated: true, completion: nil)
+//        //TK method. opens safari within your app.
+//        let safariVC = SFSafariViewController(url: url)
+//        present(safariVC, animated: true, completion: nil)
         
         
     }

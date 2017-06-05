@@ -20,7 +20,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             scrollView.contentSize = imageView.frame.size
             scrollView.delegate = self
             scrollView.minimumZoomScale = 0.1
-            scrollView.maximumZoomScale = 2.0
+            scrollView.maximumZoomScale = 3.0
             
         }
     }
@@ -37,12 +37,20 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         if let sv = scrollView, image != nil && (imageView.bounds.size.width > 0) && (sv.bounds.size.width > 0) {
             let heightRatio = self.view.bounds.size.height / imageView.bounds.size.height
             let widthRatio = self.view.bounds.size.width / imageView.bounds.size.width
-            sv.zoomScale = heightRatio > widthRatio ? heightRatio : widthRatio
+            sv.zoomScale = (heightRatio > widthRatio) ? heightRatio : widthRatio
+            print(sv.zoomScale)
+            sv.contentOffset = CGPoint(x: (imageView.bounds.size.width - scrollView.bounds.size.width)/2,
+                                       y: (imageView.bounds.size.height - scrollView.bounds.size.height)/2)
             autoZoomed = false
             
         
         }
     }
+    
+
+    
+    
+    
 
 
     //1. think about model - in this case image url is the model and this is set from prepareforsegue from cassiniVC. if imageurl gets set want to set existing image to nil and fetch new image. this is a stored var (optional) with a setter observer.
@@ -123,7 +131,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             //autofit BEST PLACE FOR THIS?
             //Monday, 5 June 2017 need to work thru this to learn more how it works and if its working
             autoZoomed = true
-//            zoomScaleToFit()
+            zoomScaleToFit()
         }
     }
 
@@ -133,30 +141,38 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         //add the imageview as a subview to the scrollview in vdl but remember bounds not set
         scrollView?.addSubview(imageView)
 
-        //for testing - set the image url starting off the whole process
+        //testing - set the image url starting off the whole process
 //        imageURL = NSURL(string: "https://engineering.stanford.edu/sites/default/files/styles/full-width-banner-short/public/QuadNew-cropped.png?itok=rQiRy977")
-
-
 
         //testing introspection getting prop names obj c extension (seeObjCExtensions file) using http://derpturkey.com/get-property-names-of-object-in-swift/
 
 //        let props = self.propertyNames()
 //        print(props)
 
-
-
-
+    }
+    
+    override func viewDidLayoutSubviews() {
+        zoomScaleToFit()
     }
 
 
 
+    
+    
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+extension ImageViewController {
+    
     //asks scrollview delegate for the view to scale when zooming
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
-
-
     
-
-
 }
+
+
+
+
+

@@ -203,9 +203,8 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jfn-i0-AIV">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </scrollView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="6sg-j9-68u">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="6sg-j9-68u">
                                 <rect key="frame" x="169" y="315" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                         </subviews>
@@ -215,6 +214,8 @@
                             <constraint firstAttribute="trailing" secondItem="jfn-i0-AIV" secondAttribute="trailing" id="DEr-NN-YzA"/>
                             <constraint firstItem="jfn-i0-AIV" firstAttribute="bottom" secondItem="J0m-Eq-r0Q" secondAttribute="top" id="LY7-hV-9X0"/>
                             <constraint firstItem="jfn-i0-AIV" firstAttribute="top" secondItem="3oS-cE-KuO" secondAttribute="top" id="gkG-Xs-QSK"/>
+                            <constraint firstItem="6sg-j9-68u" firstAttribute="centerY" secondItem="3oS-cE-KuO" secondAttribute="centerY" id="iec-xr-ay3"/>
+                            <constraint firstItem="6sg-j9-68u" firstAttribute="centerX" secondItem="3oS-cE-KuO" secondAttribute="centerX" id="tqk-Z5-5Gc"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="rlm-uL-tdB"/>

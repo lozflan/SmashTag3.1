@@ -20,7 +20,27 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             scrollView.contentSize = imageView.frame.size
             scrollView.delegate = self
             scrollView.minimumZoomScale = 0.1
-            scrollView.maximumZoomScale = 1.0
+            scrollView.maximumZoomScale = 2.0
+            
+        }
+    }
+    
+    //add autozoom to fit to base casinni functionality 
+    //var to check if zoom has been amended
+    fileprivate var autoZoomed = true
+    
+    //func to adjust zoom if needed
+    private func zoomScaleToFit() {
+        if !autoZoomed {
+            return
+        }
+        if let sv = scrollView, image != nil && (imageView.bounds.size.width > 0) && (sv.bounds.size.width > 0) {
+            let heightRatio = self.view.bounds.size.height / imageView.bounds.size.height
+            let widthRatio = self.view.bounds.size.width / imageView.bounds.size.width
+            sv.zoomScale = heightRatio > widthRatio ? heightRatio : widthRatio
+            autoZoomed = false
+            
+        
         }
     }
 
@@ -90,9 +110,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
 
     //kill 2 birds ie set imageview's image and set image view size. computed var that "stores" its value within the imageView in its setter and also sets the size of the imageView whenever it is set. remember computed var has no storage itself but here acts as gatekeeper for stored imageView var
     fileprivate var image: UIImage? {
-        get {
-            return imageView.image
-        }
+        get { return imageView.image }
         set {
             //computed var can refer to self bc called after instance exists.
             imageView.image = newValue
@@ -101,6 +119,11 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             //also now we know image size we can set the scrollview content size with optional chainging if where outlet not yet connected ie imageurl set from prepareforsegue
             scrollView?.contentSize = imageView.bounds.size
             spinner?.stopAnimating()
+            
+            //autofit BEST PLACE FOR THIS?
+            //Monday, 5 June 2017 need to work thru this to learn more how it works and if its working
+            autoZoomed = true
+//            zoomScaleToFit()
         }
     }
 

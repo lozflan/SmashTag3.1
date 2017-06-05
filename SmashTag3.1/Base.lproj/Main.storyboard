@@ -154,7 +154,7 @@
                                 <connections>
                                     <outlet property="spinner" destination="jaS-yS-idC" id="65R-9I-DXe"/>
                                     <outlet property="tweetImage" destination="8Qs-UW-Js6" id="pND-bc-Cvd"/>
-                                    <segue destination="swo-vp-5HL" kind="show" identifier="Show Image" id="pME-ve-Elo"/>
+                                    <segue destination="Rc0-SN-D5D" kind="show" identifier="Show Image" id="7W7-WJ-YLO"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Mention Cell" textLabel="PNf-z4-tYU" rowHeight="73" style="IBUITableViewCellStyleDefault" id="b5X-2x-m8B" customClass="ImageTableViewCell" customModule="SmashTag3_1" customModuleProvider="target">
@@ -189,22 +189,43 @@
             <point key="canvasLocation" x="1956" y="181"/>
         </scene>
         <!--Image View Controller-->
-        <scene sceneID="2MY-aq-xwy">
+        <scene sceneID="rh9-fa-OAK">
             <objects>
-                <viewController id="swo-vp-5HL" customClass="ImageViewController" customModule="SmashTag3_1" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Rc0-SN-D5D" customClass="ImageViewController" customModule="SmashTag3_1" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="EKk-7e-ICx"/>
-                        <viewControllerLayoutGuide type="bottom" id="FFT-oA-JQA"/>
+                        <viewControllerLayoutGuide type="top" id="ZJs-6b-Evc"/>
+                        <viewControllerLayoutGuide type="bottom" id="J0m-Eq-r0Q"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="fI7-hf-7D8">
+                    <view key="view" contentMode="scaleToFill" id="3oS-cE-KuO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jfn-i0-AIV">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </scrollView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="6sg-j9-68u">
+                                <rect key="frame" x="169" y="315" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="jfn-i0-AIV" firstAttribute="leading" secondItem="3oS-cE-KuO" secondAttribute="leading" id="1FI-Lg-fWH"/>
+                            <constraint firstAttribute="trailing" secondItem="jfn-i0-AIV" secondAttribute="trailing" id="DEr-NN-YzA"/>
+                            <constraint firstItem="jfn-i0-AIV" firstAttribute="bottom" secondItem="J0m-Eq-r0Q" secondAttribute="top" id="LY7-hV-9X0"/>
+                            <constraint firstItem="jfn-i0-AIV" firstAttribute="top" secondItem="3oS-cE-KuO" secondAttribute="top" id="gkG-Xs-QSK"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="rlm-uL-tdB"/>
+                    <connections>
+                        <outlet property="scrollView" destination="jfn-i0-AIV" id="NPe-kC-9oT"/>
+                        <outlet property="spinner" destination="6sg-j9-68u" id="QMe-VE-tkc"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zLy-VA-imc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dYF-FQ-qFW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2785" y="179"/>
+            <point key="canvasLocation" x="2972" y="176"/>
         </scene>
         <!--Smash Tweeters Table View Controller-->
         <scene sceneID="5Pb-nd-2fs">

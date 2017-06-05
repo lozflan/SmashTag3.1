@@ -244,7 +244,11 @@ class MentionsTableViewController: UITableViewController {
                     case "Show Image":
                         if let imageVC = segue.destination as? ImageViewController {
                             if case .images(let mediaItem) = mention {
-                                imageVC.imageURL = URL(string: mediaItem.description)
+                                //Wednesday, 31 May 2017
+                                //the cell already contains an imageURL so reuse that 
+                                if let cell = sender as? ImageTableViewCell {
+                                    imageVC.imageURL = cell.imageURL
+                                }
                             }
                         }
                     default:

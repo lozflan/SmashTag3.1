@@ -41,9 +41,8 @@ class RecentSearchesTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        recentSearches = defaults.object(forKey: "RecentSearches") as! [String]
-        
+        recentSearches = defaults.value(forKey: "SavedSearches") as! [String]
+        print( "defaults are  \(defaults.value(forKey: "SavedSearches") as? [String] ?? ["oops"]) "  )
         
         
 
@@ -58,9 +57,9 @@ class RecentSearchesTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
         
-        //also set recent searches here bc vda wont always be called 
-        recentSearches = defaults.object(forKey: "RecentSearches") as! [String]
-        
+        //also set recent searches here bc vda wont always be called
+        recentSearches = defaults.value(forKey: "SavedSearches") as! [String]
+        print( "defaults are  \(defaults.value(forKey: "SavedSearches") as? [String] ?? ["oops"]) "  )
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,7 +71,7 @@ class RecentSearchesTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -81,7 +80,7 @@ class RecentSearchesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RecentSearch Cell", for: indexPath)
 
         // Configure the cell...
         cell.textLabel?.text = recentSearches[indexPath.row]

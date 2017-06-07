@@ -145,6 +145,8 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
             }
         print(storedSearches)
         defaults.set(storedSearches, forKey: "SavedSearches")
+        print( "defaults are  \(defaults.value(forKey: "SavedSearches") as? [String] ?? ["oops"]) "  )
+        
             
         }
         

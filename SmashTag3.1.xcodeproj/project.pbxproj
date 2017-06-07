@@ -17,6 +17,7 @@
 		246601A21EB7D83C001038CE /* TwitterUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246601A11EB7D83C001038CE /* TwitterUser.swift */; };
 		2481612D1ECA5A2B00159908 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2481612C1ECA5A2B00159908 /* ImageTableViewCell.swift */; };
 		248FD2371EC13B4300A918FC /* MentionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FD2361EC13B4300A918FC /* MentionsTableViewController.swift */; };
+		24A29F641EE77C710093DE37 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A29F631EE77C710093DE37 /* Extensions.swift */; };
 		24A300DE1EC3C8D3007B12C7 /* VCLoggingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A300DD1EC3C8D3007B12C7 /* VCLoggingViewController.swift */; };
 		24AC1A391EB1574A005252C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC1A381EB1574A005252C0 /* AppDelegate.swift */; };
 		24AC1A3E1EB1574A005252C0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24AC1A3C1EB1574A005252C0 /* Main.storyboard */; };
@@ -54,6 +55,7 @@
 		246601A11EB7D83C001038CE /* TwitterUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterUser.swift; sourceTree = "<group>"; };
 		2481612C1ECA5A2B00159908 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		248FD2361EC13B4300A918FC /* MentionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsTableViewController.swift; sourceTree = "<group>"; };
+		24A29F631EE77C710093DE37 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		24A300DD1EC3C8D3007B12C7 /* VCLoggingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCLoggingViewController.swift; sourceTree = "<group>"; };
 		24AC1A351EB1574A005252C0 /* SmashTag3.1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmashTag3.1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		24AC1A381EB1574A005252C0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 		24AC1A4A1EB1576F005252C0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				24A29F631EE77C710093DE37 /* Extensions.swift */,
 				24A300DD1EC3C8D3007B12C7 /* VCLoggingViewController.swift */,
 				24AC1A3F1EB1574A005252C0 /* Assets.xcassets */,
 				24AC1A411EB1574A005252C0 /* LaunchScreen.storyboard */,
@@ -233,6 +236,7 @@
 				2481612D1ECA5A2B00159908 /* ImageTableViewCell.swift in Sources */,
 				24AC1A4C1EB1580D005252C0 /* TweetTableViewController.swift in Sources */,
 				241C54DF1EE62B6C00FE0726 /* RecentSearchesTableViewController.swift in Sources */,
+				24A29F641EE77C710093DE37 /* Extensions.swift in Sources */,
 				24FE95A21EDE365500EB6A6A /* ImageViewController.swift in Sources */,
 				246494131EB6B5DE000A0816 /* SmashTag3.1.xcdatamodeld in Sources */,
 				244D073A1EB2999900A228E9 /* TweetTableViewCell.swift in Sources */,

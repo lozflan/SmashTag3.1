@@ -61,7 +61,8 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
             searchForTweets()
             title = searchText
             //save to recent searches
-            addSearchToStoredSearches()
+//            addSearchToStoredSearches() //lf way
+            saveSearchTermToUserDefaults() //kt way 
         }
     }
     
@@ -114,43 +115,51 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
 
     //MARK: - Task8. save last 100 search terms persistently
-    let defaults = UserDefaults.standard
+//    let defaults = UserDefaults.standard
+//    
+//    //if stored searches exists in userdefaults, retrieve it ow create new
+//    var udRecentSearches: [String] {
+//        get {
+//            if let defaultsSearches = defaults.value(forKey: "RecentSearches") as? [String] {
+//                return defaultsSearches
+//            }
+//            else {
+//                return []
+//            }
+//        }
+//    }
+//    
+//    var storedSearches: [String] = []
+//    
+// 
+//    //called from searchText didSet
+//    func addSearchToStoredSearches() {
+//        if let searchText = searchText {
+//            if udRecentSearches.count > 0 {
+//                storedSearches = udRecentSearches
+//            }
+//            if !storedSearches.contains(searchText) {
+//                storedSearches.insert(searchText, at: 0)
+//                if storedSearches.count > 100 {
+//                    storedSearches.remove(at: 99)
+//                }
+//            }
+//        print(storedSearches)
+//        defaults.set(storedSearches, forKey: "RecentSearches")
+//        print( "defaults are  \(defaults.value(forKey: "RecentSearches") as? [String] ?? ["oops"]) "  )
+//        }
+//    }
     
-    //if stored searches exists in userdefaults, retrieve it ow create new
-    var udSavedSearches: [String] {
-        get {
-            if let defaultsSearches = defaults.value(forKey: "SavedSearches") as? [String] {
-                return defaultsSearches
-            }
-            else {
-                return []
-            }
-        }
-    }
+    //MARK: - Task 8 Following KT
+    //Thursday, 8 June 2017 - KT way working but not uniquing
     
-    var storedSearches: [String] = []
-    
- 
-    //called from searchText didSet
-    func addSearchToStoredSearches() {
+    //define recentSearches struct - do as separate file
+    func saveSearchTermToUserDefaults() {
         if let searchText = searchText {
-            if udSavedSearches.count > 0 {
-                storedSearches = udSavedSearches
-            }
-            if !storedSearches.contains(searchText) {
-                storedSearches.insert(searchText, at: 0)
-                if storedSearches.count > 100 {
-                    storedSearches.remove(at: 99)
-                }
-            }
-        print(storedSearches)
-        defaults.set(storedSearches, forKey: "SavedSearches")
-        print( "defaults are  \(defaults.value(forKey: "SavedSearches") as? [String] ?? ["oops"]) "  )
-        
-            
+            RecentSearches.add(term: searchText)
         }
-        
     }
+ 
     
     
     

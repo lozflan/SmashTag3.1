@@ -32,7 +32,8 @@ class RecentSearchesTableViewController: UITableViewController {
 
     
     
-    
+    //Wednesday, 7 June 2017 
+    //searchTerms now being saved in TweetTVC to userdefaults and retrieved here. look at how to order and unique them properly.
     
     
     
@@ -41,8 +42,9 @@ class RecentSearchesTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        recentSearches = defaults.value(forKey: "SavedSearches") as! [String]
-        print( "defaults are  \(defaults.value(forKey: "SavedSearches") as? [String] ?? ["oops"]) "  )
+        recentSearches = defaults.value(forKey: "RecentSearches") as! [String]
+//        print( "defaults are  \(defaults.value(forKey: "RecentSearches") as? [String] ?? ["oops"]) "  )
+//        self.title = "Recent"
         
         
 
@@ -58,8 +60,8 @@ class RecentSearchesTableViewController: UITableViewController {
         super .viewWillAppear(animated)
         
         //also set recent searches here bc vda wont always be called
-        recentSearches = defaults.value(forKey: "SavedSearches") as! [String]
-        print( "defaults are  \(defaults.value(forKey: "SavedSearches") as? [String] ?? ["oops"]) "  )
+        recentSearches = defaults.value(forKey: "RecentSearches") as! [String]
+//        print( "defaults are  \(defaults.value(forKey: "RecentSearches") as? [String] ?? ["oops"]) "  )
     }
 
     override func didReceiveMemoryWarning() {
@@ -122,7 +124,9 @@ class RecentSearchesTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
+    
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -130,6 +134,20 @@ class RecentSearchesTableViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

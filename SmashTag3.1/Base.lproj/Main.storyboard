@@ -97,7 +97,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="4RR-Xf-M81">
-                        <barButtonItem key="rightBarButtonItem" title="Tweeters" id="gdy-dS-lef">
+                        <barButtonItem key="rightBarButtonItem" image="calculator@2x 2" id="gdy-dS-lef">
                             <connections>
                                 <segue destination="2CJ-Ue-QPr" kind="show" identifier="Tweeters Mentioning Search Term" id="AMY-1h-A3f"/>
                             </connections>
@@ -118,10 +118,10 @@
             </objects>
             <point key="canvasLocation" x="890" y="45"/>
         </scene>
-        <!--Mentions Table View Controller-->
+        <!--Mentions-->
         <scene sceneID="59U-Ot-heZ">
             <objects>
-                <tableViewController id="mmI-yA-LfS" customClass="MentionsTableViewController" customModule="SmashTag3_1" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Mentions" id="mmI-yA-LfS" customClass="MentionsTableViewController" customModule="SmashTag3_1" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="103" sectionHeaderHeight="28" sectionFooterHeight="28" id="VC6-IP-alj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -183,10 +183,11 @@
                             <outlet property="delegate" destination="mmI-yA-LfS" id="nBl-7j-G04"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u33-X8-DOz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1956" y="181"/>
+            <point key="canvasLocation" x="2105" y="176"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="rh9-fa-OAK">
@@ -218,7 +219,9 @@
                             <constraint firstItem="6sg-j9-68u" firstAttribute="centerX" secondItem="3oS-cE-KuO" secondAttribute="centerX" id="tqk-Z5-5Gc"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="rlm-uL-tdB"/>
+                    <navigationItem key="navigationItem" id="rlm-uL-tdB">
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="aiH-PP-XHN"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="scrollView" destination="jfn-i0-AIV" id="NPe-kC-9oT"/>
                         <outlet property="spinner" destination="6sg-j9-68u" id="QMe-VE-tkc"/>
@@ -270,7 +273,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w6o-GP-Uex" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1862" y="-479"/>
+            <point key="canvasLocation" x="2106" y="-551"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Yo6-DF-7pU">
@@ -300,15 +303,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RecentSearch Cell" textLabel="ygw-Xl-F85" style="IBUITableViewCellStyleDefault" id="rbL-tZ-Slw">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="RecentSearch Cell" textLabel="ygw-Xl-F85" style="IBUITableViewCellStyleDefault" id="rbL-tZ-Slw">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rbL-tZ-Slw" id="HzT-Mg-bbM">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="308" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ygw-Xl-F85">
-                                            <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                            <rect key="frame" x="15" y="0.0" width="293" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -375,6 +378,6 @@
         <image name="calculator@2x 2" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YO8-XR-h7Y"/>
+        <segue reference="7o6-wp-sCp"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -176,13 +176,47 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         tableView.rowHeight = UITableViewAutomaticDimension
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super .viewWillAppear(animated)
-//        defaults.set(storedSearches, forKey: "RecentSearches")
+    
+    
+    //implement pop to rootVC of navcontroller functionality
+    //Tuesday, 13 June 2017 UP TO HERE. 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setPopToRootButton()
     }
+    
+    //controls whether or not the pop to root button shows. ie tweetTVC is the rootVC but could have gone round roundabout of mentions to get here so may or may not need to show
+    func setPopToRootButton() {
+        if let controllers = navigationController?.viewControllers, controllers.count >= 2 {
+            let toRootButton = UIBarButtonItem(barButtonSystemItem: .stop,
+                                               target: self,
+                                               action: #selector(toRootViewController))
+            if let buttons = navigationItem.rightBarButtonItems{
+                let con = buttons.flatMap{$0.action}.contains( #selector(toRootViewController))
+                if !con {
+                    let rightBarButtons = [toRootButton] + buttons
+                    navigationItem.setRightBarButtonItems(rightBarButtons, animated: true)
+                }
+            } else {
+                let rightBarButtons = [toRootButton]
+                navigationItem.setRightBarButtonItems(rightBarButtons, animated: true)
+            }
+        }
+    }
+    
+    func toRootViewController() {
+        _ = navigationController?.popToRootViewController(animated: true)
+    }
+    
+    
     
     deinit {
     }
+    
+    
+    
+    
+    
     
     
     // MARK: - Table view data source
@@ -258,7 +292,9 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     */
 
     
-    // MARK: - Navigation
+//     MARK: - Navigation
+    
+    //pop back to root vc of nav controller
 
     
 

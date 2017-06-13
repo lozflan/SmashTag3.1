@@ -97,7 +97,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="4RR-Xf-M81">
-                        <barButtonItem key="rightBarButtonItem" image="calculator@2x 2" id="gdy-dS-lef">
+                        <barButtonItem key="rightBarButtonItem" image="movie_camera" id="gdy-dS-lef">
                             <connections>
                                 <segue destination="2CJ-Ue-QPr" kind="show" identifier="Tweeters Mentioning Search Term" id="AMY-1h-A3f"/>
                             </connections>
@@ -174,7 +174,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="tBH-BA-RXt" kind="show" identifier="From Keyword" id="7o6-wp-sCp"/>
+                                    <segue destination="0Sx-QB-qhy" kind="show" identifier="Show Website" id="k3N-kN-SAh"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -184,10 +184,13 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="xIc-et-njg">
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="BVZ-TG-Bdr"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u33-X8-DOz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2105" y="176"/>
+            <point key="canvasLocation" x="1908" y="45"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="rh9-fa-OAK">
@@ -229,7 +232,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dYF-FQ-qFW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2972" y="176"/>
+            <point key="canvasLocation" x="2900" y="45"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="0rp-31-1vE">
+            <objects>
+                <viewController id="0Sx-QB-qhy" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hba-H7-baJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="ukm-wd-fE1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="umr-ba-pXf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c7h-3o-5Jo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2902" y="734"/>
         </scene>
         <!--Smash Tweeters Table View Controller-->
         <scene sceneID="5Pb-nd-2fs">
@@ -273,7 +294,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w6o-GP-Uex" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2106" y="-551"/>
+            <point key="canvasLocation" x="1908" y="-824"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Yo6-DF-7pU">
@@ -333,7 +354,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TKp-kq-0WP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="887.20000000000005" y="994.45277361319347"/>
+            <point key="canvasLocation" x="889" y="1128"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="hB2-4O-m1T">
@@ -370,14 +391,15 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YPV-7S-ezA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-52" y="994.45277361319347"/>
+            <point key="canvasLocation" x="-34" y="1129"/>
         </scene>
     </scenes>
     <resources>
         <image name="butterfly3" width="30" height="30"/>
         <image name="calculator@2x 2" width="30" height="30"/>
+        <image name="movie_camera" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="7o6-wp-sCp"/>
+        <segue reference="YO8-XR-h7Y"/>
     </inferredMetricsTieBreakers>
 </document>

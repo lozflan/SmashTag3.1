@@ -152,7 +152,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     //MARK: - Task 8 Following KT
     //Thursday, 8 June 2017 - KT way working but not uniquing
-    
     //define recentSearches struct - do as separate file
     func saveSearchTermToUserDefaults() {
         if let searchText = searchText {
@@ -179,7 +178,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     
     //implement pop to rootVC of navcontroller functionality
-    //Tuesday, 13 June 2017 UP TO HERE. 
+    //Tuesday, 13 June 2017 - working thru how KT sets X button to show on tweetsTVC if deep in NC but not if at root.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setPopToRootButton()
@@ -187,13 +186,14 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     //controls whether or not the pop to root button shows. ie tweetTVC is the rootVC but could have gone round roundabout of mentions to get here so may or may not need to show
     func setPopToRootButton() {
+        
         if let controllers = navigationController?.viewControllers, controllers.count >= 2 {
             let toRootButton = UIBarButtonItem(barButtonSystemItem: .stop,
                                                target: self,
                                                action: #selector(toRootViewController))
             if let buttons = navigationItem.rightBarButtonItems{
                 let con = buttons.flatMap{$0.action}.contains( #selector(toRootViewController))
-                if !con {
+                if !con { //dont think this ever fails ie con is always false so line above pointless?
                     let rightBarButtons = [toRootButton] + buttons
                     navigationItem.setRightBarButtonItems(rightBarButtons, animated: true)
                 }
@@ -202,6 +202,8 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
                 navigationItem.setRightBarButtonItems(rightBarButtons, animated: true)
             }
         }
+        
+        
     }
     
     func toRootViewController() {

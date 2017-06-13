@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "camera.png",
+      "filename" : "polaroid.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "camera@2x.png",
+      "filename" : "polaroid@2x.png",
       "scale" : "2x"
     },
     {

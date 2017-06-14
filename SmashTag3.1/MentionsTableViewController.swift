@@ -191,20 +191,24 @@ class MentionsTableViewController: UITableViewController {
     //control segue to tweetTVC from mention cells by shouldPerformSugue
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         //check if sender is url cell and if so dont perform From Keyword segue
-        if identifier == "From Keyword" {
+        switch identifier {
+        case "From Keyword": //did the name of this segue change ... does this need to change.
             if let cell = sender as? UITableViewCell {
                 if let indexPath = tableView.indexPath(for: cell) {
                     let mention = mentionItems[indexPath.section][indexPath.row]
                     if case .urls(let url) = mention {
                         if let url = URL(string: url) {
-                            showURL(url: url)
+//                            showURL(url: url)
+                            self.performSegue(withIdentifier: "Show Webview", sender: sender)
                         }
                         return false
                     }
                 }
             }
+            return true
+        default:
+            return true
         }
-        return true
     }
     
     //func to show url 
@@ -228,11 +232,11 @@ class MentionsTableViewController: UITableViewController {
         if let identifier = segue.identifier {
             if let cell = sender as? UITableViewCell {
                 if let indexPath = tableView.indexPath(for: cell) {
-                    let mention = mentionItems[indexPath.section][indexPath.row]
+                    let mentionItem = mentionItems[indexPath.section][indexPath.row]
                     switch identifier {
                     case "From Keyword":
                         if let tweetTVC = segue.destination as? TweetTableViewController {
-                            switch mention {
+                            switch mentionItem {
                             case .hashtags(let hashtag):
                                 tweetTVC.searchText = hashtag
                             case .users(let user):
@@ -243,12 +247,19 @@ class MentionsTableViewController: UITableViewController {
                         }
                     case "Show Image":
                         if let imageVC = segue.destination as? ImageViewController {
-                            if case .images(let mediaItem) = mention {
+                            if case .images(let mediaItem) = mentionItem {
                                 //Wednesday, 31 May 2017
                                 //the cell already contains an imageURL so reuse that 
                                 if let cell = sender as? ImageTableViewCell {
                                     imageVC.imageURL = cell.imageURL
                                 }
+                            }
+                        }
+                    case "Show Webview":
+                        if let webviewVC = segue.destination as? WebviewViewController {
+                            //Wednesday, 14 June 2017. trying to pass url to webviewVC to show url in app cf in safari. 
+                            if case .urls(let url) = mentionItem {
+                                    webviewVC.url = URL(string: url)
                             }
                         }
                     default:

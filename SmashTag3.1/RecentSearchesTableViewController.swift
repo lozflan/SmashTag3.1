@@ -18,50 +18,24 @@ class RecentSearchesTableViewController: UITableViewController {
     
     let defaults = UserDefaults.standard
     
-    var recentSearches: [String] = [] {
-        didSet {
-            updateUI()
-        }
+    var recentSearches: [String]  {
+        //you can access the model directly thru RecentSearches 
+        return RecentSearches.searches
     }
     
 
-    
-    private func updateUI() {
-        tableView.reloadData()
-    }
-
-    
     
     //Wednesday, 7 June 2017 
     //searchTerms now being saved in TweetTVC to userdefaults and retrieved here. look at how to order and unique them properly.
     
     
     
-    
     //MARK: - Lifecycle
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        recentSearches = defaults.value(forKey: "RecentSearches") as! [String]
-//        print( "defaults are  \(defaults.value(forKey: "RecentSearches") as? [String] ?? ["oops"]) "  )
-//        self.title = "Recent"
-        
-        
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
-    
-    
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)
-        
-        //also set recent searches here bc vda wont always be called
-        recentSearches = defaults.value(forKey: "RecentSearches") as! [String]
-//        print( "defaults are  \(defaults.value(forKey: "RecentSearches") as? [String] ?? ["oops"]) "  )
+        tableView.reloadData()
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -89,25 +63,20 @@ class RecentSearchesTableViewController: UITableViewController {
         return cell
     }
 
-    /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
 
-    /*
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+            RecentSearches.remove(index: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
         }    
     }
-    */
 
     /*
     // Override to support rearranging the table view.

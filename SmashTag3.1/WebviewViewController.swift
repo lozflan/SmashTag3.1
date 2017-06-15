@@ -10,6 +10,9 @@ import UIKit
 
 class WebviewViewController: UIViewController {
     
+    @IBOutlet weak var webView: UIWebView!
+    
+    
     var url: URL? {
         didSet {
             updateUI()
@@ -17,7 +20,7 @@ class WebviewViewController: UIViewController {
     }
     
     private func updateUI() {
-        //code
+//        we
     }
     
 

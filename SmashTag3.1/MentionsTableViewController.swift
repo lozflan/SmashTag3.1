@@ -10,7 +10,7 @@ import UIKit
 import Twitter
 import SafariServices
 
-class MentionsTableViewController: UITableViewController {
+class MentionsTableViewController: UITableViewController, SFSafariViewControllerDelegate {
     
     var tweet: Twitter.Tweet? { didSet { updateUI() }}
 
@@ -199,7 +199,7 @@ class MentionsTableViewController: UITableViewController {
                     if case .urls(let url) = mention {
                         if let url = URL(string: url) {
 //                            showURL(url: url)
-                            self.performSegue(withIdentifier: "Show Webview", sender: sender)
+                            self.performSegue(withIdentifier: "Show Webview", sender: sender) //would need to change this now bc not actually manually seguing but leaving in to call safariWebView code below.
                         }
                         return false
                     }
@@ -248,7 +248,7 @@ class MentionsTableViewController: UITableViewController {
                     case "Show Image":
                         if let imageVC = segue.destination as? ImageViewController {
                             if case .images(let mediaItem) = mentionItem {
-                                //Wednesday, 31 May 2017
+                                //Wednesday, 31 May 2017. Passing image url to ImageVC
                                 //the cell already contains an imageURL so reuse that 
                                 if let cell = sender as? ImageTableViewCell {
                                     imageVC.imageURL = cell.imageURL
@@ -257,9 +257,9 @@ class MentionsTableViewController: UITableViewController {
                         }
                     case "Show Webview":
                         if let webviewVC = segue.destination as? WebviewViewController {
-                            //Wednesday, 14 June 2017. trying to pass url to webviewVC to show url in app cf in safari. 
+                            //Wednesday, 14 June 2017. pass url to webviewVC to show url in app instead of in safari.
                             if case .urls(let url) = mentionItem {
-                                    webviewVC.url = URL(string: url)
+                                showSafariWebview(url: URL(string: url)!)
                             }
                         }
                     default:
@@ -270,9 +270,19 @@ class MentionsTableViewController: UITableViewController {
         }
     }
     
+    private func showSafariWebview(url: URL) {
+        let safariVC = SFSafariViewController(url: url)
+        safariVC.delegate = self
+        self.present(safariVC, animated: true, completion: nil)
+    }
+    
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
     
 
-    
+
     
     
     

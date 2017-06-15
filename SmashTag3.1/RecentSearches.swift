@@ -18,7 +18,7 @@ struct RecentSearches {
     
     //static var
     static var searches: [String] {
-        return defaults.value(forKey: key) as? [String] ?? []
+        return defaults.object(forKey: key) as? [String] ?? []
     }
     
     
@@ -37,6 +37,15 @@ struct RecentSearches {
         //save to userdefaults
         defaults.set(newArray, forKey: key)
     }
+    
+    //add static func to remove so this can be called from recentSearchesTVC if you manually delete a row. at that time you need to update the datasource directly ie userdefaults directly and this struct provides a nice wrapper to access this to do it.
+    static func remove(index: Int) {
+        //Thursday, 15 June 2017. removing object from defaults if deleted from recentSearchesTVC
+        var currentSearches = searches
+        currentSearches.remove(at: index)
+        defaults.set(currentSearches, forKey: "RecentSearches")
+    }
+    
     
     
     

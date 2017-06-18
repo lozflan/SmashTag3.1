@@ -19,6 +19,7 @@
 		247EDA1E1EF0BE0F00BF6810 /* WebviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 247EDA1D1EF0BE0F00BF6810 /* WebviewViewController.swift */; };
 		2481612D1ECA5A2B00159908 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2481612C1ECA5A2B00159908 /* ImageTableViewCell.swift */; };
 		248FD2371EC13B4300A918FC /* MentionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 248FD2361EC13B4300A918FC /* MentionsTableViewController.swift */; };
+		2491AFED1EF352B10092D04F /* ImagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2491AFEC1EF352B10092D04F /* ImagesCollectionViewController.swift */; };
 		24A29F641EE77C710093DE37 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A29F631EE77C710093DE37 /* Extensions.swift */; };
 		24A300DE1EC3C8D3007B12C7 /* VCLoggingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A300DD1EC3C8D3007B12C7 /* VCLoggingViewController.swift */; };
 		24AC1A391EB1574A005252C0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC1A381EB1574A005252C0 /* AppDelegate.swift */; };
@@ -59,6 +60,7 @@
 		247EDA1D1EF0BE0F00BF6810 /* WebviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebviewViewController.swift; sourceTree = "<group>"; };
 		2481612C1ECA5A2B00159908 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		248FD2361EC13B4300A918FC /* MentionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionsTableViewController.swift; sourceTree = "<group>"; };
+		2491AFEC1EF352B10092D04F /* ImagesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesCollectionViewController.swift; sourceTree = "<group>"; };
 		24A29F631EE77C710093DE37 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		24A300DD1EC3C8D3007B12C7 /* VCLoggingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCLoggingViewController.swift; sourceTree = "<group>"; };
 		24AC1A351EB1574A005252C0 /* SmashTag3.1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmashTag3.1.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +108,29 @@
 			name = CustomTableViewCells;
 			sourceTree = "<group>";
 		};
+		2491AFEE1EF352EB0092D04F /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				2491AFEC1EF352B10092D04F /* ImagesCollectionViewController.swift */,
+				247EDA1D1EF0BE0F00BF6810 /* WebviewViewController.swift */,
+				24AC1A4B1EB1580D005252C0 /* TweetTableViewController.swift */,
+				2405E7C01EB7DFC70086873E /* SmashTweetTableViewController.swift */,
+				240275EA1EBA804E00004204 /* SmashTweetersTableViewController.swift */,
+				248FD2361EC13B4300A918FC /* MentionsTableViewController.swift */,
+				241C54DE1EE62B6C00FE0726 /* RecentSearchesTableViewController.swift */,
+				24FE95A11EDE365500EB6A6A /* ImageViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		2491AFEF1EF3531B0092D04F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				242865131EE8B60600D83F0D /* RecentSearches.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		24AC1A2C1EB1574A005252C0 = {
 			isa = PBXGroup;
 			children = (
@@ -126,18 +151,12 @@
 		24AC1A371EB1574A005252C0 /* SmashTag3.1 */ = {
 			isa = PBXGroup;
 			children = (
-				247EDA1D1EF0BE0F00BF6810 /* WebviewViewController.swift */,
 				24AC1A381EB1574A005252C0 /* AppDelegate.swift */,
 				24AC1A3C1EB1574A005252C0 /* Main.storyboard */,
 				246494111EB6B5DE000A0816 /* SmashTag3.1.xcdatamodeld */,
-				24AC1A4B1EB1580D005252C0 /* TweetTableViewController.swift */,
-				242865131EE8B60600D83F0D /* RecentSearches.swift */,
-				2405E7C01EB7DFC70086873E /* SmashTweetTableViewController.swift */,
-				240275EA1EBA804E00004204 /* SmashTweetersTableViewController.swift */,
-				248FD2361EC13B4300A918FC /* MentionsTableViewController.swift */,
-				241C54DE1EE62B6C00FE0726 /* RecentSearchesTableViewController.swift */,
-				24FE95A11EDE365500EB6A6A /* ImageViewController.swift */,
 				24AC1A441EB1574A005252C0 /* Info.plist */,
+				2491AFEF1EF3531B0092D04F /* Models */,
+				2491AFEE1EF352EB0092D04F /* ViewControllers */,
 				248EEAAD1ECCF67B009D2485 /* CustomTableViewCells */,
 				246601A31EB7D84C001038CE /* CoreData */,
 				24AC1A4A1EB1576F005252C0 /* Supporting Files */,
@@ -242,6 +261,7 @@
 				2481612D1ECA5A2B00159908 /* ImageTableViewCell.swift in Sources */,
 				24AC1A4C1EB1580D005252C0 /* TweetTableViewController.swift in Sources */,
 				247EDA1E1EF0BE0F00BF6810 /* WebviewViewController.swift in Sources */,
+				2491AFED1EF352B10092D04F /* ImagesCollectionViewController.swift in Sources */,
 				241C54DF1EE62B6C00FE0726 /* RecentSearchesTableViewController.swift in Sources */,
 				242865141EE8B60600D83F0D /* RecentSearches.swift in Sources */,
 				24A29F641EE77C710093DE37 /* Extensions.swift in Sources */,

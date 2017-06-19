@@ -294,11 +294,24 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     */
 
     
-//     MARK: - Navigation
-    
-    //pop back to root vc of nav controller
 
     
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "Show All Images":
+                if let destVC = segue.destination as? ImagesCollectionViewController {
+                    //get an array of array of imageURLs to pass to the CVC
+                    
+                }
+            default:
+                break
+            }
+        }
+    }
 
 
     

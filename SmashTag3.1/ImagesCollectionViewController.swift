@@ -7,27 +7,43 @@
 //
 
 import UIKit
-
+import Twitter
 private let reuseIdentifier = "Cell"
 
 class ImagesCollectionViewController: UICollectionViewController {
     
     
-    //get passed an array of array of urls
-    //fetch the url thumbnails as needed in cellForRowAt.
-    var imageURLs: [[URL]]? {
+    
+    //get passed an array of array of tweets seeing we already hold exactly that in TweetTVC
+    var tweets: [[Twitter.Tweet]]? {
         didSet {
-            updateUI()
+            //Monday, 19 June 2017. converting [[tweets]] to flat array.
+            tweets.flatMap { (<#[[Tweet]]#>) -> U? in
+                <#code#>
+            }
+           
         }
     }
     
-    private func updateUI() {
-        //
-        print("hello")
+    //main data is a simple array of images and related data from newly defined struct TweetMedia
+    var images: [TweetMedia]? {
+        didSet {
+            ////TODO:
+        }
     }
     
+
     
+    //a tweets media item is an array of MediaItem which is an imageURL, its aspectRatio, and a description. see MediaItem struct in Twitter framework.
+    struct TweetMedia: CustomStringConvertible {
+        var tweet: Twitter.Tweet?
+        var media: MediaItem?
+        var description: String {
+            return "\(tweet) : \(media)"
+        }
+    }
     
+    //
     
     
     

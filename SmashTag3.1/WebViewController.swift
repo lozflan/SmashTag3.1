@@ -1,5 +1,5 @@
 //
-//  WebviewViewController.swift
+//  WebViewController.swift
 //  SmashTag3.1
 //
 //  Created by Lawrence Flancbaum on 14/6/17.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WebviewViewController: UIViewController {
+class WebViewController: UIViewController {
     
     @IBOutlet weak var webView: UIWebView!
     

@@ -188,19 +188,16 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
         }
     }
     
-    //LF WAY - control segue to tweetTVC from mention cells by shouldPerformSugue
+    //control segue to tweetTVC from mention cells by shouldPerformSugue
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         //check if sender is url cell and if so dont perform From Keyword segue
         switch identifier {
-        case Storyboard.KeywordSegue: //did the name of this segue change ... does this need to change.
+        case Storyboard.ShowKeywordSegue:
             if let cell = sender as? UITableViewCell {
                 if let indexPath = tableView.indexPath(for: cell) {
                     let mention = mentionItems[indexPath.section][indexPath.row]
                     if case .urls(let url) = mention {
-                        if let url = URL(string: url) {
-//                            showURL(url: url)
-                            self.performSegue(withIdentifier: "Show Webview", sender: sender) //would need to change this now bc not actually manually seguing but leaving in to call safariWebView code below.
-                        }
+                        showSafariWebview(url: URL(string: url)!)
                         return false
                     }
                 }
@@ -216,7 +213,7 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
     private struct Storyboard {
         static let KeywordCell = "Keyword Cell"
         static let ImageCell = "Image Cell"
-        static let KeywordSegue = "From Keyword"
+        static let ShowKeywordSegue = "Show Keyword"
         static let ImageSegue = "Show Image"
         static let WebSegue = "Show URL"
     }
@@ -247,7 +244,7 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
                 if let indexPath = tableView.indexPath(for: cell) {
                     let mentionItem = mentionItems[indexPath.section][indexPath.row]
                     switch identifier {
-                    case "From Keyword":
+                    case Storyboard.ShowKeywordSegue:
                         if let tweetTVC = segue.destination as? TweetTableViewController {
                             switch mentionItem {
                             case .hashtags(let hashtag):
@@ -268,14 +265,6 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
                                 }
                             }
                         }
-                    case "Show Webview":
-                        //Tuesday, 20 June 2017 TODO: this case should be changed / deleted in reality bc we shouldnt be seguing to a WebViewVC anymore ie we are programatically creating a safari VC below but i took a shortcut to leave in and just triggered the safariVC code from this case. A Webview VC does get inited bc of the existence of this segue in SB and thats why tapping done on the safairVC segues back to an intermediate redundant VC.
-                        if let webviewVC = segue.destination as? WebviewViewController {
-                            //Wednesday, 14 June 2017. pass url to webviewVC to show url in app instead of in safari.
-                            if case .urls(let url) = mentionItem {
-                                showSafariWebview(url: URL(string: url)!)
-                            }
-                        }
                     default:
                         break
                     }
@@ -284,6 +273,7 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
         }
     }
     
+    //using safariVC rather than segue to webVC like KT. called from func shouldPerformSegue.
     private func showSafariWebview(url: URL) {
         let safariVC = SFSafariViewController(url: url)
         safariVC.delegate = self

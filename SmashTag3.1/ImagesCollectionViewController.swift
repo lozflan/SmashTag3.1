@@ -8,59 +8,58 @@
 
 import UIKit
 import Twitter
-private let reuseIdentifier = "Cell"
+private let reuseIdentifier = "Cell" //system required
 
-//a tweets media item is an array of MediaItem which is an imageURL, its aspectRatio, and a description. see MediaItem struct in Twitter framework.
+
+//custom local struct containing the tweet, the media item (see twitter framework), and custom description
+
 struct TweetMedia: CustomStringConvertible {
-    var tweet: Twitter.Tweet?
-    var media: MediaItem?
+    var tweet: Twitter.Tweet
+    var media: MediaItem  //tweets contain an array of media items so not sure why separate var media needed below
     var description: String {
         return "\(tweet) : \(media)"
     }
 }
 
+
+
+
 class ImagesCollectionViewController: UICollectionViewController {
     
+    //our main model containing an array of TweetMedia struct
+    private var images = [TweetMedia]()
     
-    
-    //get passed an array of array of tweets seeing we already hold exactly that in TweetTVC
     var tweets: [[Twitter.Tweet]] = [] {
         didSet {
             //Monday, 19 June 2017. converting [[tweets]] to flat array.
-            //we have an array of arrays of tweet. want to flatten it to get array of tweets. tweets contain an array of media items which themselves are a struct containing vars url, var aspectRatio and description but we want to convert them to our custom TweetMedia struct for the purposes of the collectionView
+            //we have an array of arrays of tweet. want to flatten it to get array of tweets.
+            //tweets contain an array of media items which themselves are a struct containing vars url, var aspectRatio and description
+            //we want to convert them to our custom TweetMedia struct for the purposes of the collectionView
             
-            images = tweets.flatMap({$0}) //get flat array of tweets
-                .map{ tweet in //take the flat tweet array and map each tweet to just the tweet media
-                    tweet.media.map { TweetMedia(tweet: tweet, media: $0) }} //then map to create a new TweetMedia struct
-                .flatMap({$0}) //flatmap to maybe removes nil?
+            images = tweets.flatMap({$0}) // flat array of tweets
+                .map{ tweet in //map each tweet to [[MediaItem]]
+                    tweet.media.map { TweetMedia(tweet: tweet, media: $0) }} //map to create a new [[TweetMedia]]
+                .flatMap({$0}) //flatten to [TweetMedia]
             
-           
+            
+            //good breakdown explanation of images flatMap closure above
+            
+//            var images2 = tweets.flatMap{ $0 } //flat [Tweet] array
+//            var medItemArray = images2.map { (tweet) in //now have [[MediaItem]]
+//                tweet.media
+//            }
+//            var createdTweetMedia = images2.map{ (tweet) in //converts [[MediaItem]] to [[TweetMedia]]
+//                tweet.media.map{ (media) in
+//                    TweetMedia(tweet: tweet, media: media)
+//                }}
+//            var flatCreatedTweetMedia = createdTweetMedia.flatMap{ $0 } //converts [[TweetMedia]] to [TweetMedia] ie images var type.
+//            images = flatCreatedTweetMedia
+            
         }
     }
     
-//    //KT version
-//    var tweets: [[Twitter.Tweet]] = [] {
-//        didSet {
-//            images = tweets.flatMap({$0})
-//                .map { tweet in
-//                    tweet.media.map { TweetMedia(tweet: tweet, media: $0) }}
-//                .flatMap({$0})
-//        }
-//    }
-    
-    private var images = [TweetMedia]()
-    
 
-    
 
-    
-    //
-    
-    
-    
-    
-    
-    
     
     
     
@@ -114,7 +113,7 @@ class ImagesCollectionViewController: UICollectionViewController {
         // Configure the cell ... with if let for the specific photoCell code. allows returning cell not cell!
         if let photoCell = cell as? ImageCollectionViewCell {
 //            photoCell.cache = cache
-            photoCell.imageURL = images[indexPath.row].media?.url
+            photoCell.imageURL = images[indexPath.row].media.url
         }
         return cell
     }

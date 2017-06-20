@@ -22,6 +22,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     
     private func updateUI() {
         if let url = imageURL {
+            spinner.startAnimating()
             DispatchQueue.global(qos: .userInitiated).async { [weak self] in
                 if let urlData = try? Data(contentsOf: url) {
                     //check url still relevant
@@ -29,6 +30,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
                         if let image = UIImage(data: urlData) {
                             DispatchQueue.main.async {
                                 self?.imageView.image = image
+                                self?.spinner.stopAnimating() //spinner may never stop?? how to overcome
                             }
                         }
                     }

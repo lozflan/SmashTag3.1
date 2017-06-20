@@ -188,11 +188,11 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
         }
     }
     
-    //control segue to tweetTVC from mention cells by shouldPerformSugue
+    //LF WAY - control segue to tweetTVC from mention cells by shouldPerformSugue
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         //check if sender is url cell and if so dont perform From Keyword segue
         switch identifier {
-        case "From Keyword": //did the name of this segue change ... does this need to change.
+        case Storyboard.KeywordSegue: //did the name of this segue change ... does this need to change.
             if let cell = sender as? UITableViewCell {
                 if let indexPath = tableView.indexPath(for: cell) {
                     let mention = mentionItems[indexPath.section][indexPath.row]
@@ -207,9 +207,22 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
             }
             return true
         default:
-            return true
+            return super.shouldPerformSegue(withIdentifier: identifier, sender: sender)
         }
     }
+    
+
+    
+    private struct Storyboard {
+        static let KeywordCell = "Keyword Cell"
+        static let ImageCell = "Image Cell"
+        static let KeywordSegue = "From Keyword"
+        static let ImageSegue = "Show Image"
+        static let WebSegue = "Show URL"
+    }
+    
+    
+    
     
     //func to show url 
     func showURL(url:URL) {
@@ -256,6 +269,7 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
                             }
                         }
                     case "Show Webview":
+                        //Tuesday, 20 June 2017 TODO: this case should be changed / deleted in reality bc we shouldnt be seguing to a WebViewVC anymore ie we are programatically creating a safari VC below but i took a shortcut to leave in and just triggered the safariVC code from this case. A Webview VC does get inited bc of the existence of this segue in SB and thats why tapping done on the safairVC segues back to an intermediate redundant VC.
                         if let webviewVC = segue.destination as? WebviewViewController {
                             //Wednesday, 14 June 2017. pass url to webviewVC to show url in app instead of in safari.
                             if case .urls(let url) = mentionItem {

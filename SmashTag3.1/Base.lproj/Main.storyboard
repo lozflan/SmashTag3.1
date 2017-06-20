@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Smash Tweet Table View Controller-->
+        <!--Tweet Table View Controller-->
         <scene sceneID="z5L-e5-diF">
             <objects>
-                <tableViewController id="tBH-BA-RXt" customClass="SmashTweetTableViewController" customModule="SmashTag3_1" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="tBH-BA-RXt" customClass="TweetTableViewController" customModule="SmashTag3_1" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="BBa-Qr-kSt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -106,7 +106,7 @@
                             </barButtonItem>
                             <barButtonItem systemItem="camera" id="jyc-gr-r8K">
                                 <connections>
-                                    <segue destination="Vcw-4N-LhC" kind="show" identifier="Show All Images" id="b49-RB-O32"/>
+                                    <segue destination="Vcw-4N-LhC" kind="show" identifier="Show All Images" id="tFC-xd-2o2"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -182,7 +182,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="tBH-BA-RXt" kind="show" identifier="From Keyword" id="ycx-4Y-mTn"/>
+                                    <segue destination="l6K-MK-qbw" kind="show" identifier="Show Webview" id="vsk-1d-aiX"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -213,7 +213,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jfn-i0-AIV">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                             </scrollView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="6sg-j9-68u">
                                 <rect key="frame" x="169" y="315" width="37" height="37"/>
@@ -241,6 +241,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dYF-FQ-qFW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3249" y="-552"/>
+        </scene>
+        <!--Webview View Controller-->
+        <scene sceneID="ORo-RA-VFs">
+            <objects>
+                <viewController id="l6K-MK-qbw" customClass="WebviewViewController" customModule="SmashTag3_1" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XJN-5k-PmS"/>
+                        <viewControllerLayoutGuide type="bottom" id="aB2-ti-gby"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hko-9B-aBs">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mje-68-03V">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="mje-68-03V" firstAttribute="top" secondItem="hko-9B-aBs" secondAttribute="top" id="H0Y-2l-UPX"/>
+                            <constraint firstAttribute="trailing" secondItem="mje-68-03V" secondAttribute="trailing" id="jl4-Y4-qZL"/>
+                            <constraint firstItem="mje-68-03V" firstAttribute="leading" secondItem="hko-9B-aBs" secondAttribute="leading" id="n9A-jI-6jL"/>
+                            <constraint firstAttribute="bottom" secondItem="mje-68-03V" secondAttribute="bottom" id="qxG-aT-xLc"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="mje-68-03V" id="wpo-Rs-Rr5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w7v-uh-PaF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3248.8000000000002" y="145.27736131934034"/>
         </scene>
         <!--Smash Tweeters Table View Controller-->
         <scene sceneID="5Pb-nd-2fs">
@@ -350,7 +383,7 @@
         <scene sceneID="Xr8-Rq-cz4">
             <objects>
                 <collectionViewController id="Vcw-4N-LhC" customClass="ImagesCollectionViewController" customModule="SmashTag3_1" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="N3r-Lg-bpx">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="N3r-Lg-bpx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -445,6 +478,6 @@
         <image name="movie_camera" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ycx-4Y-mTn"/>
+        <segue reference="YO8-XR-h7Y"/>
     </inferredMetricsTieBreakers>
 </document>

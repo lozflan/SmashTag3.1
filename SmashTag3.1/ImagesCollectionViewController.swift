@@ -10,38 +10,49 @@ import UIKit
 import Twitter
 private let reuseIdentifier = "Cell"
 
+//a tweets media item is an array of MediaItem which is an imageURL, its aspectRatio, and a description. see MediaItem struct in Twitter framework.
+struct TweetMedia: CustomStringConvertible {
+    var tweet: Twitter.Tweet?
+    var media: MediaItem?
+    var description: String {
+        return "\(tweet) : \(media)"
+    }
+}
+
 class ImagesCollectionViewController: UICollectionViewController {
     
     
     
     //get passed an array of array of tweets seeing we already hold exactly that in TweetTVC
-    var tweets: [[Twitter.Tweet]]? {
+    var tweets: [[Twitter.Tweet]] = [] {
         didSet {
             //Monday, 19 June 2017. converting [[tweets]] to flat array.
-            tweets.flatMap { (<#[[Tweet]]#>) -> U? in
-                <#code#>
-            }
+            //we have an array of arrays of tweet. want to flatten it to get array of tweets. tweets contain an array of media items which themselves are a struct containing vars url, var aspectRatio and description but we want to convert them to our custom TweetMedia struct for the purposes of the collectionView
+            
+            images = tweets.flatMap({$0}) //get flat array of tweets
+                .map{ tweet in //take the flat tweet array and map each tweet to just the tweet media
+                    tweet.media.map { TweetMedia(tweet: tweet, media: $0) }} //then map to create a new TweetMedia struct
+                .flatMap({$0}) //flatmap to maybe removes nil?
+            
            
         }
     }
     
-    //main data is a simple array of images and related data from newly defined struct TweetMedia
-    var images: [TweetMedia]? {
-        didSet {
-            ////TODO:
-        }
-    }
+//    //KT version
+//    var tweets: [[Twitter.Tweet]] = [] {
+//        didSet {
+//            images = tweets.flatMap({$0})
+//                .map { tweet in
+//                    tweet.media.map { TweetMedia(tweet: tweet, media: $0) }}
+//                .flatMap({$0})
+//        }
+//    }
+    
+    private var images = [TweetMedia]()
     
 
     
-    //a tweets media item is an array of MediaItem which is an imageURL, its aspectRatio, and a description. see MediaItem struct in Twitter framework.
-    struct TweetMedia: CustomStringConvertible {
-        var tweet: Twitter.Tweet?
-        var media: MediaItem?
-        var description: String {
-            return "\(tweet) : \(media)"
-        }
-    }
+
     
     //
     
@@ -94,14 +105,17 @@ class ImagesCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 1
+        return images.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Photo Cell", for: indexPath)
-    
-        // Configure the cell
-    
+        
+        // Configure the cell ... with if let for the specific photoCell code. allows returning cell not cell!
+        if let photoCell = cell as? ImageCollectionViewCell {
+//            photoCell.cache = cache
+            photoCell.imageURL = images[indexPath.row].media?.url
+        }
         return cell
     }
 

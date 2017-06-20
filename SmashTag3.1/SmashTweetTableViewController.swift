@@ -72,13 +72,13 @@ class SmashTweetTableViewController: TweetTableViewController {
                     tweetersTVC.mention = searchText
                     tweetersTVC.container = container
                 }
-            case "Show Mentions":
-                if let cell = sender as? UITableViewCell {
-                    let mentionsTVC = segue.destination as? MentionsTableViewController
-                    if let indexPath = tableView.indexPath(for: cell) {
-                        mentionsTVC?.tweet = tweets[indexPath.section][indexPath.row]
-                    }
-                }
+//            case "Show Mentions":
+//                if let cell = sender as? UITableViewCell {
+//                    let mentionsTVC = segue.destination as? MentionsTableViewController
+//                    if let indexPath = tableView.indexPath(for: cell) {
+//                        mentionsTVC?.tweet = tweets[indexPath.section][indexPath.row]
+//                    }
+//                }
             default:
                 break
             }

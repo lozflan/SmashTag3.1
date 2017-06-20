@@ -304,8 +304,16 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
             switch identifier {
             case "Show All Images":
                 if let destVC = segue.destination as? ImagesCollectionViewController {
-                    //get an array of array of imageURLs to pass to the CVC
+                    //pass the [[tweets]] array of arrays to the collectionView
+                    destVC.tweets = tweets
                     
+                }
+            case "Show Mentions":
+                if let cell = sender as? UITableViewCell {
+                    let mentionsTVC = segue.destination as? MentionsTableViewController
+                    if let indexPath = tableView.indexPath(for: cell) {
+                        mentionsTVC?.tweet = tweets[indexPath.section][indexPath.row]
+                    }
                 }
             default:
                 break

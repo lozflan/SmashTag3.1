@@ -17,6 +17,7 @@ import Foundation
 //https://stackoverflow.com/questions/25738817/does-there-exist-within-swifts-api-an-easy-way-to-remove-duplicate-elements-fro
 
 //Array - remove duplicates / uninque an array retaining order of elements
+
 extension Array where Element:Equatable {
     func removeDuplicates() -> [Element] {
         var result = [Element]()
@@ -31,3 +32,7 @@ extension Array where Element:Equatable {
 //Can be called like this:
 //let arrayOfInts = [2, 2, 4, 4]
 //print(arrayOfInts.removeDuplicates()) // Prints: [2, 4]
+
+
+
+

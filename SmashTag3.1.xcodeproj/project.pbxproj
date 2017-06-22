@@ -99,17 +99,17 @@
 			name = CoreData;
 			sourceTree = "<group>";
 		};
-		248EEAAD1ECCF67B009D2485 /* CustomTableViewCells */ = {
+		248EEAAD1ECCF67B009D2485 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				244D07391EB2999900A228E9 /* TweetTableViewCell.swift */,
 				2481612C1ECA5A2B00159908 /* ImageTableViewCell.swift */,
 				2494949A1EF72EF3001F1277 /* ImageCollectionViewCell.swift */,
 			);
-			name = CustomTableViewCells;
+			name = Cells;
 			sourceTree = "<group>";
 		};
-		2491AFEE1EF352EB0092D04F /* ViewControllers */ = {
+		2491AFEE1EF352EB0092D04F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				2491AFEC1EF352B10092D04F /* ImagesCollectionViewController.swift */,
@@ -120,7 +120,7 @@
 				241C54DE1EE62B6C00FE0726 /* RecentSearchesTableViewController.swift */,
 				24FE95A11EDE365500EB6A6A /* ImageViewController.swift */,
 			);
-			name = ViewControllers;
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 		2491AFEF1EF3531B0092D04F /* Models */ = {
@@ -156,8 +156,8 @@
 				246494111EB6B5DE000A0816 /* SmashTag3.1.xcdatamodeld */,
 				24AC1A441EB1574A005252C0 /* Info.plist */,
 				2491AFEF1EF3531B0092D04F /* Models */,
-				2491AFEE1EF352EB0092D04F /* ViewControllers */,
-				248EEAAD1ECCF67B009D2485 /* CustomTableViewCells */,
+				2491AFEE1EF352EB0092D04F /* Controllers */,
+				248EEAAD1ECCF67B009D2485 /* Cells */,
 				246601A31EB7D84C001038CE /* CoreData */,
 				24AC1A4A1EB1576F005252C0 /* Supporting Files */,
 				24F8EFED1ECB9EBF00F8AEF3 /* MyPlayground.playground */,

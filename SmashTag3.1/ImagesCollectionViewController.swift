@@ -14,14 +14,14 @@ private let reuseIdentifier = "Cell" //system required
 //custom local struct containing the tweet, the media item (see twitter framework), and custom description
 struct TweetMedia: CustomStringConvertible {
     var tweet: Twitter.Tweet
-    var media: MediaItem  //tweets contain an array of media items so not sure why separate var media needed below
+    var media: MediaItem  //tweets contain an array of media items so not sure why separate var media needed too
     var description: String {
         return "\(tweet) : \(media)"
     }
 }
 
 
-//define the photo cache here. init one in the ImageCVC class, pass it to the ImageCVCell in prepareFor, set and or read it in the ImageCVCell class. 
+//define the photo cache here. init one in the ImageCVC class, pass it to the ImageCVCell in cellForRowAt, set and or read it in the ImageCVCell class.
 class Cache: NSCache<NSURL, NSData> {
     subscript(key: URL) -> Data? { //give cache a url and get back Data?
         get{
@@ -73,6 +73,7 @@ class ImagesCollectionViewController: UICollectionViewController {
 //                }}
 //            var flatCreatedTweetMedia = createdTweetMedia.flatMap{ $0 } //converts [[TweetMedia]] to [TweetMedia] ie images var type.
 //            images = flatCreatedTweetMedia
+//            print(flatCreatedTweetMedia.first?.tweet.description)
             
         }
     }
@@ -131,7 +132,8 @@ class ImagesCollectionViewController: UICollectionViewController {
         
         // Configure the cell ... with if let for the specific photoCell code. allows returning cell not cell!
         if let photoCell = cell as? ImageCollectionViewCell {
-            photoCell.cache = cache
+            photoCell.spinner.stopAnimating() //always stop spinner incase reusing cell.
+            photoCell.cache = cache //pass the cache instance
             photoCell.imageURL = images[indexPath.row].media.url
         }
         return cell

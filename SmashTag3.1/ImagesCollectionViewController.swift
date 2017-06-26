@@ -79,8 +79,6 @@ class ImagesCollectionViewController: UICollectionViewController {
     }
     
 
-
-    
     
     
     
@@ -117,10 +115,6 @@ class ImagesCollectionViewController: UICollectionViewController {
     
     
     
-    
-    
-    
-    
     /*
     // MARK: - Navigation
 
@@ -137,7 +131,6 @@ class ImagesCollectionViewController: UICollectionViewController {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
@@ -166,10 +159,7 @@ class ImagesCollectionViewController: UICollectionViewController {
         static var columnCount: CGFloat {
             get {
                 switch UIDevice.current.orientation {
-                case .portraitUpsideDown:
-                    print("|\(type(of: self))|\(#function)|#\(#line)|")
-                    return 4
-                case .portrait:
+                case .portrait, .portraitUpsideDown:
                     return 4
                 case .landscapeRight, .landscapeLeft:
                     return 7
@@ -183,14 +173,14 @@ class ImagesCollectionViewController: UICollectionViewController {
         static let minSectionInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
-    fileprivate func setupCustomLayout() {
-        let layoutFlow = UICollectionViewFlowLayout()
-        layoutFlow.minimumInteritemSpacing = FlowLayout.minInterItemSpacing
-        layoutFlow.itemSize = CGSize(width: 60, height: 60)
-        //set the collview's layout to the custom version 
-        collectionView?.collectionViewLayout = layoutFlow
-    }
-    
+    //implemented by TK to do final cell size calcs but not LF because happy with keeping cells square.
+//    fileprivate func setupCustomLayout() {
+//        let layoutFlow = UICollectionViewFlowLayout()
+//        layoutFlow.minimumInteritemSpacing = FlowLayout.minInterItemSpacing
+//        layoutFlow.itemSize = CGSize(width: 60, height: 60) //would need to implement a way to calc item size if you want in future.
+//        //set the collview's layout to the custom version 
+//        collectionView?.collectionViewLayout = layoutFlow
+//    }
     
     
     

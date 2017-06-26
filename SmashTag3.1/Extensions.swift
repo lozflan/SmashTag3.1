@@ -7,9 +7,16 @@
 //
 
 import Foundation
+import UIKit
 
 
+//MARK: - TabbarController extensions
 
+extension UITabBarController {
+    override open var supportedInterfaceOrientations : UIInterfaceOrientationMask     {
+        return .all
+    }
+}
 
 
 //MARK: - ARRAY EXTENSIONS 
@@ -32,6 +39,8 @@ extension Array where Element:Equatable {
 //Can be called like this:
 //let arrayOfInts = [2, 2, 4, 4]
 //print(arrayOfInts.removeDuplicates()) // Prints: [2, 4]
+
+
 
 
 

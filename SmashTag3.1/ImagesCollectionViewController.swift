@@ -85,7 +85,7 @@ class ImagesCollectionViewController: UICollectionViewController {
     
     
     
-    
+    //MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,12 +98,29 @@ class ImagesCollectionViewController: UICollectionViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+    
+    //Monday, 26 June 2017 - override to reload collview and force recalc of columns between portrait and landscape
+    //https://stackoverflow.com/questions/41659646/get-the-current-device-orientation
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super .viewWillTransition(to: size, with: coordinator)
+        collectionView?.reloadData()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /*
     // MARK: - Navigation
 
@@ -138,8 +155,76 @@ class ImagesCollectionViewController: UICollectionViewController {
         }
         return cell
     }
+    
+    
+    
+    
+    //MARK: - Flowlayout 
+    
+    fileprivate struct FlowLayout {
+        static let minimumImageCellWidth: CGFloat = 60.0
+        static var columnCount: CGFloat {
+            get {
+                switch UIDevice.current.orientation {
+                case .portraitUpsideDown:
+                    print("|\(type(of: self))|\(#function)|#\(#line)|")
+                    return 4
+                case .portrait:
+                    return 4
+                case .landscapeRight, .landscapeLeft:
+                    return 7
+                default:
+                    return 4
+                }
+            }
+        }
+        static let minColumnSpacing: CGFloat = 1
+        static let minInterItemSpacing: CGFloat = 1
+        static let minSectionInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    fileprivate func setupCustomLayout() {
+        let layoutFlow = UICollectionViewFlowLayout()
+        layoutFlow.minimumInteritemSpacing = FlowLayout.minInterItemSpacing
+        layoutFlow.itemSize = CGSize(width: 60, height: 60)
+        //set the collview's layout to the custom version 
+        collectionView?.collectionViewLayout = layoutFlow
+    }
+    
+    
+    
+    
 
-    // MARK: UICollectionViewDelegate
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// MARK: UICollectionViewDelegate
+
+extension ImagesCollectionViewController: UICollectionViewDelegateFlowLayout {
+    
+
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let usableWidth = collectionView.frame.size.width - (FlowLayout.minInterItemSpacing * (FlowLayout.columnCount - 1)) - FlowLayout.minSectionInset.left - FlowLayout.minSectionInset.right
+        let imageWidth = usableWidth / FlowLayout.columnCount
+        return CGSize(width: imageWidth, height: imageWidth)
+    }
 
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
@@ -169,5 +254,26 @@ class ImagesCollectionViewController: UICollectionViewController {
     
     }
     */
+    
+    
+    
+    
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

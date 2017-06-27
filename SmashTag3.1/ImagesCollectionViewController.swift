@@ -78,6 +78,32 @@ class ImagesCollectionViewController: UICollectionViewController {
         }
     }
     
+    //create a scale var to scale the CVCell size
+    fileprivate var scale: CGFloat = 1.0 {
+        didSet {
+            collectionView?.collectionViewLayout.invalidateLayout()
+        }
+    }
+    
+    //configure the gesture recognizer
+    @IBOutlet var pinchGestureRecognizer: UIPinchGestureRecognizer! {
+        didSet {
+            pinchGestureRecognizer.addTarget(self, action: #selector(ImagesCollectionViewController.handlePinch(recognizer:)))
+        
+        }
+    }
+    
+    func handlePinch(recognizer: UIPinchGestureRecognizer) {
+        print("\(scale)")
+        switch recognizer.state {
+        case .changed, .ended:
+            self.scale *= pinchGestureRecognizer.scale
+            pinchGestureRecognizer.scale = 1.0
+        default:
+            break 
+        }
+    }
+    
 
     
     
@@ -212,7 +238,7 @@ extension ImagesCollectionViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let usableWidth = collectionView.frame.size.width - (FlowLayout.minInterItemSpacing * (FlowLayout.columnCount - 1)) - FlowLayout.minSectionInset.left - FlowLayout.minSectionInset.right
-        let imageWidth = usableWidth / FlowLayout.columnCount
+        let imageWidth = (usableWidth / FlowLayout.columnCount) * scale
         return CGSize(width: imageWidth, height: imageWidth)
     }
 

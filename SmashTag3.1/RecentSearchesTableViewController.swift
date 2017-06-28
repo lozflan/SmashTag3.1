@@ -1,36 +1,36 @@
-//
+// 
 //  RecentSearchesTableViewController.swift
 //  SmashTag3.1
-//
+// 
 //  Created by Lawrence Flancbaum on 6/6/17.
 //  Copyright © 2017 Cloudmass. All rights reserved.
-//
+// 
 
 import UIKit
 
 class RecentSearchesTableViewController: UITableViewController {
     
     
-    //Tuesday, 6 June 2017
-    //need to store in UDs and array should be fine
+    // Tuesday, 6 June 2017
+    // need to store in UDs and array should be fine
     
-    //model needs either an array of searchTerms or a set. array better for ordering, set better for uniqueing.
+    // model needs either an array of searchTerms or a set. array better for ordering, set better for uniqueing.
     
     let defaults = UserDefaults.standard
     
     var recentSearches: [String]  {
-        //you can access the model directly thru RecentSearches 
+        // you can access the model directly thru RecentSearches 
         return RecentSearches.searches
     }
     
 
     
-    //Wednesday, 7 June 2017 
-    //searchTerms now being saved in TweetTVC to userdefaults and retrieved here. look at how to order and unique them properly.
+    // Wednesday, 7 June 2017 
+    // searchTerms now being saved in TweetTVC to userdefaults and retrieved here. look at how to order and unique them properly.
     
     
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
 
     override func viewWillAppear(_ animated: Bool) {
         super .viewWillAppear(animated)

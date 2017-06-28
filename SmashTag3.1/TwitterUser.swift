@@ -1,10 +1,10 @@
-//
+// 
 //  TwitterUser.swift
 //  SmashTag3.1
-//
+// 
 //  Created by Lawrence Flancbaum on 2/5/17.
 //  Copyright © 2017 Cloudmass. All rights reserved.
-//
+// 
 
 import UIKit
 import CoreData
@@ -26,7 +26,7 @@ class TwitterUser: NSManagedObject {
         } catch {
             throw error
         }
-        //ow this twitterUser is not in database so create new one 
+        // ow this twitterUser is not in database so create new one 
         let tweeter = TwitterUser(context: context)
         tweeter.handle = twitterInfo.id
         tweeter.name = twitterInfo.name

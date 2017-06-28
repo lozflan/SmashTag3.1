@@ -1,9 +1,9 @@
-//
+// 
 //  UITableViewController extension for use with NSFetchedResultsController
-//
+// 
 //  Created by CS193p Instructor.
 //  Copyright © 2017 Stanford University. All rights reserved.
-//
+// 
 //  This implements the UITableViewDataSources
 //  assuming a var called fetchedResultsController exists ... 
 //  lf-<#comment#>so create a frc var in the tableviewcontroller that this extension extends.

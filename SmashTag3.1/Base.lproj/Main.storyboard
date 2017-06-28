@@ -350,7 +350,7 @@
         <scene sceneID="Xr8-Rq-cz4">
             <objects>
                 <collectionViewController id="Vcw-4N-LhC" customClass="ImagesCollectionViewController" customModule="SmashTag3_1" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="N3r-Lg-bpx">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="N3r-Lg-bpx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -390,6 +390,7 @@
                                 <connections>
                                     <outlet property="imageView" destination="Vv2-Hr-0fD" id="lID-Ag-N4O"/>
                                     <outlet property="spinner" destination="BPL-8q-3Ct" id="1cc-XG-K45"/>
+                                    <segue destination="tBH-BA-RXt" kind="show" identifier="Show Tweet" id="qjs-HN-MGn"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -406,7 +407,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mwq-N9-7DA" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <pinchGestureRecognizer id="BjV-CQ-gBS"/>
             </objects>
-            <point key="canvasLocation" x="1885.5999999999999" y="269.41529235382313"/>
+            <point key="canvasLocation" x="1918" y="206"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="hB2-4O-m1T">
@@ -452,6 +453,6 @@
         <image name="movie_camera" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="EBc-ko-KWf"/>
+        <segue reference="qjs-HN-MGn"/>
     </inferredMetricsTieBreakers>
 </document>

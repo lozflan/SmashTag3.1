@@ -1,37 +1,37 @@
-//
+// 
 //  ImagesCollectionViewController.swift
 //  SmashTag3.1
-//
+// 
 //  Created by Lawrence Flancbaum on 16/6/17.
 //  Copyright © 2017 Cloudmass. All rights reserved.
-//
+// 
 
 import UIKit
 import Twitter
-private let reuseIdentifier = "Cell" //system required
+private let reuseIdentifier = "Cell" // system required
 
 
-//custom local struct containing the tweet, the media item (see twitter framework), and custom description
+// custom local struct containing the tweet, the media item (see twitter framework), and custom description
 struct TweetMedia: CustomStringConvertible {
     var tweet: Twitter.Tweet
-    var media: MediaItem  //tweets contain an array of media items so not sure why separate var media needed too
+    var media: MediaItem  // tweets contain an array of media items so not sure why separate var media needed too
     var description: String {
         return "\(tweet) : \(media)"
     }
 }
 
 
-//define the photo cache here. init one in the ImageCVC class, pass it to the ImageCVCell in cellForRowAt, set and or read it in the ImageCVCell class.
+// define the photo cache here. init one in the ImageCVC class, pass it to the ImageCVCell in cellForRowAt, set and or read it in the ImageCVCell class.
 class Cache: NSCache<NSURL, NSData> {
-    subscript(key: URL) -> Data? { //give cache a url and get back Data?
+    subscript(key: URL) -> Data? { // give cache a url and get back Data?
         get{
             return self.object(forKey: key as NSURL) as Data?
         }
         set{
             if let data = newValue {
-                self.setObject(data as NSData, forKey: key as NSURL, cost: data.count / 1024) //nscache deals with nsurl not urls
+                self.setObject(data as NSData, forKey: key as NSURL, cost: data.count / 1024) // nscache deals with nsurl not urls
             } else {
-                removeObject(forKey: key as NSURL) //why do we hae to remove if data condbinding fails??
+                removeObject(forKey: key as NSURL) // why do we hae to remove if data condbinding fails??
             }
         }
     }
@@ -41,51 +41,51 @@ class Cache: NSCache<NSURL, NSData> {
 
 class ImagesCollectionViewController: UICollectionViewController {
     
-    //our main model containing an array of TweetMedia struct
+    // our main model containing an array of TweetMedia struct
     private var images = [TweetMedia]()
     
-    //cache
+    // cache
     var cache = Cache()
     
     
     var tweets: [[Twitter.Tweet]] = [] {
         didSet {
-            //Monday, 19 June 2017. converting [[tweets]] to flat array.
-            //we have an array of arrays of tweet. want to flatten it to get array of tweets.
-            //tweets contain an array of media items which themselves are a struct containing vars url, var aspectRatio and description
-            //we want to convert them to our custom TweetMedia struct for the purposes of the collectionView
+            // Monday, 19 June 2017. converting [[tweets]] to flat array.
+            // we have an array of arrays of tweet. want to flatten it to get array of tweets.
+            // tweets contain an array of media items which themselves are a struct containing vars url, var aspectRatio and description
+            // we want to convert them to our custom TweetMedia struct for the purposes of the collectionView
             
             images = tweets.flatMap({$0}) // flat array of tweets
-                .map{ tweet in //map each tweet to [[MediaItem]]
-                    tweet.media.map { TweetMedia(tweet: tweet, media: $0) }} //map to create a new [[TweetMedia]]
-                .flatMap({$0}) //flatten to [TweetMedia]
+                .map{ tweet in // map each tweet to [[MediaItem]]
+                    tweet.media.map { TweetMedia(tweet: tweet, media: $0) }} // map to create a new [[TweetMedia]]
+                .flatMap({$0}) // flatten to [TweetMedia]
             
             
-            //good breakdown explanation of images flatMap closure above
+            // good breakdown explanation of images flatMap closure above
             
-//            var images2 = tweets.flatMap{ $0 } //flat [Tweet] array
-//            var medItemArray = images2.map { (tweet) in //now have [[MediaItem]]
+//            var images2 = tweets.flatMap{ $0 } // flat [Tweet] array
+//            var medItemArray = images2.map { (tweet) in // now have [[MediaItem]]
 //                tweet.media
 //            }
-//            var createdTweetMedia = images2.map{ (tweet) in //converts [[MediaItem]] to [[TweetMedia]]
+//            var createdTweetMedia = images2.map{ (tweet) in // converts [[MediaItem]] to [[TweetMedia]]
 //                tweet.media.map{ (media) in
 //                    TweetMedia(tweet: tweet, media: media)
 //                }}
-//            var flatCreatedTweetMedia = createdTweetMedia.flatMap{ $0 } //converts [[TweetMedia]] to [TweetMedia] ie images var type.
+//            var flatCreatedTweetMedia = createdTweetMedia.flatMap{ $0 } // converts [[TweetMedia]] to [TweetMedia] ie images var type.
 //            images = flatCreatedTweetMedia
 //            print(flatCreatedTweetMedia.first?.tweet.description)
             
         }
     }
     
-    //create a scale var to scale the CVCell size
+    // Tuesday, 27 June 2017 - create a scale var to scale the CVCell size
     fileprivate var scale: CGFloat = 1.0 {
         didSet {
             collectionView?.collectionViewLayout.invalidateLayout()
         }
     }
     
-    //configure the gesture recognizer
+    // configure the gesture recognizer
     @IBOutlet var pinchGestureRecognizer: UIPinchGestureRecognizer! {
         didSet {
             pinchGestureRecognizer.addTarget(self, action: #selector(ImagesCollectionViewController.handlePinch(recognizer:)))
@@ -109,7 +109,7 @@ class ImagesCollectionViewController: UICollectionViewController {
     
     
     
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,8 +124,8 @@ class ImagesCollectionViewController: UICollectionViewController {
     }
     
     
-    //Monday, 26 June 2017 - override to reload collview and force recalc of columns between portrait and landscape
-    //https://stackoverflow.com/questions/41659646/get-the-current-device-orientation
+    // Monday, 26 June 2017 - override to reload collview and force recalc of columns between portrait and landscape
+    // https:// stackoverflow.com/questions/41659646/get-the-current-device-orientation
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super .viewWillTransition(to: size, with: coordinator)
         collectionView?.reloadData()
@@ -137,19 +137,32 @@ class ImagesCollectionViewController: UICollectionViewController {
     }
     
     
+    private struct Storyboard {
+        static let ShowTweetSegue = "Show Tweet"
+    }
     
     
     
-    
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        if let identifier = segue.identifier {
+            switch identifier {
+            case Storyboard.ShowTweetSegue:
+                if let destVC = segue.destination as? TweetTableViewController {
+                    if let cell = sender as? ImageCollectionViewCell {
+                        if let indexPath = collectionView?.indexPath(for: cell) {
+                            let newTweetArray = [images[indexPath.row].tweet]
+                            destVC.newTweets = newTweetArray
+                        }
+                    }
+                }
+            default:
+                break
+            }
+        }
     }
-    */
 
     // MARK: UICollectionViewDataSource
 
@@ -168,8 +181,8 @@ class ImagesCollectionViewController: UICollectionViewController {
         
         // Configure the cell ... with if let for the specific photoCell code. allows returning cell not cell!
         if let photoCell = cell as? ImageCollectionViewCell {
-            photoCell.spinner.stopAnimating() //always stop spinner incase reusing cell.
-            photoCell.cache = cache //pass the cache instance
+            photoCell.spinner.stopAnimating() // always stop spinner incase reusing cell.
+            photoCell.cache = cache // pass the cache instance
             photoCell.imageURL = images[indexPath.row].media.url
         }
         return cell
@@ -178,7 +191,7 @@ class ImagesCollectionViewController: UICollectionViewController {
     
     
     
-    //MARK: - Flowlayout 
+    // MARK: - Flowlayout 
     
     fileprivate struct FlowLayout {
         static let minimumImageCellWidth: CGFloat = 60.0
@@ -199,12 +212,12 @@ class ImagesCollectionViewController: UICollectionViewController {
         static let minSectionInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
-    //implemented by TK to do final cell size calcs but not LF because happy with keeping cells square.
+    // implemented by TK to do final cell size calcs but not LF because happy with keeping cells square.
 //    fileprivate func setupCustomLayout() {
 //        let layoutFlow = UICollectionViewFlowLayout()
 //        layoutFlow.minimumInteritemSpacing = FlowLayout.minInterItemSpacing
-//        layoutFlow.itemSize = CGSize(width: 60, height: 60) //would need to implement a way to calc item size if you want in future.
-//        //set the collview's layout to the custom version 
+//        layoutFlow.itemSize = CGSize(width: 60, height: 60) // would need to implement a way to calc item size if you want in future.
+//        // set the collview's layout to the custom version 
 //        collectionView?.collectionViewLayout = layoutFlow
 //    }
     

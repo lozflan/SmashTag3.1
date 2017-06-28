@@ -1,10 +1,10 @@
-//
+// 
 //  TweetTableViewController.swift
 //  SmashTag3.1
-//
+// 
 //  Created by Lawrence Flancbaum on 27/4/17.
 //  Copyright © 2017 Cloudmass. All rights reserved.
-//
+// 
 
 import UIKit
 import Twitter
@@ -12,19 +12,19 @@ import Twitter
 
 class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
-    //outlets and related functionality
+    // outlets and related functionality
     @IBOutlet weak var searchTextField: UITextField! {
         didSet {
-            //set delegate when iboutlet set up
+            // set delegate when iboutlet set up
             searchTextField.delegate = self
-            
-            //reset searchTextField text if set before outlets set.
+            // reset searchTextField text if set before outlets set.
             searchTextField.text = searchText
         }
     }
     
+    // uitextfielddelegate method
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        //check if this message is coming from the searchTextField
+        // check if this message is coming from the searchTextField
         if textField == searchTextField {
                 self.title = textField.text
                 searchText = textField.text
@@ -33,75 +33,75 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     
-    @IBAction func refresh(_ sender: UIRefreshControl) {
-        //call searchForTweets but within that func check if there is a newer search 
-        searchForTweets()
-        
-    }
+    // MARK: - Model
+    // an array of array of tweets 
+    // suited for tableviewController
+    private var tweets = [Array<Twitter.Tweet>]()
+//    private var tweets: [[Twitter.Tweet]] = [[]]
     
-    
-
-
- 
-    //model 
-    
-    var tweets: [[Twitter.Tweet]] = [[]] {
+    // public model to pass a single tweet within an array from ImagesCVC
+    // so it can be added to tweets array of arrays at index 0
+    var newTweets: [Twitter.Tweet] = [] {
         didSet {
-//            print(tweets)
-//            tableView.reloadData()
+            tweets.insert(newTweets, at: 0)
+            tableView.insertSections([0], with: .fade)
         }
     }
     
+    // model search string set from search text field
     var searchText: String? {
         didSet {
             searchTextField?.text = searchText
             searchTextField?.resignFirstResponder()
-            lastTwitterRequest = nil //reset to nil for refresh control 
-            //reeset tweets array
+            lastTwitterRequest = nil // reset to nil for refresh control 
+            // reeset tweets array
             tweets.removeAll()
-            tableView.reloadData() //reload will be light because table now empty.
+            tableView.reloadData() // reload will be light because table now empty.
             searchForTweets()
-            title = searchText
-            //save to recent searches
-//            addSearchToStoredSearches() //lf way
-            saveSearchTermToUserDefaults() //kt way 
+            self.title = searchText
+            // save to recent searches
+            if let searchText = searchText {
+                RecentSearches.add(term: searchText) // kt way. struct RecentSearches in separate file
+                // addSearchToStoredSearches() // lf way
+            }
         }
     }
     
-    //model helper funcs 
     
-    //create a valid twitter request
+    // MARK: - Model helper funcs
+    
+    // create a valid twitter request
+    // fetching tweets matching our searchText
     private func twitterRequest() -> Twitter.Request? {
         if let query = searchText, !query.isEmpty {
-            return Twitter.Request(search: "\(query)", count: 100)
-//            return Twitter.Request(search: "\(query) -filter:safe -filter:retweets", count: 20)
-            //original form of request below
-//            return Twitter.Request(search: query, count: 10)
+            return Twitter.Request(search: "\(query) -filter:safe -filter:retweets", count: 100)
         }
         return nil
     }
     
-    //MARK:- Main twitter search call
-    
-    //check if request still valid
+    // check if request still valid. we track this so that
+    // a) we ignore tweets that come back from other than our last request
+    // b) when we want to refresh, we only get tweets newer than our last request
     private var lastTwitterRequest: Twitter.Request?
     
+    // main twitter search call
+    // takes the searchText part of our Model
+    // and fires off a fetch for matching Tweets
+    // when they come back (if they're still relevant)
+    // we update our tweets array
+    // and then let the table view know that we added a section
+    // (it will then call our UITableViewDataSource to get what it needs)
     private func searchForTweets() {
-        //change next line for refresh control functionality. just checks if there is a newer form of Twitter.Request
-        if let test = lastTwitterRequest?.newer {
-        print("lastTwitterRequest.newer = \(test)")
-        }
+        // for refresh control functionality. just checks if there is a newer form of Twitter.Request
         if let request = lastTwitterRequest?.newer ?? twitterRequest() {
-//            if let request = twitterRequest() { //orig request
             lastTwitterRequest = request
-            request.fetchTweets { [weak self] newTweets in
-                //get mainQ
+            request.fetchTweets { [weak self] newTweets in //off the main q
                 DispatchQueue.main.async {
-                    //new tweets returned. check if request still valid
+                    // new tweets returned. check if request still valid
                     if request == self?.lastTwitterRequest {
-                        self?.insertTweets(newTweets)
-                        self?.refreshControl?.endRefreshing()
+                        self?.insertTweets(newTweets: newTweets)
                     }
+                    self?.refreshControl?.endRefreshing()
                 }
             }
         } else {
@@ -109,93 +109,62 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    //refactor code in searchForTweets to make more subclassable for coredata functionality
-    func insertTweets(_ newTweets: [Twitter.Tweet]) {
+    // refresh control. added after refresh lecture
+    @IBAction func refresh(_ sender: UIRefreshControl) {
+        // call searchForTweets but within that func check if there is a newer search
+        searchForTweets()
+    }
+    
+    // refactored code in searchForTweets to make more subclassable for coredata functionality
+    func insertTweets(newTweets: [Twitter.Tweet]) {
         self.tweets.insert(newTweets, at: 0)
         self.tableView.insertSections([0], with: UITableViewRowAnimation.fade)
     }
     
-
-    //MARK: - Task8. save last 100 search terms persistently
-//    let defaults = UserDefaults.standard
-//    
-//    //if stored searches exists in userdefaults, retrieve it ow create new
-//    var udRecentSearches: [String] {
-//        get {
-//            if let defaultsSearches = defaults.value(forKey: "RecentSearches") as? [String] {
-//                return defaultsSearches
-//            }
-//            else {
-//                return []
-//            }
-//        }
-//    }
-//    
-//    var storedSearches: [String] = []
-//    
-// 
-//    //called from searchText didSet
-//    func addSearchToStoredSearches() {
-//        if let searchText = searchText {
-//            if udRecentSearches.count > 0 {
-//                storedSearches = udRecentSearches
-//            }
-//            if !storedSearches.contains(searchText) {
-//                storedSearches.insert(searchText, at: 0)
-//                if storedSearches.count > 100 {
-//                    storedSearches.remove(at: 99)
-//                }
-//            }
-//        print(storedSearches)
-//        defaults.set(storedSearches, forKey: "RecentSearches")
-//        print( "defaults are  \(defaults.value(forKey: "RecentSearches") as? [String] ?? ["oops"]) "  )
-//        }
-//    }
     
-    //MARK: - Task 8 Following KT
-    //Thursday, 8 June 2017 - KT way working but not uniquing
-    //define recentSearches struct - do as separate file
-    func saveSearchTermToUserDefaults() {
-        if let searchText = searchText {
-            RecentSearches.add(term: searchText)
-        }
-    }
- 
-    
-    
-    
-    
-    //lifecycle
+    // MARK: - ViewController lifecycle
+    // Wednesday, 28 June 2017 going thru code to tidy up and work out why tableview error when inserting newTweets section.
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if searchText == nil {
-            searchText = "#sunset"
+        // if there are no tweets, show the last search text used 
+        if tweets.count == 0 {
+            if searchText == nil, let searchLast = RecentSearches.searches.first {
+                searchText = searchLast
+            } else {
+                searchTextField?.text = searchText
+                searchTextField?.resignFirstResponder()
+            }
         }
-        
+        // old hardcoded
+//        if searchText == nil {
+//            searchText = "#sunset"
+//        }
+        // tableview row height
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     
     
-    //implement pop to rootVC of navcontroller functionality
-    //Tuesday, 13 June 2017 - working thru how KT sets X button to show on tweetsTVC if deep in NC but not if at root.
+    // implement pop to rootVC of navcontroller functionality
+    // Tuesday, 13 June 2017 - working thru how KT sets X button to show on tweetsTVC if deep in NC but not if at root.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setPopToRootButton()
     }
     
-    //controls whether or not the pop to root button shows. ie tweetTVC is the rootVC but could have gone round roundabout of mentions to get here so may or may not need to show
+    // controls whether or not the pop to root button shows. 
+    // ie tweetTVC is the rootVC but could have gone round roundabout of mentions to get here 
+    // so may or may not need to show
     func setPopToRootButton() {
-        
         if let controllers = navigationController?.viewControllers, controllers.count >= 2 {
             let toRootButton = UIBarButtonItem(barButtonSystemItem: .stop,
                                                target: self,
                                                action: #selector(toRootViewController))
             if let buttons = navigationItem.rightBarButtonItems{
                 let con = buttons.flatMap{$0.action}.contains( #selector(toRootViewController))
-                if !con { //dont think this ever fails ie con is always false so line above pointless?
+                if !con { // dont think this ever fails ie con is always false so line above pointless?
                     let rightBarButtons = [toRootButton] + buttons
                     navigationItem.setRightBarButtonItems(rightBarButtons, animated: true)
                 }
@@ -215,12 +184,8 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     
     deinit {
+    
     }
-    
-    
-    
-    
-    
     
     
     // MARK: - Table view data source
@@ -237,18 +202,18 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Tweet Cell", for: indexPath)
-        
 
         // Configure the cell...
         let tweet = tweets[indexPath.section][indexPath.row]
 //        cell.textLabel?.text = tweet.text
 //        cell.detailTextLabel?.text = tweet.user.name
         
-        //Friday, 28 April 2017 - rather than cast cell above to TweetTableViewCell, do conditionally here to set the subclass's tweet var 
+        // Friday, 28 April 2017 rather than cast cell above to TweetTableViewCell, 
+        // do conditionally here to set the subclass's tweet var
+        // that allows cell to be returned below as non-optional
         if let tweetCell = cell as? TweetTableViewCell {
             tweetCell.tweet = tweet
         }
-        
         return cell
     }
     
@@ -306,7 +271,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
             switch identifier {
             case "Show All Images":
                 if let destVC = segue.destination as? ImagesCollectionViewController {
-                    //pass the [[tweets]] array of arrays to the collectionView
+                    // pass the [[tweets]] array of arrays to the collectionView
                     destVC.tweets = tweets
                     
                 }
@@ -343,3 +308,47 @@ extension UINavigationController {
 
 
 
+
+
+
+
+
+
+
+
+
+// MARK: - Task8. save last 100 search terms persistently
+//    let defaults = UserDefaults.standard
+//
+//    // if stored searches exists in userdefaults, retrieve it ow create new
+//    var udRecentSearches: [String] {
+//        get {
+//            if let defaultsSearches = defaults.value(forKey: "RecentSearches") as? [String] {
+//                return defaultsSearches
+//            }
+//            else {
+//                return []
+//            }
+//        }
+//    }
+//
+//    var storedSearches: [String] = []
+//
+//
+//    // called from searchText didSet
+//    func addSearchToStoredSearches() {
+//        if let searchText = searchText {
+//            if udRecentSearches.count > 0 {
+//                storedSearches = udRecentSearches
+//            }
+//            if !storedSearches.contains(searchText) {
+//                storedSearches.insert(searchText, at: 0)
+//                if storedSearches.count > 100 {
+//                    storedSearches.remove(at: 99)
+//                }
+//            }
+//        print(storedSearches)
+//        defaults.set(storedSearches, forKey: "RecentSearches")
+//        print( "defaults are  \(defaults.value(forKey: "RecentSearches") as? [String] ?? ["oops"]) "  )
+//        }
+//    }

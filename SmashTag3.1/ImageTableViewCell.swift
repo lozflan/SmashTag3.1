@@ -1,10 +1,10 @@
-//
+// 
 //  ImageTableViewCell.swift
 //  SmashTag3.1
-//
+// 
 //  Created by Lawrence Flancbaum on 16/5/17.
 //  Copyright © 2017 Cloudmass. All rights reserved.
-//
+// 
 
 import UIKit
 import Twitter
@@ -68,7 +68,7 @@ class ImageTableViewCell: UITableViewCell {
     
     
     
-    //provided code
+    // provided code
     
     override func awakeFromNib() {
         super.awakeFromNib()

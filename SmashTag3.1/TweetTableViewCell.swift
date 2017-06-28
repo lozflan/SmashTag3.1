@@ -1,10 +1,10 @@
-//
+// 
 //  TweetTableViewCell.swift
 //  SmashTag3.1
-//
+// 
 //  Created by Lawrence Flancbaum on 28/4/17.
 //  Copyright © 2017 Cloudmass. All rights reserved.
-//
+// 
 
 import UIKit
 import Twitter
@@ -23,7 +23,7 @@ class TweetTableViewCell: UITableViewCell {
         tweetUserLabel.text = tweet?.user.name
         tweetProfileImageView.image = getProfileImage()
         tweetTextLabel.text = tweet?.text
-        //format tweet text
+        // format tweet text
         let attribText = formatTweetCellText()
         tweetTextLabel.attributedText = attribText
         tweetCreatedLabel.text = formatCreatedDate()
@@ -32,7 +32,7 @@ class TweetTableViewCell: UITableViewCell {
     private func getProfileImage() -> UIImage? {
         
         if let url = tweet?.user.profileImageURL {
-            ///FIXME: blocks the main queue
+            // /FIXME: blocks the main queue
             if let imageData = try? Data(contentsOf: url) {
                 return UIImage(data: imageData)
             }
@@ -61,19 +61,19 @@ class TweetTableViewCell: UITableViewCell {
         
     }
     
-    //smashtag mentions project - add colour to user mentions 
+    // smashtag mentions project - add colour to user mentions 
     
     private func formatTweetCellText() -> NSMutableAttributedString {
         let mainString = tweet!.text
         let attributedString = NSMutableAttributedString(string: mainString)
         if let tweet = tweet {
  
-            //lf-my solution
+            // lf-my solution
             _ = addMentionsColor(attribString: attributedString, mentions: tweet.hashtags, color: MentionColor.hashtag)
             _ = addMentionsColor(attribString: attributedString, mentions: tweet.urls, color: MentionColor.urls)
             _ = addMentionsColor(attribString: attributedString, mentions: tweet.userMentions, color: MentionColor.userMentions)
             
-            //alternative solution using extension on NSAttributedString
+            // alternative solution using extension on NSAttributedString
 //            attributedString.setMentionsColor(mentions: hashtagMentions, color: MentionColor.hashtag)
 //            attributedString.setMentionsColor(mentions: urlMentions, color: MentionColor.urls)
 //            attributedString.setMentionsColor(mentions: userMentions, color: MentionColor.userMentions)

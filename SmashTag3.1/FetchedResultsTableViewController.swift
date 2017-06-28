@@ -1,17 +1,17 @@
-//
+// 
 //  FetchedResultsTableViewController.swift
 //  SmashtagA5
-//
+// 
 //  Created by Paul Hegarty on 2/3/17.
 //  Copyright © 2017 Stanford University. All rights reserved.
-//
+// 
 
 import UIKit
 import CoreData
 
 class FetchedResultsTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
-    //subclass of UITVC and implements the 4 required frc methods 
+    // subclass of UITVC and implements the 4 required frc methods 
     
     public func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()

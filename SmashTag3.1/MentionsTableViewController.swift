@@ -1,10 +1,10 @@
-//
+// 
 //  MentionsTableViewController.swift
 //  SmashTag3.1
-//
+// 
 //  Created by Lawrence Flancbaum on 9/5/17.
 //  Copyright © 2017 Cloudmass. All rights reserved.
-//
+// 
 
 import UIKit
 import Twitter
@@ -20,7 +20,7 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
         
     }
     
-    //mentions are made up of 4 types images, hashtags, users, and urls. internal data structure to hold them perhaps an enum with dif assoc values 
+    // mentions are made up of 4 types images, hashtags, users, and urls. internal data structure to hold them perhaps an enum with dif assoc values 
     enum MentionItem {
         case images(MediaItem)
         case hashtags(String)
@@ -41,7 +41,7 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
             }
         }
         
-        //var type to return a string for section header of the table.
+        // var type to return a string for section header of the table.
         var type: String {
             switch  self {
             case .images:
@@ -97,7 +97,7 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
             mentionItems.insert(urls, at: 2)
             mentionItems.insert(userMentions, at: 3)
             
-            //now i have an array of arrays of mentionitem but how to extract the assoc value.
+            // now i have an array of arrays of mentionitem but how to extract the assoc value.
             
             
         }
@@ -106,7 +106,7 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
 
     
     
-    //MARK: - Lifecycle functions
+    // MARK: - Lifecycle functions
     
 
     override func viewDidLoad() {
@@ -143,7 +143,7 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        //Sanjib Ahmad method
+        // Sanjib Ahmad method
         let mention = mentionItems[indexPath.section][indexPath.row]
         switch mention {
         case .images(let media):
@@ -152,9 +152,9 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
             return UITableViewAutomaticDimension
         }
         
-        //lf method. sanjibs way better because section is hardcoded here.
+        // lf method. sanjibs way better because section is hardcoded here.
 //        if indexPath.section == 0 {
-//            //media items have an aspect ration from the image when tweetTVC originally loaded
+//            // media items have an aspect ration from the image when tweetTVC originally loaded
 //            let mediaItem = mentionItems[indexPath.section][indexPath.row]
 //            let aspectRatio = mediaItem.aspectRatio
 //            let width = view.bounds.width
@@ -169,7 +169,7 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //need to deque up to 2 different types of cell - one for images and one for string mentions
+        // need to deque up to 2 different types of cell - one for images and one for string mentions
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Image Cell", for: indexPath) as! ImageTableViewCell
             let mention  = mentionItems[indexPath.section][indexPath.row]
@@ -188,9 +188,9 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
         }
     }
     
-    //control segue to tweetTVC from mention cells by shouldPerformSugue
+    // control segue to tweetTVC from mention cells by shouldPerformSugue
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        //check if sender is url cell and if so dont perform From Keyword segue
+        // check if sender is url cell and if so dont perform From Keyword segue
         switch identifier {
         case Storyboard.ShowKeywordSegue:
             if let cell = sender as? UITableViewCell {
@@ -221,15 +221,15 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
     
     
     
-    //func to show url 
+    // func to show url 
     func showURL(url:URL) {
         
-        //lecturer method
+        // lecturer method
         if #available(iOS 10.0, *) {
             UIApplication.shared.open(url)
         }
         
-//        //TK method. opens safari within your app.
+//        // TK method. opens safari within your app.
 //        let safariVC = SFSafariViewController(url: url)
 //        present(safariVC, animated: true, completion: nil)
         
@@ -237,7 +237,7 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
     }
     
     
-    //prepareForSegue either back to TweetTVC if from keyword or to imageVC if from image
+    // prepareForSegue either back to TweetTVC if from keyword or to imageVC if from image
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             if let cell = sender as? UITableViewCell {
@@ -258,8 +258,8 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
                     case "Show Image":
                         if let imageVC = segue.destination as? ImageViewController {
                             if case .images(let mediaItem) = mentionItem {
-                                //Wednesday, 31 May 2017. Passing image url to ImageVC
-                                //the cell already contains an imageURL so reuse that 
+                                // Wednesday, 31 May 2017. Passing image url to ImageVC
+                                // the cell already contains an imageURL so reuse that 
                                 if let cell = sender as? ImageTableViewCell {
                                     imageVC.imageURL = cell.imageURL
                                 }
@@ -273,7 +273,7 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
         }
     }
     
-    //using safariVC rather than segue to webVC like KT. called from func shouldPerformSegue.
+    // using safariVC rather than segue to webVC like KT. called from func shouldPerformSegue.
     private func showSafariWebview(url: URL) {
         let safariVC = SFSafariViewController(url: url)
         safariVC.delegate = self

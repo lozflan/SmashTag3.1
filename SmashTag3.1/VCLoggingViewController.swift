@@ -1,6 +1,6 @@
-//
+// 
 //  VCLLoggingViewController.swift
-//
+// 
 //  Created by CS193p Instructor.
 //  Copyright © 2015-17 Stanford University. All rights reserved.
 //  Thursday, 11 May 2017 added this to test VC lifecycle logging functionality but currently no VCs within app. all are TVCs

@@ -76,8 +76,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     // fetching tweets matching our searchText
     private func twitterRequest() -> Twitter.Request? {
         if let query = searchText, !query.isEmpty {
-            return Twitter.Request(search: "\(query)", count: 20)
-//            return Twitter.Request(search: "\(query) -filter:safe -filter:retweets", count: 20)
+            return Twitter.Request(search: "\(query) -filter:safe -filter:retweets", count: 100)
         }
         return nil
     }
@@ -95,20 +94,20 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     // and then let the table view know that we added a section
     // (it will then call our UITableViewDataSource to get what it needs)
     private func searchForTweets() {
-        // for refresh control functionality. just checks if there is a newer form of Twitter.Request
+        // "lastTwitterRequest?.newer ??" was added after lecture for REFRESHING
         if let request = lastTwitterRequest?.newer ?? twitterRequest() {
             lastTwitterRequest = request
-            request.fetchTweets { [weak self] newTweets in //off the main q
-                DispatchQueue.main.async {
-                    // new tweets returned. check if request still valid
+            request.fetchTweets { [weak self] newTweets in      // this is off the main queue
+                DispatchQueue.main.async {                      // so we must dispatch back to main queue
                     if request == self?.lastTwitterRequest {
-                        self?.insertTweets(newTweets: newTweets)
+                        self?.tweets.insert(newTweets, at:0)
+                        self?.tableView.insertSections([0], with: .fade)
                     }
-                    self?.refreshControl?.endRefreshing()
+                    self?.refreshControl?.endRefreshing()   // REFRESHING
                 }
             }
         } else {
-            self.refreshControl?.endRefreshing()
+            self.refreshControl?.endRefreshing()            // REFRESHING
         }
     }
     
@@ -119,10 +118,10 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     // refactored code in searchForTweets to make more subclassable for coredata functionality
-    func insertTweets(newTweets: [Twitter.Tweet]) {
-        self.tweets.insert(newTweets, at: 0)
-        self.tableView.insertSections([0], with: UITableViewRowAnimation.fade)
-    }
+//    func insertTweets(newTweets: [Twitter.Tweet]) {
+//        self.tweets.insert(newTweets, at: 0)
+//        self.tableView.insertSections([0], with: UITableViewRowAnimation.fade)
+//    }
     
     
     // MARK: - ViewController lifecycle
@@ -131,18 +130,18 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // if there are no tweets, show the last search text used 
-//        if tweets.count == 0 {
-//            if searchText == nil, let searchLast = RecentSearches.searches.first {
-//                searchText = searchLast
-//            } else {
-//                searchTextField?.text = searchText
-//                searchTextField?.resignFirstResponder()
-//            }
-//        }
-        // old hardcoded
-        if searchText == nil {
-            searchText = "#sunset"
+        if tweets.count == 0 {
+            if searchText == nil, let searchLast = RecentSearches.searches.first {
+                searchText = searchLast
+            } else {
+                searchTextField?.text = searchText
+                searchTextField?.resignFirstResponder()
+            }
         }
+        // old hardcoded
+//        if searchText == nil {
+//            searchText = "#sunset"
+//        }
         // tableview row height
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension

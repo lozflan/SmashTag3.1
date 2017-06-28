@@ -112,8 +112,8 @@
 		2491AFEE1EF352EB0092D04F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2491AFEC1EF352B10092D04F /* ImagesCollectionViewController.swift */,
 				24AC1A4B1EB1580D005252C0 /* TweetTableViewController.swift */,
+				2491AFEC1EF352B10092D04F /* ImagesCollectionViewController.swift */,
 				2405E7C01EB7DFC70086873E /* SmashTweetTableViewController.swift */,
 				240275EA1EBA804E00004204 /* SmashTweetersTableViewController.swift */,
 				248FD2361EC13B4300A918FC /* MentionsTableViewController.swift */,

@@ -26,11 +26,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     
     private var tweets = [Array<Twitter.Tweet>]()
     
-    // public часть нашей Model
-    // когда она устанавливается
-    // мы должны переустановить наш массив tweets
-    // отразив результаты выборки подходящих твитов Tweets
-    
+    // model search string set from search text field
     var searchText: String? {
         didSet {
             searchTextField?.text = searchText
@@ -45,8 +41,8 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
             }
         }
     }
-    // public часть нашей Model
-    // для установки твитов извне
+    // public model to pass a single tweet within an array from ImagesCVC
+    // so it can be added to tweets array of arrays at index 0
     var newTweets = Array<Twitter.Tweet> () {
         didSet {
             tweets.insert(newTweets, at:0)
@@ -56,10 +52,10 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     
     
     
-    // MARK: Updating the Table
+    // MARK: - Model helper funcs
     
-    // just creates a Twitter.Request
-    // that finds tweets that match our searchText
+    // create a valid twitter request
+    // fetching tweets matching our searchText
     private func twitterRequest() -> Twitter.Request? {
         if let query = searchText, !query.isEmpty {
             return Twitter.Request(search: "\(query) -filter:safe -filter:retweets", count: 100)
@@ -101,17 +97,19 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         searchForTweets()
     }
     
-    // MARK: View Controller Lifecycle
+    // refactored code in searchForTweets to make more subclassable for coredata functionality
+//    func insertTweets(newTweets: [Twitter.Tweet]) {
+//        self.tweets.insert(newTweets, at: 0)
+//        self.tableView.insertSections([0], with: UITableViewRowAnimation.fade)
+//    }
+    
+    
+    // MARK: - ViewController lifecycle
+    // Wednesday, 28 June 2017 going thru code to tidy up and work out why tableview error when inserting newTweets section.
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // мы используем высоту строки на storyboard как "оценочную"
-        tableView.estimatedRowHeight = tableView.rowHeight
-        // но реальная высота определяется autolayout
-        tableView.rowHeight = UITableViewAutomaticDimension
-        // альтернативно высота строки могла быть установлена
-        // с использованием метода heightForRowAt делегата
-        
+        // if there are no tweets, show the last search text used
         if tweets.count == 0 {
             if searchText == nil, let searchLast = RecentSearches.searches.first {
                 searchText = searchLast
@@ -120,6 +118,13 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
                 searchTextField?.resignFirstResponder()
             }
         }
+        // old hardcoded
+        //        if searchText == nil {
+        //            searchText = "#sunset"
+        //        }
+        // tableview row height
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -190,7 +195,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         // the textLabel and detailTextLabel are for non-Custom cells
         //        cell.textLabel?.text = tweet.text
         //        cell.detailTextLabel?.text = tweet.user.name
-        
         // our outlets to our custom UI
         // are connected to this custom UITableViewCell-subclassed cell
         // so we need to tell it which tweet is shown in its row
@@ -217,7 +221,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         
     }
     
-    // MARK: - Navitation
+    // MARK: - Navigation 
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {

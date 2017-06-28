@@ -74,7 +74,8 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     // fetching tweets matching our searchText
     private func twitterRequest() -> Twitter.Request? {
         if let query = searchText, !query.isEmpty {
-            return Twitter.Request(search: "\(query) -filter:safe -filter:retweets", count: 100)
+            return Twitter.Request(search: "\(query)", count: 20)
+//            return Twitter.Request(search: "\(query) -filter:safe -filter:retweets", count: 20)
         }
         return nil
     }
@@ -128,18 +129,18 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // if there are no tweets, show the last search text used 
-        if tweets.count == 0 {
-            if searchText == nil, let searchLast = RecentSearches.searches.first {
-                searchText = searchLast
-            } else {
-                searchTextField?.text = searchText
-                searchTextField?.resignFirstResponder()
-            }
-        }
-        // old hardcoded
-//        if searchText == nil {
-//            searchText = "#sunset"
+//        if tweets.count == 0 {
+//            if searchText == nil, let searchLast = RecentSearches.searches.first {
+//                searchText = searchLast
+//            } else {
+//                searchTextField?.text = searchText
+//                searchTextField?.resignFirstResponder()
+//            }
 //        }
+        // old hardcoded
+        if searchText == nil {
+            searchText = "#sunset"
+        }
         // tableview row height
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension

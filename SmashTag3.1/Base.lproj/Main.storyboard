@@ -28,7 +28,7 @@
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="twitter" returnKeyType="search"/>
                         </textField>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Tweet Cell" rowHeight="100" id="yXm-qM-Ii0" customClass="TweetTableViewCell" customModule="SmashTag3_1" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Tweet" rowHeight="100" id="yXm-qM-Ii0" customClass="TweetTableViewCell" customModule="SmashTag3_1" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="58" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yXm-qM-Ii0" id="8mv-zi-wzR">
@@ -106,7 +106,7 @@
                             </barButtonItem>
                             <barButtonItem systemItem="camera" id="jyc-gr-r8K">
                                 <connections>
-                                    <segue destination="Vcw-4N-LhC" kind="show" identifier="Show All Images" id="tFC-xd-2o2"/>
+                                    <segue destination="Vcw-4N-LhC" kind="show" identifier="Show Images" id="tFC-xd-2o2"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>

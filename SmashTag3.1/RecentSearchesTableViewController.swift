@@ -73,8 +73,7 @@ class RecentSearchesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            RecentSearches.remove(index: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
+            RecentSearches.removeAtIndex(indexPath.row)
         }    
     }
 

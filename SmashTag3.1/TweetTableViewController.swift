@@ -1,79 +1,65 @@
-// 
+//
 //  TweetTableViewController.swift
-//  SmashTag3.1
-// 
-//  Created by Lawrence Flancbaum on 27/4/17.
-//  Copyright © 2017 Cloudmass. All rights reserved.
-// 
+//  Smashtag
+//
+//  Created by CS193p Instructor on 2/8/17.
+//  Copyright © 2017 Stanford University. All rights reserved.
+//
 
 import UIKit
 import Twitter
 
+// this entire project will not work
+// unless you make a Workspace that includes
+// both this application
+// and the Twitter project
+// and you drag the Product of the Twitter framework build
+// into the Embedded Binaries section
+// of the Project Settings of this application
 
-class TweetTableViewController: UITableViewController, UITextFieldDelegate {
-
-    // outlets and related functionality
-    @IBOutlet weak var searchTextField: UITextField! {
-        didSet {
-            // set delegate when iboutlet set up
-            searchTextField.delegate = self
-            // reset searchTextField text if set before outlets set.
-            searchTextField.text = searchText
-        }
-    }
+class TweetTableViewController: UITableViewController, UITextFieldDelegate
+{
+    // MARK: Model
+    // part нашей Model
+    // each sub-Array of Tweets is another "pull" from Twitter
+    // and corresponds to a section in our table
     
-    // uitextfielddelegate method
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // check if this message is coming from the searchTextField
-        if textField == searchTextField {
-                self.title = textField.text
-                searchText = textField.text
-        }
-        return true
-    }
-    
-    
-    // MARK: - Model
-    // an array of array of tweets 
-    // suited for tableviewController
     private var tweets = [Array<Twitter.Tweet>]()
-//    private var tweets: [[Twitter.Tweet]] = [[]]
     
-    // public model to pass a single tweet within an array from ImagesCVC
-    // so it can be added to tweets array of arrays at index 0
-    var newTweets: [Twitter.Tweet] = [] {
-        didSet {
-            tweets.insert(newTweets, at: 0)
-            tableView.insertSections([0], with: .fade)
-        }
-    }
+    // public часть нашей Model
+    // когда она устанавливается
+    // мы должны переустановить наш массив tweets
+    // отразив результаты выборки подходящих твитов Tweets
     
-    // model search string set from search text field
     var searchText: String? {
         didSet {
             searchTextField?.text = searchText
             searchTextField?.resignFirstResponder()
-            lastTwitterRequest = nil // reset to nil for refresh control 
-            // reeset tweets array
+            lastTwitterRequest = nil                // REFRESHING
             tweets.removeAll()
-            tableView.reloadData() // reload will be light because table now empty.
+            tableView.reloadData()
             searchForTweets()
-            self.title = searchText
-            // save to recent searches
-            if let searchText = searchText {
-                RecentSearches.add(term: searchText) // kt way. struct RecentSearches in separate file
-                // addSearchToStoredSearches() // lf way
+            title = searchText
+            if let term = searchText {
+                RecentSearches.add(term)
             }
+        }
+    }
+    // public часть нашей Model
+    // для установки твитов извне
+    var newTweets = Array<Twitter.Tweet> () {
+        didSet {
+            tweets.insert(newTweets, at:0)
+            tableView.insertSections([0], with: .fade)
         }
     }
     
     
     
+    // MARK: Updating the Table
     
-    // MARK: - Model helper funcs
-    
-    // create a valid twitter request
-    // fetching tweets matching our searchText
+    // just creates a Twitter.Request
+    // that finds tweets that match our searchText
     private func twitterRequest() -> Twitter.Request? {
         if let query = searchText, !query.isEmpty {
             return Twitter.Request(search: "\(query) -filter:safe -filter:retweets", count: 100)
@@ -81,12 +67,11 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         return nil
     }
     
-    // check if request still valid. we track this so that
+    // we track this so that
     // a) we ignore tweets that come back from other than our last request
     // b) when we want to refresh, we only get tweets newer than our last request
     private var lastTwitterRequest: Twitter.Request?
     
-    // main twitter search call
     // takes the searchText part of our Model
     // and fires off a fetch for matching Tweets
     // when they come back (if they're still relevant)
@@ -111,25 +96,22 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    // refresh control. added after refresh lecture
+    // Added after lecture for REFRESHING
     @IBAction func refresh(_ sender: UIRefreshControl) {
-        // call searchForTweets but within that func check if there is a newer search
         searchForTweets()
     }
     
-    // refactored code in searchForTweets to make more subclassable for coredata functionality
-//    func insertTweets(newTweets: [Twitter.Tweet]) {
-//        self.tweets.insert(newTweets, at: 0)
-//        self.tableView.insertSections([0], with: UITableViewRowAnimation.fade)
-//    }
-    
-    
-    // MARK: - ViewController lifecycle
-    // Wednesday, 28 June 2017 going thru code to tidy up and work out why tableview error when inserting newTweets section.
+    // MARK: View Controller Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // if there are no tweets, show the last search text used 
+        // мы используем высоту строки на storyboard как "оценочную"
+        tableView.estimatedRowHeight = tableView.rowHeight
+        // но реальная высота определяется autolayout
+        tableView.rowHeight = UITableViewAutomaticDimension
+        // альтернативно высота строки могла быть установлена
+        // с использованием метода heightForRowAt делегата
+        
         if tweets.count == 0 {
             if searchText == nil, let searchLast = RecentSearches.searches.first {
                 searchText = searchLast
@@ -138,27 +120,14 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
                 searchTextField?.resignFirstResponder()
             }
         }
-        // old hardcoded
-//        if searchText == nil {
-//            searchText = "#sunset"
-//        }
-        // tableview row height
-        tableView.estimatedRowHeight = tableView.rowHeight
-        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
-    
-    
-    // implement pop to rootVC of navcontroller functionality
-    // Tuesday, 13 June 2017 - working thru how KT sets X button to show on tweetsTVC if deep in NC but not if at root.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setPopToRootButton()
     }
     
-    // controls whether or not the pop to root button shows. 
-    // ie tweetTVC is the rootVC but could have gone round roundabout of mentions to get here 
-    // so may or may not need to show
+    //controls whether or not the pop to root button shows. ie tweetTVC is the rootVC but could have gone round roundabout of mentions to get here so may or may not need to show
     func setPopToRootButton() {
         if let controllers = navigationController?.viewControllers, controllers.count >= 2 {
             let toRootButton = UIBarButtonItem(barButtonSystemItem: .stop,
@@ -166,7 +135,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
                                                action: #selector(toRootViewController))
             if let buttons = navigationItem.rightBarButtonItems{
                 let con = buttons.flatMap{$0.action}.contains( #selector(toRootViewController))
-                if !con { // dont think this ever fails ie con is always false so line above pointless?
+                if !con {
                     let rightBarButtons = [toRootButton] + buttons
                     navigationItem.setRightBarButtonItems(rightBarButtons, animated: true)
                 }
@@ -175,182 +144,94 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
                 navigationItem.setRightBarButtonItems(rightBarButtons, animated: true)
             }
         }
-        
-        
     }
     
     func toRootViewController() {
         _ = navigationController?.popToRootViewController(animated: true)
     }
     
+    // MARK: Search Text Field
     
-    
-    deinit {
-    
+    // set ourself to be the UITextFieldDelegate
+    // so that we can get textFieldShouldReturn sent to us
+    @IBOutlet weak var searchTextField: UITextField! {
+        didSet {
+            searchTextField.delegate = self
+        }
     }
     
+    // when the return (i.e. Search) button is pressed in the keyboard
+    // we go off to search for the text in the searchTextField
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == searchTextField {
+            searchText = searchTextField.text
+        }
+        return true
+    }
     
-    // MARK: - Table view data source
-
+    // MARK: - UITableViewDataSource
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return tweets.count
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return tweets[section].count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Tweet Cell", for: indexPath)
-
-        // Configure the cell...
-        let tweet = tweets[indexPath.section][indexPath.row]
-//        cell.textLabel?.text = tweet.text
-//        cell.detailTextLabel?.text = tweet.user.name
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Tweet", for: indexPath)
         
-        // Friday, 28 April 2017 rather than cast cell above to TweetTableViewCell, 
-        // do conditionally here to set the subclass's tweet var
-        // that allows cell to be returned below as non-optional
+        // get the tweet that is associated with this row
+        // that the table view is asking us to provide a UITableViewCell for
+        let tweet: Twitter.Tweet = tweets[indexPath.section][indexPath.row]
+        
+        // Configure the cell...
+        // the textLabel and detailTextLabel are for non-Custom cells
+        //        cell.textLabel?.text = tweet.text
+        //        cell.detailTextLabel?.text = tweet.user.name
+        
+        // our outlets to our custom UI
+        // are connected to this custom UITableViewCell-subclassed cell
+        // so we need to tell it which tweet is shown in its row
+        // and it can load up its UI through its outlets
         if let tweetCell = cell as? TweetTableViewCell {
             tweetCell.tweet = tweet
         }
+        
         return cell
     }
     
+    // Added after lecture for REFRESHING
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "\(tweets.count)"
+        // make it a little clearer when each pull from Twitter
+        // occurs in the table by setting section header titles
+        return "\(tweets.count-section)"
     }
     
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        code
-//    }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+    // MARK: Constants
     
-
+    private struct Storyboard {
+        static let MentionsIdentifier = "Show Mentions"
+        static let ImagesIdentifier = "Show Images"
+        
+    }
     
-    
-    // MARK: - Navigation
+    // MARK: - Navitation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
-            switch identifier {
-            case "Show All Images":
-                if let destVC = segue.destination as? ImagesCollectionViewController {
-                    // pass the [[tweets]] array of arrays to the collectionView
-                    destVC.tweets = tweets
-                    
+            if identifier == Storyboard.MentionsIdentifier,
+                let mtvc = segue.destination as? MentionsTableViewController,
+                let tweetCell = sender as? TweetTableViewCell {
+                mtvc.tweet = tweetCell.tweet
+                
+            } else if identifier == Storyboard.ImagesIdentifier {
+                if let icvc = segue.destination as? ImagesCollectionViewController {
+                    icvc.tweets = tweets
+                    icvc.title = "Images: \(searchText!)"
                 }
-            case "Show Mentions":
-                if let cell = sender as? UITableViewCell {
-                    let mentionsTVC = segue.destination as? MentionsTableViewController
-                    if let indexPath = tableView.indexPath(for: cell) {
-                        mentionsTVC?.tweet = tweets[indexPath.section][indexPath.row]
-                    }
-                }
-            default:
-                break
             }
         }
     }
-
-
-    
-    
-    
 }
-
-
-
-extension UINavigationController {
-    open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .all
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// MARK: - Task8. save last 100 search terms persistently
-//    let defaults = UserDefaults.standard
-//
-//    // if stored searches exists in userdefaults, retrieve it ow create new
-//    var udRecentSearches: [String] {
-//        get {
-//            if let defaultsSearches = defaults.value(forKey: "RecentSearches") as? [String] {
-//                return defaultsSearches
-//            }
-//            else {
-//                return []
-//            }
-//        }
-//    }
-//
-//    var storedSearches: [String] = []
-//
-//
-//    // called from searchText didSet
-//    func addSearchToStoredSearches() {
-//        if let searchText = searchText {
-//            if udRecentSearches.count > 0 {
-//                storedSearches = udRecentSearches
-//            }
-//            if !storedSearches.contains(searchText) {
-//                storedSearches.insert(searchText, at: 0)
-//                if storedSearches.count > 100 {
-//                    storedSearches.remove(at: 99)
-//                }
-//            }
-//        print(storedSearches)
-//        defaults.set(storedSearches, forKey: "RecentSearches")
-//        print( "defaults are  \(defaults.value(forKey: "RecentSearches") as? [String] ?? ["oops"]) "  )
-//        }
-//    }

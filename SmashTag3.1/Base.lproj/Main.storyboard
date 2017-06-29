@@ -25,7 +25,7 @@
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <nil key="textColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="twitter" returnKeyType="search"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="twitter" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
                         </textField>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Tweet" rowHeight="100" id="yXm-qM-Ii0" customClass="TweetTableViewCell" customModule="SmashTag3_1" customModuleProvider="target">
@@ -124,7 +124,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8SH-YY-FBz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="937" y="-352"/>
+            <point key="canvasLocation" x="836" y="-379"/>
         </scene>
         <!--Mentions-->
         <scene sceneID="59U-Ot-heZ">
@@ -198,7 +198,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u33-X8-DOz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1886" y="-551"/>
+            <point key="canvasLocation" x="1838" y="-921"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="rh9-fa-OAK">
@@ -284,7 +284,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w6o-GP-Uex" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1886" y="-1217"/>
+            <point key="canvasLocation" x="1838" y="-1630"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Yo6-DF-7pU">
@@ -369,7 +369,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vv2-Hr-0fD">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vv2-Hr-0fD">
                                             <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                         </imageView>
                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="BPL-8q-3Ct">
@@ -407,7 +407,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mwq-N9-7DA" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <pinchGestureRecognizer id="BjV-CQ-gBS"/>
             </objects>
-            <point key="canvasLocation" x="1918" y="206"/>
+            <point key="canvasLocation" x="2108" y="-201"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="hB2-4O-m1T">

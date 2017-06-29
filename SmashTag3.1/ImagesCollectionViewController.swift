@@ -11,6 +11,8 @@ import Twitter
 private let reuseIdentifier = "Cell" // system required
 
 
+// MARK: - STRUCT
+
 // custom local struct containing the tweet, the media item (see twitter framework), and custom description
 struct TweetMedia: CustomStringConvertible {
     var tweet: Twitter.Tweet
@@ -20,6 +22,8 @@ struct TweetMedia: CustomStringConvertible {
     }
 }
 
+
+// MARK: - CACHE CLASS
 
 // define the photo cache here. init one in the ImageCVC class, pass it to the ImageCVCell in cellForRowAt, set and or read it in the ImageCVCell class.
 class Cache: NSCache<NSURL, NSData> {
@@ -38,6 +42,7 @@ class Cache: NSCache<NSURL, NSData> {
 }
 
 
+// MARK: - IMAGESCVC CLASS
 
 class ImagesCollectionViewController: UICollectionViewController {
     
@@ -46,7 +51,6 @@ class ImagesCollectionViewController: UICollectionViewController {
     
     // cache
     var cache = Cache()
-    
     
     var tweets: [[Twitter.Tweet]] = [] {
         didSet {
@@ -62,7 +66,6 @@ class ImagesCollectionViewController: UICollectionViewController {
             
             
             // good breakdown explanation of images flatMap closure above
-            
 //            var images2 = tweets.flatMap{ $0 } // flat [Tweet] array
 //            var medItemArray = images2.map { (tweet) in // now have [[MediaItem]]
 //                tweet.media
@@ -104,10 +107,6 @@ class ImagesCollectionViewController: UICollectionViewController {
         }
     }
     
-
-    
-    
-    
     
     // MARK: - Lifecycle
 
@@ -120,7 +119,9 @@ class ImagesCollectionViewController: UICollectionViewController {
         // Register cell classes
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
-        // Do any additional setup after loading the view.
+        // set installsStandardGestureForInteractiveMovement. 
+        // default is true so dont need this line but making explict allows to set to false too
+        installsStandardGestureForInteractiveMovement = true
     }
     
     
@@ -189,6 +190,22 @@ class ImagesCollectionViewController: UICollectionViewController {
     }
     
     
+    // override canMoveItemAt for re ordering cells
+    
+    override func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    // Thursday, 29 June 2017 
+    // override moveItemAt for re ordering cells and adjust datasource
+    
+    override func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        let tempItem = images[destinationIndexPath.row]
+        images[destinationIndexPath.row] = images[sourceIndexPath.row]
+        images[sourceIndexPath.row] = tempItem
+    }
+    
+    
     
     
     // MARK: - Flowlayout 
@@ -220,6 +237,18 @@ class ImagesCollectionViewController: UICollectionViewController {
 //        // set the collview's layout to the custom version 
 //        collectionView?.collectionViewLayout = layoutFlow
 //    }
+    
+    
+    
+    // MARK: - RW Enlarge selected image 
+    // https://www.raywenderlich.com/136161/uicollectionview-tutorial-reusable-views-selection-reordering
+    
+    //var to track indexPath of selected cell 
+    var largePhotoIndexPath: NSIndexPath? {
+        didSet {
+            <#code#>
+        }
+    }
     
     
     

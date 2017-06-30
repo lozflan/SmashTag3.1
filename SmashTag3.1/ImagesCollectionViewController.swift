@@ -47,7 +47,7 @@ class Cache: NSCache<NSURL, NSData> {
 class ImagesCollectionViewController: UICollectionViewController {
     
     // our main model containing an array of TweetMedia struct
-    private var images = [TweetMedia]()
+    fileprivate var images = [TweetMedia]()
     
     // cache
     var cache = Cache()
@@ -240,15 +240,47 @@ class ImagesCollectionViewController: UICollectionViewController {
     
     
     
-    // MARK: - RW Enlarge selected image 
+    // MARK: - RW ENLARGE SELECTED IMAGE
     // https://www.raywenderlich.com/136161/uicollectionview-tutorial-reusable-views-selection-reordering
     
     //var to track indexPath of selected cell 
-    var largePhotoIndexPath: NSIndexPath? {
+    var largePhotoIndexPath: IndexPath? {
         didSet {
-            <#code#>
+            var indexPaths:[IndexPath] = []
+            // if cell is selected add it to indexpath array
+            if let largePhotoIndexPath = largePhotoIndexPath {
+                indexPaths.append(largePhotoIndexPath)
+            }
+            // if an old cell was previously selected, add this to the indexpath array too
+            if let oldValue = oldValue {
+                indexPaths.append(oldValue)
+            }
+            //relayout the collection view 
+            if let largePhotoIndexPath = largePhotoIndexPath {
+                collectionView?.performBatchUpdates({
+                    self.collectionView?.reloadItems(at: indexPaths)
+                }, completion: { (true) in
+                    self.collectionView?.scrollToItem(at: largePhotoIndexPath, at: UICollectionViewScrollPosition.centeredVertically, animated: true)
+                })
+            }
         }
     }
+    
+    // disable normal collection view cell selection via delegate method 
+    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        
+        // toggle the largePhotoIndexPath if tapped item is already the largePhotoIndexPath or not
+//        largePhotoIndexPath = largePhotoIndexPath == indexPath ? nil : indexPath
+        // if you want to toggle enlarging and reducing photo, need to trigger largePhotoIndexPath didSetEach time rather than toggle
+        largePhotoIndexPath = indexPath //tr
+        
+        
+        return false
+    }
+    
+    // resize the  large image using flow delegate method sizeForItemAt below ... 
+    
+    
     
     
     
@@ -280,8 +312,22 @@ extension ImagesCollectionViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let usableWidth = collectionView.frame.size.width - (FlowLayout.minInterItemSpacing * (FlowLayout.columnCount - 1)) - FlowLayout.minSectionInset.left - FlowLayout.minSectionInset.right
-        let imageWidth = (usableWidth / FlowLayout.columnCount) * scale
-        return CGSize(width: imageWidth, height: imageWidth)
+        let thumbImageWidth = (usableWidth / FlowLayout.columnCount) * scale
+        if largePhotoIndexPath == indexPath {
+            //if cell currently thumbnail siz, enlarge, otherwise reduce. 
+            let currCell = collectionView.cellForItem(at: indexPath)
+            if currCell?.frame.size == CGSize(width: thumbImageWidth, height: thumbImageWidth) {
+                let ratio = images[indexPath.row].media.aspectRatio
+                let width = collectionView.bounds.size.width
+                let height = width * CGFloat(ratio)
+                return CGSize(width: thumbImageWidth * 2, height: thumbImageWidth * 2)
+//                return CGSize(width: width, height: height)
+            } else {
+                return CGSize(width: thumbImageWidth, height: thumbImageWidth)
+            }
+        } else {
+            return CGSize(width: thumbImageWidth, height: thumbImageWidth)
+        }
     }
 
     /*

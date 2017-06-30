@@ -91,6 +91,7 @@
 		246601A31EB7D84C001038CE /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				248EEAAD1ECCF67B009D2485 /* Cells */,
 				2466019F1EB7D826001038CE /* Tweet.swift */,
 				246601A11EB7D83C001038CE /* TwitterUser.swift */,
 				240275EC1EBA93F800004204 /* FetchedResultsTableViewController.swift */,
@@ -157,7 +158,6 @@
 				24AC1A441EB1574A005252C0 /* Info.plist */,
 				2491AFEF1EF3531B0092D04F /* Models */,
 				2491AFEE1EF352EB0092D04F /* Controllers */,
-				248EEAAD1ECCF67B009D2485 /* Cells */,
 				246601A31EB7D84C001038CE /* CoreData */,
 				24AC1A4A1EB1576F005252C0 /* Supporting Files */,
 				24F8EFED1ECB9EBF00F8AEF3 /* MyPlayground.playground */,

@@ -13,6 +13,8 @@
 		241C54DF1EE62B6C00FE0726 /* RecentSearchesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241C54DE1EE62B6C00FE0726 /* RecentSearchesTableViewController.swift */; };
 		242865141EE8B60600D83F0D /* RecentSearches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242865131EE8B60600D83F0D /* RecentSearches.swift */; };
 		244D073A1EB2999900A228E9 /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244D07391EB2999900A228E9 /* TweetTableViewCell.swift */; };
+		24564CEA1F1C19AC00CAEFD2 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24AC1A4D1EB16067005252C0 /* Twitter.framework */; };
+		24564CEB1F1C19AC00CAEFD2 /* Twitter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 24AC1A4D1EB16067005252C0 /* Twitter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		246494131EB6B5DE000A0816 /* SmashTag3.1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 246494111EB6B5DE000A0816 /* SmashTag3.1.xcdatamodeld */; };
 		246601A01EB7D826001038CE /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2466019F1EB7D826001038CE /* Tweet.swift */; };
 		246601A21EB7D83C001038CE /* TwitterUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246601A11EB7D83C001038CE /* TwitterUser.swift */; };
@@ -27,20 +29,18 @@
 		24AC1A401EB1574A005252C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24AC1A3F1EB1574A005252C0 /* Assets.xcassets */; };
 		24AC1A431EB1574A005252C0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24AC1A411EB1574A005252C0 /* LaunchScreen.storyboard */; };
 		24AC1A4C1EB1580D005252C0 /* TweetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC1A4B1EB1580D005252C0 /* TweetTableViewController.swift */; };
-		24AC1A4E1EB16067005252C0 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24AC1A4D1EB16067005252C0 /* Twitter.framework */; };
-		24AC1A4F1EB16067005252C0 /* Twitter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 24AC1A4D1EB16067005252C0 /* Twitter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		24ED7D381EBBE70500F2E919 /* UITableViewDataSource+NSFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ED7D371EBBE70500F2E919 /* UITableViewDataSource+NSFetchedResultsController.swift */; };
 		24FE95A21EDE365500EB6A6A /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FE95A11EDE365500EB6A6A /* ImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		24AC1A501EB16067005252C0 /* Embed Frameworks */ = {
+		24564CEC1F1C19AD00CAEFD2 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				24AC1A4F1EB16067005252C0 /* Twitter.framework in Embed Frameworks */,
+				24564CEB1F1C19AC00CAEFD2 /* Twitter.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -81,7 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24AC1A4E1EB16067005252C0 /* Twitter.framework in Frameworks */,
+				24564CEA1F1C19AC00CAEFD2 /* Twitter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +91,6 @@
 		246601A31EB7D84C001038CE /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				248EEAAD1ECCF67B009D2485 /* Cells */,
 				2466019F1EB7D826001038CE /* Tweet.swift */,
 				246601A11EB7D83C001038CE /* TwitterUser.swift */,
 				240275EC1EBA93F800004204 /* FetchedResultsTableViewController.swift */,
@@ -158,6 +157,7 @@
 				24AC1A441EB1574A005252C0 /* Info.plist */,
 				2491AFEF1EF3531B0092D04F /* Models */,
 				2491AFEE1EF352EB0092D04F /* Controllers */,
+				248EEAAD1ECCF67B009D2485 /* Cells */,
 				246601A31EB7D84C001038CE /* CoreData */,
 				24AC1A4A1EB1576F005252C0 /* Supporting Files */,
 				24F8EFED1ECB9EBF00F8AEF3 /* MyPlayground.playground */,
@@ -186,7 +186,7 @@
 				24AC1A311EB1574A005252C0 /* Sources */,
 				24AC1A321EB1574A005252C0 /* Frameworks */,
 				24AC1A331EB1574A005252C0 /* Resources */,
-				24AC1A501EB16067005252C0 /* Embed Frameworks */,
+				24564CEC1F1C19AD00CAEFD2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

@@ -24,7 +24,8 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     // each sub-Array of Tweets is another "pull" from Twitter
     // and corresponds to a section in our table
     
-    private var tweets = [Array<Twitter.Tweet>]()
+    private var tweets: [[Twitter.Tweet]] = []
+//    private var tweets = [Array<Twitter.Tweet>]()
     
     // model search string set from search text field
     var searchText: String? {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageViewController: UIViewController, UIScrollViewDelegate {
+class ImageViewController: UIViewController {
 
 
     @IBOutlet weak var spinner: UIActivityIndicatorView!
@@ -165,18 +165,15 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
 
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // /
 
-extension ImageViewController {
-    
+extension ImageViewController : UIScrollViewDelegate {
     // asks scrollview delegate for the view to scale when zooming
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
-    
     // delegate method called just before user zooming starts
     func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
         autoZoomed = false // prevents autozoom occuring after user takes over zoom control
     }
-    
 }
 
 

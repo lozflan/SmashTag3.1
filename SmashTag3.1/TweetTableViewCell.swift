@@ -24,8 +24,9 @@ class TweetTableViewCell: UITableViewCell {
         tweetProfileImageView.image = getProfileImage()
         tweetTextLabel.text = tweet?.text
         // format tweet text
-        let attribText = formatTweetCellText()
-        tweetTextLabel.attributedText = attribText
+        // set the textLabels attributed text var
+        let tweetText = formatTweetCellText()
+        tweetTextLabel.attributedText = tweetText
         tweetCreatedLabel.text = formatCreatedDate()
     }
     
@@ -61,27 +62,29 @@ class TweetTableViewCell: UITableViewCell {
         
     }
     
-    // smashtag mentions project - add colour to user mentions 
-    
+    /// Add colour to differnet types of user mention
+    /// - returns: NSAttributedString: returns string with coloured mentions
     private func formatTweetCellText() -> NSMutableAttributedString {
         let mainString = tweet!.text
         let attributedString = NSMutableAttributedString(string: mainString)
         if let tweet = tweet {
  
-            // lf-my solution
+            // lf-my solution. add the mention colour progressively to the attributedString
             _ = addMentionsColor(attribString: attributedString, mentions: tweet.hashtags, color: MentionColor.hashtag)
             _ = addMentionsColor(attribString: attributedString, mentions: tweet.urls, color: MentionColor.urls)
             _ = addMentionsColor(attribString: attributedString, mentions: tweet.userMentions, color: MentionColor.userMentions)
             
-            // alternative solution using extension on NSAttributedString
-//            attributedString.setMentionsColor(mentions: hashtagMentions, color: MentionColor.hashtag)
-//            attributedString.setMentionsColor(mentions: urlMentions, color: MentionColor.urls)
-//            attributedString.setMentionsColor(mentions: userMentions, color: MentionColor.userMentions)
+            // alternative solution using function declared within extension on NSAttributedString
+//            attributedString.setMentionsColor(mentions: tweet.hashtags, color: MentionColor.hashtag)
+//            attributedString.setMentionsColor(mentions: tweet.urls, color: MentionColor.urls)
+//            attributedString.setMentionsColor(mentions: tweet.userMentions, color: MentionColor.userMentions)
 
         }
         return attributedString
     }
     
+    /// Add colour to a mention. mentions are an array of one type of mention ie [hashtags] or [urls].
+    /// mentions know their range within their containing string
     private func addMentionsColor(attribString: NSMutableAttributedString, mentions: [Mention], color: UIColor) -> NSMutableAttributedString {
         let string = attribString
         for mention in mentions {
@@ -114,7 +117,7 @@ extension NSMutableAttributedString {
     
     func setMentionsColor(mentions: [Mention], color: UIColor ) {
         for mention in mentions {
-            addAttribute(NSForegroundColorAttributeName, value: color, range: mention.nsrange)
+            self.addAttribute(NSForegroundColorAttributeName, value: color, range: mention.nsrange)
         }
     }
 }

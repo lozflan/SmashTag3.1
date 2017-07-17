@@ -20,7 +20,6 @@ import Twitter
 class TweetTableViewController: UITableViewController, UITextFieldDelegate
 {
     // MARK: Model
-    // part нашей Model
     // each sub-Array of Tweets is another "pull" from Twitter
     // and corresponds to a section in our table
     

@@ -20,7 +20,8 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
         
     }
     
-    // mentions are made up of 4 types images, hashtags, users, and urls. internal data structure to hold them perhaps an enum with dif assoc values 
+    /// Create new data structure to hold types
+    /// mentions are made up of 4 types images, hashtags, users, and urls. internal data structure to hold them perhaps an enum with dif assoc values
     enum MentionItem {
         case images(MediaItem)
         case hashtags(String)

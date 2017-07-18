@@ -122,6 +122,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         //        if searchText == nil {
         //            searchText = "#sunset"
         //        }
+        
         // tableview row height
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -202,7 +203,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
         if let tweetCell = cell as? TweetTableViewCell {
             tweetCell.tweet = tweet
         }
-        
         return cell
     }
     

@@ -16,11 +16,11 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
 
     
     private func updateUI() {
-        populateMentions()
+        populateMentionItems()
         
     }
     
-    /// Create new data structure to hold types
+    /// Create new data structure to hold types ... define you custom struct
     /// mentions are made up of 4 types images, hashtags, users, and urls. internal data structure to hold them perhaps an enum with dif assoc values
     enum MentionItem {
         case images(MediaItem)
@@ -32,7 +32,6 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
             switch  self {
             case .images(let mediaItem):
                 return mediaItem.url.absoluteString
-//                return mediaItem.url.absoluteString
             case .hashtags(let hashtag):
                 return hashtag
             case .users(let user):
@@ -67,15 +66,18 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
     }
     
     // Define an array of array of mention items
-    var mentionItems: [[MentionItem]] = [[]]
+    var mentionItems: [[MentionItem]] = []
     
-    // populate the mentions array
-    private func populateMentions() {
+    // populate the mentionsItems array of arrays ...
+    private func populateMentionItems() {
         if let tweet = tweet {
+            // init 4 inner arrays for the mentionItems outer array
             var mediaItems: [MentionItem] = []
             var hashtags: [MentionItem] = []
             var urls: [MentionItem] = []
             var userMentions: [MentionItem] = []
+            
+            // add items to each inner array 
             
             for media in tweet.media {
                 let item = MentionItem.images(media)
@@ -98,7 +100,7 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
             mentionItems.insert(urls, at: 2)
             mentionItems.insert(userMentions, at: 3)
             
-            // now i have an array of arrays of mentionitem but how to extract the assoc value.
+            // now have an array of arrays of mentionitem
             
             
         }
@@ -145,15 +147,17 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         // Sanjib Ahmad method
+        // we know the cells indexPath so reference this against the [[data structure]] and if case .images then we know its an image
         let mention = mentionItems[indexPath.section][indexPath.row]
         switch mention {
         case .images(let media):
+            // its an image, get media assoc value and extract its aspectRatio to calc the required cell height. 
             return view.bounds.width / CGFloat(media.aspectRatio)
         default:
             return UITableViewAutomaticDimension
         }
         
-        // lf method. sanjibs way better because section is hardcoded here.
+        // lf method. sanjibs way of using a swich to check if mention is of case .image better because section is hardcoded in lf way.
 //        if indexPath.section == 0 {
 //            // media items have an aspect ration from the image when tweetTVC originally loaded
 //            let mediaItem = mentionItems[indexPath.section][indexPath.row]

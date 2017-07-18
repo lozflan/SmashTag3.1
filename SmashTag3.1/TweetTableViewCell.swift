@@ -21,24 +21,32 @@ class TweetTableViewCell: UITableViewCell {
     
     private func updateUI() {
         tweetUserLabel.text = tweet?.user.name
-        tweetProfileImageView.image = getProfileImage()
+        setProfileImageView(tweet: tweet)
         tweetTextLabel.text = tweet?.text
-        // format tweet text
-        // set the textLabels attributed text var
+        // format tweet text. set the textLabels attributed text var
         let tweetText = formatTweetCellText()
         tweetTextLabel.attributedText = tweetText
         tweetCreatedLabel.text = formatCreatedDate()
     }
     
-    private func getProfileImage() -> UIImage? {
-        
-        if let url = tweet?.user.profileImageURL {
-            // /FIXME: blocks the main queue
-            if let imageData = try? Data(contentsOf: url) {
-                return UIImage(data: imageData)
+    
+    private func setProfileImageView(tweet: Twitter.Tweet?) {
+        tweetProfileImageView?.image = nil
+        guard let tweet = tweet else {return}
+        if let url = tweet.user.profileImageURL {
+            // blocks the main queue
+            // unable to put spinner in imageview so just take off mainQ as needed for now
+            DispatchQueue.global(qos: .userInitiated).async {
+                if let imageData = try? Data(contentsOf: url) {
+                    DispatchQueue.main.async {
+                        //check fetch still relevant
+                        if tweet.user.profileImageURL == url {
+                            self.tweetProfileImageView.image = UIImage(data: imageData)
+                        }
+                    }
+                }
             }
         }
-        return nil
     }
     
     private func formatCreatedDate() -> String? {

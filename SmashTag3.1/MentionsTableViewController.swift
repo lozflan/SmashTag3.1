@@ -18,6 +18,11 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
     private func updateUI() {
         populateMentionItems()
         
+        // init TK data structure
+//        if let tweet = tweet {
+//            self.mentionSections = initMentionSections(from: tweet)
+//        }
+        
     }
     
     /// Create new data structure to hold types ... define you custom struct
@@ -40,7 +45,6 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
                 return url
             }
         }
-        
         // var type to return a string for section header of the table.
         var type: String {
             switch  self {
@@ -54,7 +58,6 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
                 return "Urls"
             }
         }
-        
         var aspectRatio: Double {
             switch self {
             case .images(let mediaItem):
@@ -101,10 +104,56 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
             mentionItems.insert(userMentions, at: 3)
             
             // now have an array of arrays of mentionitem
-            
-            
         }
     }
+    
+//////////
+    
+    // Replicate KT data structure NOT IN USE. uncomment TK section in updateUI to use.
+
+    private var mentionSections = [MentionSection]()
+    
+    // create a struct to just hold a certain type of mention and an array of those mentions.
+    // make an array of these with images at position[0] etc to get final data structure
+    struct MentionSection {
+        var type: String
+        var mentions: [MentionItemsKT]
+    }
+    
+    // enum to describe each indiv mention ie if mention then case is keyword case and assoc val is a string
+    // if a media item then case is image and assoc val is the url and aspect ration
+    enum MentionItemsKT {
+        case keyword(String) // is a mention so assoc val is string
+        case image(URL, Double) // is a media item so assoc val is url and aspect ratio
+    }
+    
+    private func initMentionSections(from tweet: Twitter.Tweet) -> [MentionSection] {
+        var mentionSections = [MentionSection]()
+        
+        if tweet.media.count > 0 {
+            mentionSections.append(MentionSection(type: "Images", mentions: tweet.media.map( {MentionItemsKT.image($0.url, $0.aspectRatio)  } )))
+        }
+        
+        if tweet.hashtags.count > 0 {
+            mentionSections.append(MentionSection(type: "Hashtags", mentions: tweet.hashtags.map( {MentionItemsKT.keyword($0.description)  } )))
+        }
+        if tweet.urls.count > 0 {
+            mentionSections.append(MentionSection(type: "URLs", mentions: tweet.hashtags.map( {MentionItemsKT.keyword($0.description)  } )))
+        }
+        if tweet.userMentions.count > 0 {
+            mentionSections.append(MentionSection(type: "UserMentions", mentions: tweet.hashtags.map( {MentionItemsKT.keyword($0.description)  } )))
+        }
+    
+        return mentionSections
+    }
+    
+///////////
+    
+    
+    
+    
+    
+    
     
 
     
@@ -134,7 +183,6 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
         return mentionItems.count
     }
     
-    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return mentionItems[section].first?.type
     }
@@ -156,7 +204,7 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
         default:
             return UITableViewAutomaticDimension
         }
-        
+
         // lf method. sanjibs way of using a swich to check if mention is of case .image better because section is hardcoded in lf way.
 //        if indexPath.section == 0 {
 //            // media items have an aspect ration from the image when tweetTVC originally loaded
@@ -169,9 +217,9 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
 //        } else {
 //            return UITableViewAutomaticDimension
 //        }
-    }
-    
 
+ 
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // need to deque up to 2 different types of cell - one for images and one for string mentions
@@ -192,6 +240,37 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
             return cell
         }
     }
+   
+    // alternate implement KT data structure
+    
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        // need to deque up to 2 different types of cell - one for images and one for string mentions
+//        
+//        if mentionSections[indexPath.section].type == "Images" {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "Image Cell", for: indexPath) as! ImageTableViewCell
+//            let mentItemTK = mentionSections[indexPath.section].mentions[indexPath.row]
+//            switch mentItemTK {
+//            case .image(let urlAndAspect):
+//                cell.imageURL = urlAndAspect.0
+//                return cell
+//            default:
+//                break
+//            }
+//            
+//            return cell
+//        } else {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "Mention Cell", for: indexPath)
+//            let mentItemTK = mentionSections[indexPath.section].mentions[indexPath.row]
+//            switch mentItemTK {
+//            case .keyword(let desc):
+//                cell.textLabel?.text = desc
+//                return cell
+//            default:
+//                break
+//            }
+//            return cell
+//        }
+//    }
     
     // control segue to tweetTVC from mention cells by shouldPerformSugue
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {

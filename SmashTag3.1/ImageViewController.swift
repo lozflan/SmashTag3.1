@@ -27,16 +27,20 @@ class ImageViewController: UIViewController {
     
     // add autozoom to fit to base casinni functionality 
     // var to check if zoom has been amended
+    // set to false once autozooming completed.
     fileprivate var autoZoomed = true
     
-    // func to adjust zoom if needed
+    // func to adjust zoom to avoid whitespace ie zooms to size where no whitespace showing on either dimension.
     private func zoomScaleToFit() {
+        // dont run if user manually takes over zooming
         if !autoZoomed {
             return
         }
         if let sv = scrollView, image != nil && (imageView.bounds.size.width > 0) && (sv.bounds.size.width > 0) {
+            // compare the height & wideth of the vc view vs imageView (which is set to the image size)
             let heightRatio = self.view.bounds.size.height / imageView.bounds.size.height
             let widthRatio = self.view.bounds.size.width / imageView.bounds.size.width
+            // set zoomscale to larger of 2 ie if image ht is half view height, htRatio will = 2, so zoom in 2 x on image. 
             sv.zoomScale = (heightRatio > widthRatio) ? heightRatio : widthRatio
             sv.contentOffset = CGPoint(x: (imageView.frame.size.width - sv.frame.size.width)/2,
                                        y: (imageView.frame.size.height - sv.frame.size.height)/2)
@@ -45,11 +49,6 @@ class ImageViewController: UIViewController {
         
         }
     }
-    
-
-    
-    
-    
 
 
     // 1. think about model - in this case image url is the model and this is set from prepareforsegue from cassiniVC. if imageurl gets set want to set existing image to nil and fetch new image. this is a stored var (optional) with a setter observer.

@@ -80,8 +80,7 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
             var urls: [MentionItem] = []
             var userMentions: [MentionItem] = []
             
-            // add items to each inner array 
-            
+            // add items to each inner array
             for media in tweet.media {
                 let item = MentionItem.images(media)
                 mediaItems.append(item)
@@ -98,6 +97,7 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
                 let item = MentionItem.users(userMention.keyword)
                 userMentions.append(item)
             }
+            // add inner arrays to outer array
             mentionItems.insert(mediaItems, at: 0)
             mentionItems.insert(hashtags, at: 1)
             mentionItems.insert(urls, at: 2)
@@ -149,13 +149,6 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
     
 ///////////
     
-    
-    
-    
-    
-    
-    
-
     
     
     // MARK: - Lifecycle functions
@@ -272,6 +265,15 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
 //        }
 //    }
     
+    
+    private struct Storyboard {
+        static let KeywordCell = "Keyword Cell"
+        static let ImageCell = "Image Cell"
+        static let ShowKeywordSegue = "Show Keyword"
+        static let ShowImageSegue = "Show Image"
+        static let WebSegue = "Show URL"
+    }
+    
     // control segue to tweetTVC from mention cells by shouldPerformSugue
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         // check if sender is url cell and if so dont perform From Keyword segue
@@ -281,7 +283,8 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
                 if let indexPath = tableView.indexPath(for: cell) {
                     let mention = mentionItems[indexPath.section][indexPath.row]
                     if case .urls(let url) = mention {
-                        showSafariWebview(url: URL(string: url)!)
+//                        showSafariWebview(url: URL(string: url)!) //better opens full safari within your app
+                        showURL(url: URL(string: url)!) //opens safair outside your app
                         return false
                     }
                 }
@@ -292,19 +295,6 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
         }
     }
     
-
-    
-    private struct Storyboard {
-        static let KeywordCell = "Keyword Cell"
-        static let ImageCell = "Image Cell"
-        static let ShowKeywordSegue = "Show Keyword"
-        static let ImageSegue = "Show Image"
-        static let WebSegue = "Show URL"
-    }
-    
-    
-    
-    
     // func to show url 
     func showURL(url:URL) {
         
@@ -312,14 +302,7 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
         if #available(iOS 10.0, *) {
             UIApplication.shared.open(url)
         }
-        
-//        // TK method. opens safari within your app.
-//        let safariVC = SFSafariViewController(url: url)
-//        present(safariVC, animated: true, completion: nil)
-        
-        
     }
-    
     
     // prepareForSegue either back to TweetTVC if from keyword or to imageVC if from image
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -338,8 +321,9 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
                             default:
                                 break
                             }
+                            //show url handled within shouldPerformSegueWithIdentifier method. 
                         }
-                    case "Show Image":
+                    case Storyboard.ShowImageSegue:
                         if let imageVC = segue.destination as? ImageViewController {
                             if case .images(let mediaItem) = mentionItem {
                                 // Wednesday, 31 May 2017. Passing image url to ImageVC

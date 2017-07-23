@@ -107,6 +107,16 @@ class MentionsTableViewController: UITableViewController, SFSafariViewController
         }
     }
     
+    // pop back to rootVC bar button item
+    @IBAction func toRootViewController(_ sender: UIBarButtonItem) {
+        
+        if let navcon = self.navigationController {
+            navcon.popToRootViewController(animated: true)
+        }
+    }
+    
+    
+    
 //////////
     
     // Replicate KT data structure NOT IN USE. uncomment TK section in updateUI to use.

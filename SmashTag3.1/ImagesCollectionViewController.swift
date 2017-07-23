@@ -61,21 +61,22 @@ class ImagesCollectionViewController: UICollectionViewController {
             
             images = tweets.flatMap({$0}) // flat array of tweets
                 .map{ tweet in // map each tweet to [[MediaItem]]
-                    tweet.media.map { TweetMedia(tweet: tweet, media: $0) }} // map to create a new [[TweetMedia]]
+                    tweet.media.map { TweetMedia(tweet: tweet, media: $0) }} // map to create a new [[TweetMedia]] ie an array of arrays of your custom struct TweetMedia struct
                 .flatMap({$0}) // flatten to [TweetMedia]
             
             
-            // good breakdown explanation of images flatMap closure above
-//            var images2 = tweets.flatMap{ $0 } // flat [Tweet] array
-//            var medItemArray = images2.map { (tweet) in // now have [[MediaItem]]
-//                tweet.media
+            
+            // breakdown explanation of images flatMap closure above
+//            let flatTweetArray = tweets.flatMap{ $0 } // now have flat [Tweet] array
+//            let tweetMediaArray = flatTweetArray.map { (tweet) in //this line actually unused bc next block needs this to be integrated within it to ref back to the tweet param on this line.
+//                tweet.media  // map converts to alt array. now have [[MediaItem]] which is just struct in Twitter framework with url, aspect ration & sesc. end up with array of arrays bc each tweet has an array of mediaItem in it.
 //            }
-//            var createdTweetMedia = images2.map{ (tweet) in // converts [[MediaItem]] to [[TweetMedia]]
+//            let createdTweetMedia = flatTweetArray.map{ (tweet) in // converts [[MediaItem]] to [[TweetMedia]]
 //                tweet.media.map{ (media) in
-//                    TweetMedia(tweet: tweet, media: media)
+//                    TweetMedia(tweet: tweet, media: media) //need to use map twice in this code block as creating custom TweetMedia needs ref back to tweet it is contained in
 //                }}
-//            var flatCreatedTweetMedia = createdTweetMedia.flatMap{ $0 } // converts [[TweetMedia]] to [TweetMedia] ie images var type.
-//            images = flatCreatedTweetMedia
+//            let flatCreatedTweetMedia = createdTweetMedia.flatMap{ $0 } // converts [[TweetMedia]] to [TweetMedia] ie images var type.
+//            let altImages = flatCreatedTweetMedia
 //            print(flatCreatedTweetMedia.first?.tweet.description)
             
         }

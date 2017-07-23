@@ -74,6 +74,8 @@ class RecentSearchesTableViewController: UITableViewController {
         if editingStyle == .delete {
             // Delete the row from the data source
             RecentSearches.removeAtIndex(indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            //            tableView.reloadData() // blunt way
         }    
     }
 

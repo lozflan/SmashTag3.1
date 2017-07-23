@@ -25,6 +25,14 @@ class ImageViewController: UIViewController {
         }
     }
     
+    // pop back to rootVC bar button item
+    @IBAction func toRootViewController(_ sender: UIBarButtonItem) {
+        
+        if let navcon = self.navigationController {
+            navcon.popToRootViewController(animated: true)
+        }
+    }
+    
     // add autozoom to fit to base casinni functionality 
     // var to check if zoom has been amended
     // set to false once autozooming completed.

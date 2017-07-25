@@ -25,11 +25,14 @@ struct TweetMedia: CustomStringConvertible {
 
 // MARK: - CACHE CLASS
 
-// define the photo cache here. init one in the ImageCVC class, pass it to the ImageCVCell in cellForRowAt, set and or read it in the ImageCVCell class.
+// define the photo cache here. init one in the ImageCVC class, pass it to the ImageCVCell in cellForRowAt, set or load it in ImageCVCell
+// create a Cache subclass of NSCache to work with swift URL and Data rather than NSURL and NSData
+// NSCache is a dictionary so this defines as a dic with key NSURL and value of NSData
 class Cache: NSCache<NSURL, NSData> {
+    
     subscript(key: URL) -> Data? { // give cache a url and get back Data?
         get{
-            return self.object(forKey: key as NSURL) as Data?
+            return self.object(forKey: key as NSURL) as Data? //get object at url as nsurl, (which is ndata) as data
         }
         set{
             if let data = newValue {
@@ -40,6 +43,8 @@ class Cache: NSCache<NSURL, NSData> {
         }
     }
 }
+
+
 
 
 // MARK: - IMAGESCVC CLASS
@@ -54,11 +59,11 @@ class ImagesCollectionViewController: UICollectionViewController {
     
     var tweets: [[Twitter.Tweet]] = [] {
         didSet {
+            
             // Monday, 19 June 2017. converting [[tweets]] to flat array.
             // we have an array of arrays of tweet. want to flatten it to get array of tweets.
             // tweets contain an array of media items which themselves are a struct containing vars url, var aspectRatio and description
             // we want to convert them to our custom TweetMedia struct for the purposes of the collectionView
-            
             images = tweets.flatMap({$0}) // flat array of tweets
                 .map{ tweet in // map each tweet to [[MediaItem]]
                     tweet.media.map { TweetMedia(tweet: tweet, media: $0) }} // map to create a new [[TweetMedia]] ie an array of arrays of your custom struct TweetMedia struct
@@ -211,6 +216,8 @@ class ImagesCollectionViewController: UICollectionViewController {
     
     // MARK: - Flowlayout 
     
+    // struct to hold flowlayout constants 
+    //TODO: only customised for iPh7+. need to do for other devices. ie via dictioary to hold vals then switch.
     fileprivate struct FlowLayout {
         static let minimumImageCellWidth: CGFloat = 60.0
         static var columnCount: CGFloat {

@@ -19,6 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="sectionIndexBackgroundColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
                         <textField key="tableHeaderView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="twitter search" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" id="A0h-O2-46h">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -389,6 +390,7 @@
                                     </subviews>
                                 </view>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Vv2-Hr-0fD" secondAttribute="bottom" id="73T-zh-ZWP"/>
                                     <constraint firstItem="BPL-8q-3Ct" firstAttribute="centerY" secondItem="Vv2-Hr-0fD" secondAttribute="centerY" id="C0c-8L-HQv"/>
@@ -463,6 +465,6 @@
         <image name="movie_camera" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="EBc-ko-KWf"/>
+        <segue reference="qjs-HN-MGn"/>
     </inferredMetricsTieBreakers>
 </document>

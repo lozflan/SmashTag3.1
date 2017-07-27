@@ -118,12 +118,12 @@
 			isa = PBXGroup;
 			children = (
 				24AC1A4B1EB1580D005252C0 /* TweetTableViewController.swift */,
-				2491AFEC1EF352B10092D04F /* ImagesCollectionViewController.swift */,
-				2405E7C01EB7DFC70086873E /* SmashTweetTableViewController.swift */,
-				240275EA1EBA804E00004204 /* SmashTweetersTableViewController.swift */,
 				248FD2361EC13B4300A918FC /* MentionsTableViewController.swift */,
+				2491AFEC1EF352B10092D04F /* ImagesCollectionViewController.swift */,
+				240275EA1EBA804E00004204 /* SmashTweetersTableViewController.swift */,
 				241C54DE1EE62B6C00FE0726 /* RecentSearchesTableViewController.swift */,
 				24FE95A11EDE365500EB6A6A /* ImageViewController.swift */,
+				2405E7C01EB7DFC70086873E /* SmashTweetTableViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";

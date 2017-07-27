@@ -94,6 +94,9 @@ class ImagesCollectionViewController: UICollectionViewController {
         }
     }
     
+    
+    // MARK: - Gesture Recognizers
+    
     // configure the gesture recognizer
     @IBOutlet var pinchGestureRecognizer: UIPinchGestureRecognizer! {
         didSet {
@@ -112,6 +115,11 @@ class ImagesCollectionViewController: UICollectionViewController {
             break 
         }
     }
+    
+    
+    // Double tap gesture recognizer
+    
+
     
     
     // MARK: - Lifecycle
@@ -280,7 +288,7 @@ class ImagesCollectionViewController: UICollectionViewController {
         // toggle the largePhotoIndexPath if tapped item is already the largePhotoIndexPath or not
 //        largePhotoIndexPath = largePhotoIndexPath == indexPath ? nil : indexPath
         // if you want to toggle enlarging and reducing photo, need to trigger largePhotoIndexPath didSetEach time rather than toggle
-        largePhotoIndexPath = indexPath //tr
+//        largePhotoIndexPath = indexPath 
         
         
         return false

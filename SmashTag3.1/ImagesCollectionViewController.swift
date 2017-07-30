@@ -105,7 +105,7 @@ class ImagesCollectionViewController: UICollectionViewController {
         }
     }
     
-    func handlePinch(recognizer: UIPinchGestureRecognizer) {
+    @objc private func handlePinch(recognizer: UIPinchGestureRecognizer) {
         print("\(scale)")
         switch recognizer.state {
         case .changed, .ended:
@@ -118,6 +118,30 @@ class ImagesCollectionViewController: UICollectionViewController {
     
     
     // Double tap gesture recognizer
+    @IBOutlet var doubleTapGestureRecognizer: UITapGestureRecognizer! {
+        didSet {
+            doubleTapGestureRecognizer.addTarget(self, action: #selector(ImagesCollectionViewController.handleDoubleTap(recognizer:)))
+        }
+    }
+    
+    
+    @objc private func handleDoubleTap(recognizer: UITapGestureRecognizer) {
+        switch recognizer.state {
+        case .ended:
+            guard let path = collectionView?.indexPathForItem(at: recognizer.location(ofTouch: 0, in: collectionView)) else {return}
+            let cell = collectionView?.cellForItem(at: path)
+            print("double tap detected for cell at \(path)")
+            //resize the cell
+            
+            zoomCellIndexPath = path
+            
+            
+            
+        default:
+            break
+        }
+        
+    }
     
 
     
@@ -260,23 +284,23 @@ class ImagesCollectionViewController: UICollectionViewController {
     // https://www.raywenderlich.com/136161/uicollectionview-tutorial-reusable-views-selection-reordering
     
     //var to track indexPath of selected cell 
-    var largePhotoIndexPath: IndexPath? {
+    var zoomCellIndexPath: IndexPath? {
         didSet {
             var indexPaths:[IndexPath] = []
             // if cell is selected add it to indexpath array
-            if let largePhotoIndexPath = largePhotoIndexPath {
-                indexPaths.append(largePhotoIndexPath)
+            if let zoomCellIndexPath = zoomCellIndexPath {
+                indexPaths.append(zoomCellIndexPath)
             }
             // if an old cell was previously selected, add this to the indexpath array too
             if let oldValue = oldValue {
                 indexPaths.append(oldValue)
             }
             //relayout the collection view 
-            if let largePhotoIndexPath = largePhotoIndexPath {
+            if let zoomCellIndexPath = zoomCellIndexPath {
                 collectionView?.performBatchUpdates({
                     self.collectionView?.reloadItems(at: indexPaths)
                 }, completion: { (true) in
-                    self.collectionView?.scrollToItem(at: largePhotoIndexPath, at: UICollectionViewScrollPosition.centeredVertically, animated: true)
+                    self.collectionView?.scrollToItem(at: zoomCellIndexPath, at: UICollectionViewScrollPosition.centeredVertically, animated: true)
                 })
             }
         }
@@ -285,10 +309,10 @@ class ImagesCollectionViewController: UICollectionViewController {
     // disable normal collection view cell selection via delegate method 
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         
-        // toggle the largePhotoIndexPath if tapped item is already the largePhotoIndexPath or not
-//        largePhotoIndexPath = largePhotoIndexPath == indexPath ? nil : indexPath
-        // if you want to toggle enlarging and reducing photo, need to trigger largePhotoIndexPath didSetEach time rather than toggle
-//        largePhotoIndexPath = indexPath 
+        // toggle the zoomCellIndexPath if tapped item is already the zoomCellIndexPath or not
+//        zoomCellIndexPath = zoomCellIndexPath == indexPath ? nil : indexPath
+        // if you want to toggle enlarging and reducing photo, need to trigger zoomCellIndexPath didSetEach time rather than toggle
+//        zoomCellIndexPath = indexPath 
         
         
         return false
@@ -299,24 +323,12 @@ class ImagesCollectionViewController: UICollectionViewController {
     
     
     
-    
 
     
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+/////////////////
 
 
 
@@ -325,11 +337,13 @@ class ImagesCollectionViewController: UICollectionViewController {
 extension ImagesCollectionViewController: UICollectionViewDelegateFlowLayout {
     
 
-    
+    /// Delegate method called by system controlling cell size
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let usableWidth = collectionView.frame.size.width - (FlowLayout.minInterItemSpacing * (FlowLayout.columnCount - 1)) - FlowLayout.minSectionInset.left - FlowLayout.minSectionInset.right
         let thumbImageWidth = (usableWidth / FlowLayout.columnCount) * scale
-        if largePhotoIndexPath == indexPath {
+        
+        //toggle
+        if zoomCellIndexPath == indexPath {
             //if cell currently thumbnail siz, enlarge, otherwise reduce. 
             let currCell = collectionView.cellForItem(at: indexPath)
             if currCell?.frame.size == CGSize(width: thumbImageWidth, height: thumbImageWidth) {

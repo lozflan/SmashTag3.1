@@ -117,6 +117,7 @@ class ImagesCollectionViewController: UICollectionViewController {
     }
     
     
+    // Segue to new imageVC if double tap to give zoom on image functionality.
     // Double tap gesture recognizer
     @IBOutlet var doubleTapGestureRecognizer: UITapGestureRecognizer! {
         didSet {
@@ -124,23 +125,19 @@ class ImagesCollectionViewController: UICollectionViewController {
         }
     }
     
-    
-    @objc private func handleDoubleTap(recognizer: UITapGestureRecognizer) {
+    /// Handle collection view double tap
+    /// Param: recognizer
+    func handleDoubleTap(recognizer: UITapGestureRecognizer) {
         switch recognizer.state {
         case .ended:
-            guard let path = collectionView?.indexPathForItem(at: recognizer.location(ofTouch: 0, in: collectionView)) else {return}
-            let cell = collectionView?.cellForItem(at: path)
-            print("double tap detected for cell at \(path)")
-            //resize the cell
-            
-            zoomCellIndexPath = path
-            
-            
-            
+            if let path = collectionView?.indexPathForItem(at: recognizer.location(ofTouch: 0, in: self.collectionView)) {
+                let cell = collectionView?.cellForItem(at: path)
+                // manually perform segue to imageVC
+                self.performSegue(withIdentifier: Storyboard.ShowImageSegue, sender: cell)
+            }
         default:
             break
         }
-        
     }
     
 
@@ -178,6 +175,7 @@ class ImagesCollectionViewController: UICollectionViewController {
     
     private struct Storyboard {
         static let ShowTweetSegue = "Show Tweet"
+        static let ShowImageSegue = "Show Image"
     }
     
     
@@ -197,11 +195,23 @@ class ImagesCollectionViewController: UICollectionViewController {
                         }
                     }
                 }
+            case Storyboard.ShowImageSegue:
+                if let destVC = segue.destination as? ImageViewController {
+                    if let cell = sender as? ImageCollectionViewCell {
+                        if let indexPath = collectionView?.indexPath(for: cell) {
+                            let imageURL = images[indexPath.row].media.url
+                            destVC.imageURL = imageURL
+                        }
+                    }
+                }
             default:
                 break
             }
         }
     }
+    
+    
+    
 
     // MARK: UICollectionViewDataSource
 
@@ -248,7 +258,7 @@ class ImagesCollectionViewController: UICollectionViewController {
     
     // MARK: - Flowlayout 
     
-    // struct to hold flowlayout constants 
+    // struct to hold default flowlayout constants
     //TODO: only customised for iPh7+. need to do for other devices. ie via dictioary to hold vals then switch.
     fileprivate struct FlowLayout {
         static let minimumImageCellWidth: CGFloat = 60.0
@@ -338,20 +348,21 @@ extension ImagesCollectionViewController: UICollectionViewDelegateFlowLayout {
     
 
     /// Delegate method called by system controlling cell size
+    /// Used to zoom on cell triggered by chosen gesture recognizer
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let usableWidth = collectionView.frame.size.width - (FlowLayout.minInterItemSpacing * (FlowLayout.columnCount - 1)) - FlowLayout.minSectionInset.left - FlowLayout.minSectionInset.right
         let thumbImageWidth = (usableWidth / FlowLayout.columnCount) * scale
         
-        //toggle
+        //toggle zoom cell if enabled
         if zoomCellIndexPath == indexPath {
             //if cell currently thumbnail siz, enlarge, otherwise reduce. 
             let currCell = collectionView.cellForItem(at: indexPath)
             if currCell?.frame.size == CGSize(width: thumbImageWidth, height: thumbImageWidth) {
                 let ratio = images[indexPath.row].media.aspectRatio
-                let width = collectionView.bounds.size.width
-                let height = width * CGFloat(ratio)
-                return CGSize(width: thumbImageWidth * 2, height: thumbImageWidth * 2)
+//                let width = collectionView.bounds.size.width
+//                let height = width * CGFloat(ratio)
 //                return CGSize(width: width, height: height)
+                return CGSize(width: thumbImageWidth * 2, height: thumbImageWidth * 2)
             } else {
                 return CGSize(width: thumbImageWidth, height: thumbImageWidth)
             }

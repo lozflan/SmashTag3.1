@@ -361,7 +361,7 @@
         <scene sceneID="Xr8-Rq-cz4">
             <objects>
                 <collectionViewController id="Vcw-4N-LhC" customClass="ImagesCollectionViewController" customModule="SmashTag3_1" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="N3r-Lg-bpx">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="N3r-Lg-bpx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -416,6 +416,7 @@
                     <connections>
                         <outlet property="doubleTapGestureRecognizer" destination="ass-fG-P7g" id="ChX-WM-7Nr"/>
                         <outlet property="pinchGestureRecognizer" destination="BjV-CQ-gBS" id="xqf-jj-jkd"/>
+                        <segue destination="Rc0-SN-D5D" kind="show" identifier="Show Image" id="xrV-mt-Is2"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mwq-N9-7DA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -468,6 +469,7 @@
         <image name="movie_camera" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="xrV-mt-Is2"/>
         <segue reference="qjs-HN-MGn"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -225,14 +225,14 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             if identifier == Storyboard.MentionsIdentifier,
-                let mtvc = segue.destination as? MentionsTableViewController,
+                let mentionsTVC = segue.destination as? MentionsTableViewController,
                 let tweetCell = sender as? TweetTableViewCell {
-                mtvc.tweet = tweetCell.tweet
+                mentionsTVC.tweet = tweetCell.tweet
                 
             } else if identifier == Storyboard.ImagesIdentifier {
-                if let icvc = segue.destination as? ImagesCollectionViewController {
-                    icvc.tweets = tweets
-                    icvc.title = "Images: \(searchText!)"
+                if let imagesCVC = segue.destination as? ImagesCollectionViewController {
+                    imagesCVC.tweets = tweets
+                    imagesCVC.title = "Images: \(searchText!)"
                 }
             }
         }

@@ -16,14 +16,7 @@ class SmashTweetTableViewController: TweetTableViewController {
     // class ONLY ADDS Twitter.Tweets to CoreData
     
     // MARK:- model
-    var mention: String? { didSet { updateUI() }}
-    var container: NSPersistentContainer? = AppDelegate.container { didSet { updateUI() }}
-
-    private func updateUI() {
-        // Monday, 7 August 2017 UP TO HERE
-        print("xxx")
-        
-    }
+    var container: NSPersistentContainer? = AppDelegate.container
 
     /// Overrides insertTweets func of non-core data superclass to update coredata with new tweets array
     override func insertTweets(newTweets: [Twitter.Tweet]) {
@@ -68,34 +61,8 @@ class SmashTweetTableViewController: TweetTableViewController {
     
     
     
-    // segue
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if let identifier = segue.identifier {
-            switch identifier {
-            case "Tweeters Mentioning Search Term":
-                if let tweetersTVC = segue.destination as? SmashTweetersTableViewController {
-                    tweetersTVC.mention = searchText
-                    tweetersTVC.container = container
-                }
-//            case "Show Mentions":
-//                if let cell = sender as? UITableViewCell {
-//                    let mentionsTVC = segue.destination as? MentionsTableViewController
-//                    if let indexPath = tableView.indexPath(for: cell) {
-//                        mentionsTVC?.tweet = tweets[indexPath.section][indexPath.row]
-//                    }
-//                }
-            default:
-                break
-            }
-        }
-    }
-    
-    
-    
-    
-
-//    // segue 
+    // override pFS to add new functionality 
+    //TODO: calling super may cause problem with switch breaking out of func before subclass switch gets chance to run??
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        super.prepare(for: segue, sender: sender)
 //        
@@ -106,16 +73,15 @@ class SmashTweetTableViewController: TweetTableViewController {
 //                    tweetersTVC.mention = searchText
 //                    tweetersTVC.container = container
 //                }
+//
 //            default:
 //                break
 //            }
 //        }
-//        
 //    }
     
     
 
-    
     
     
 

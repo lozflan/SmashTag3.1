@@ -13,7 +13,7 @@ import CoreData
 
 class SmashTweetTableViewController: TweetTableViewController {
     
-    // class adds Twitter.Tweets to CoreData
+    // class ONLY ADDS Twitter.Tweets to CoreData
     
     // MARK:- model
     
@@ -47,12 +47,12 @@ class SmashTweetTableViewController: TweetTableViewController {
             context.perform { // good policy to always wrap context code in peform block
                 Thread.isMainThread ? print("On main thread") : print("Off main thread")
                 let request: NSFetchRequest<Tweet> = Tweet.fetchRequest()
-                if let tweetCount = (try? context.fetch(request))?.count{
+                if let tweetCount = (try? context.fetch(request))?.count{ //fetches all tweets then counts
                     print("\(tweetCount) tweets in coredata")
                 }
                 let tweeterRequest: NSFetchRequest<TwitterUser> = TwitterUser.fetchRequest()
-                if let twitterCount = try? context.count(for: tweeterRequest) {
-                    print("\(twitterCount) twitter users in coredata")
+                if let tweeterCount = try? context.count(for: TwitterUser.fetchRequest()) { //used db side count = better than fetch then count above. 
+                    print("\(tweeterCount) twitter users in coredata")
                 }
             }
         }

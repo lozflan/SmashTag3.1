@@ -12,7 +12,8 @@ import CoreData
 
 class SmashTweetersTableViewController: FetchedResultsTableViewController {
 
- 
+    // class ONLY FETCHES tweets from core data
+    
     // model 
     
     var mention: String? { didSet { updateUI() }}
@@ -52,8 +53,6 @@ class SmashTweetersTableViewController: FetchedResultsTableViewController {
         if let twitterUser = fetchedResultsController?.object(at: indexPath) {
             cell.textLabel?.text = twitterUser.name
             let tweetCount = tweetCountWithMentionBy(twitterUser)
-                
-                
             cell.detailTextLabel?.text = "\(tweetCount) tweet" + "\((tweetCount) > 1 ? "s" : "")"
         }
         return cell
@@ -64,16 +63,9 @@ class SmashTweetersTableViewController: FetchedResultsTableViewController {
         let request: NSFetchRequest<Tweet> = Tweet.fetchRequest()
         let predicate = NSPredicate(format: "text contains[c] %@ AND tweeter = %@", mention!, twitterUser)
         request.predicate = predicate
-
+        // use db side count(for: func 
         let count = (try? twitterUser.managedObjectContext!.count(for: request)) ?? 0
         return count
-        
-//            
-//            if let tweets = try? context.fetch(request) {
-//                return tweets.count
-//            } else {
-//                return 0
-//            }
     }
  
 

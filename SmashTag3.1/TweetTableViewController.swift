@@ -81,14 +81,13 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
             request.fetchTweets { [weak self] newTweets in      // this is off the main queue
                 DispatchQueue.main.async {                      // so we must dispatch back to main queue
                     if request == self?.lastTwitterRequest {
-                        self?.tweets.insert(newTweets, at:0)
-                        self?.tableView.insertSections([0], with: .fade)
+                        self?.insertTweets(newTweets: newTweets) //refactored to subclassable func 
                     }
-                    self?.refreshControl?.endRefreshing()   // REFRESHING
+                    self?.refreshControl?.endRefreshing()
                 }
             }
         } else {
-            self.refreshControl?.endRefreshing()            // REFRESHING
+            self.refreshControl?.endRefreshing()
         }
     }
     
@@ -98,10 +97,10 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate
     }
     
     // refactored code in searchForTweets to make more subclassable for coredata functionality
-//    func insertTweets(newTweets: [Twitter.Tweet]) {
-//        self.tweets.insert(newTweets, at: 0)
-//        self.tableView.insertSections([0], with: UITableViewRowAnimation.fade)
-//    }
+    func insertTweets(newTweets: [Twitter.Tweet]) {
+        self.tweets.insert(newTweets, at: 0)
+        self.tableView.insertSections([0], with: UITableViewRowAnimation.fade)
+    }
     
     
     // MARK: - ViewController lifecycle

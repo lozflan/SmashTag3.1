@@ -16,14 +16,20 @@ class SmashTweetTableViewController: TweetTableViewController {
     // class ONLY ADDS Twitter.Tweets to CoreData
     
     // MARK:- model
-    
-    var container: NSPersistentContainer? = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer
-    
+    var mention: String? { didSet { updateUI() }}
+    var container: NSPersistentContainer? = AppDelegate.container { didSet { updateUI() }}
 
-//    override func insertTweets(_ newTweets: [Twitter.Tweet]) {
-//        super.insertTweets(newTweets)
-//        updateDatabase(with: newTweets)
-//    }
+    private func updateUI() {
+        // Monday, 7 August 2017 UP TO HERE
+        print("xxx")
+        
+    }
+
+    /// Overrides insertTweets func of non-core data superclass to update coredata with new tweets array
+    override func insertTweets(newTweets: [Twitter.Tweet]) {
+        super.insertTweets(newTweets: newTweets)
+        updateDatabase(with: newTweets)
+    }
 
     private func updateDatabase(with newTweets: [Twitter.Tweet]) {
         // update db off the mainQ. hands you an off-Q context
@@ -41,7 +47,7 @@ class SmashTweetTableViewController: TweetTableViewController {
     }
     
     
-    // called from background queue above 
+    // called from background queue above. Must do work on mainQ bc using viewContext
     private func printDatabaseStatistics() {
         if let context = container?.viewContext { // referencing viewcontext so need to ensure this runs on correct queue 
             context.perform { // good policy to always wrap context code in peform block

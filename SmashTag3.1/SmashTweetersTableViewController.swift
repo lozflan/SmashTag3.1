@@ -63,7 +63,7 @@ class SmashTweetersTableViewController: FetchedResultsTableViewController {
         let request: NSFetchRequest<Tweet> = Tweet.fetchRequest()
         let predicate = NSPredicate(format: "text contains[c] %@ AND tweeter = %@", mention!, twitterUser)
         request.predicate = predicate
-        // use db side count(for: func 
+        // use db side count(for: func
         let count = (try? twitterUser.managedObjectContext!.count(for: request)) ?? 0
         return count
     }

@@ -26,9 +26,7 @@ class RecentSearchesTableViewController: UITableViewController {
 
     
     // Wednesday, 7 June 2017 
-    // searchTerms now being saved in TweetTVC to userdefaults and retrieved here. look at how to order and unique them properly.
-    
-    
+    // searchTerms now being saved in TweetTVC to userdefaults and retrieved here.
     
     // MARK: - Lifecycle
 
@@ -93,6 +91,14 @@ class RecentSearchesTableViewController: UITableViewController {
         return true
     }
     */
+    
+    
+    private struct Storyboard {
+        static let ShowRecentSearchTweetsSegue = "Show RecentSearch Tweets"
+        static let ShowMentionPopularitySegue = "Show Popularity"
+        
+    }
+    
 
     
     
@@ -102,8 +108,14 @@ class RecentSearchesTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case "Show RecentSearch Tweets":
+            case Storyboard.ShowRecentSearchTweetsSegue:
                 if let destVC = segue.destination as? TweetTableViewController {
+                    if let cell = sender as? UITableViewCell {
+                        destVC.searchText = cell.textLabel?.text
+                    }
+                }
+            case Storyboard.ShowMentionPopularitySegue:
+                if let destVC = segue.destination as? PopularityTableViewController {
                     if let cell = sender as? UITableViewCell {
                         destVC.searchText = cell.textLabel?.text
                     }

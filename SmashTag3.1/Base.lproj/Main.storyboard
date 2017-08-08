@@ -11,10 +11,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tweet Table View Controller-->
+        <!--Smash Tweet Table View Controller-->
         <scene sceneID="z5L-e5-diF">
             <objects>
-                <tableViewController id="tBH-BA-RXt" customClass="TweetTableViewController" customModule="SmashTag3_1" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="tBH-BA-RXt" customClass="SmashTweetTableViewController" customModule="SmashTag3_1" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="BBa-Qr-kSt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -125,7 +125,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8SH-YY-FBz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="836" y="-379"/>
+            <point key="canvasLocation" x="820" y="176"/>
         </scene>
         <!--Mentions-->
         <scene sceneID="59U-Ot-heZ">
@@ -204,7 +204,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u33-X8-DOz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1838" y="-815"/>
+            <point key="canvasLocation" x="1761" y="-307"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="rh9-fa-OAK">
@@ -219,7 +219,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jfn-i0-AIV">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </scrollView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="6sg-j9-68u">
                                 <rect key="frame" x="169" y="315" width="37" height="37"/>
@@ -251,7 +251,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dYF-FQ-qFW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2703" y="-815"/>
+            <point key="canvasLocation" x="2614" y="-307"/>
         </scene>
         <!--Smash Tweeters Table View Controller-->
         <scene sceneID="5Pb-nd-2fs">
@@ -295,7 +295,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w6o-GP-Uex" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1838" y="-1532"/>
+            <point key="canvasLocation" x="1761" y="-1019"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Yo6-DF-7pU">
@@ -343,6 +343,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <segue destination="tBH-BA-RXt" kind="show" identifier="Show RecentSearch Tweets" id="YO8-XR-h7Y"/>
+                                    <segue destination="VzK-5c-2W4" kind="show" identifier="Show Popularity" trigger="accessoryAction" id="l7u-wB-0hR"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -355,7 +356,35 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TKp-kq-0WP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="889" y="1128"/>
+            <point key="canvasLocation" x="820" y="1128"/>
+        </scene>
+        <!--Popularity Table View Controller-->
+        <scene sceneID="W8S-LO-XIO">
+            <objects>
+                <tableViewController id="VzK-5c-2W4" customClass="PopularityTableViewController" customModule="SmashTag3_1" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="NpR-YE-yqV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="rTg-Bk-lCg">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rTg-Bk-lCg" id="yC0-9a-Yk6">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="VzK-5c-2W4" id="UtB-Rl-NSl"/>
+                            <outlet property="delegate" destination="VzK-5c-2W4" id="OnB-VM-8r8"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yce-w5-G2X" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1761" y="1128"/>
         </scene>
         <!--Images Collection View Controller-->
         <scene sceneID="Xr8-Rq-cz4">
@@ -423,7 +452,7 @@
                 <pinchGestureRecognizer id="BjV-CQ-gBS"/>
                 <tapGestureRecognizer delaysTouchesBegan="YES" numberOfTapsRequired="2" id="ass-fG-P7g"/>
             </objects>
-            <point key="canvasLocation" x="2196" y="-92"/>
+            <point key="canvasLocation" x="1761" y="394"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="hB2-4O-m1T">
@@ -435,13 +464,13 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="XLc-hf-6nT" kind="relationship" relationship="viewControllers" id="bV1-j3-dWp"/>
                         <segue destination="pOZ-Qu-UbD" kind="relationship" relationship="viewControllers" id="7cY-Cu-92W"/>
+                        <segue destination="XLc-hf-6nT" kind="relationship" relationship="viewControllers" id="bV1-j3-dWp"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uGH-Ui-gOk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1454" y="478"/>
+            <point key="canvasLocation" x="-903" y="606"/>
         </scene>
         <!--recent-->
         <scene sceneID="ars-Dq-i3E">
@@ -469,7 +498,7 @@
         <image name="movie_camera" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qjs-HN-MGn"/>
         <segue reference="xrV-mt-Is2"/>
+        <segue reference="EBc-ko-KWf"/>
     </inferredMetricsTieBreakers>
 </document>

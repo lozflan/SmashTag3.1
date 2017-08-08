@@ -58,29 +58,7 @@ class SmashTweetTableViewController: TweetTableViewController {
     }
     
     
-    
-    
-    
-    // override pFS to add new functionality 
-    //TODO: calling super may cause problem with switch breaking out of func before subclass switch gets chance to run??
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        super.prepare(for: segue, sender: sender)
-//        
-//        if let identifier = segue.identifier {
-//            switch identifier {
-//            case "Tweeters Mentioning Search Term":
-//                if let tweetersTVC = segue.destination as? SmashTweetersTableViewController {
-//                    tweetersTVC.mention = searchText
-//                    tweetersTVC.container = container
-//                }
-//
-//            default:
-//                break
-//            }
-//        }
-//    }
-    
-    
+
 
     
     

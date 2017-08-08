@@ -12,6 +12,7 @@
 		2405E7C11EB7DFC70086873E /* SmashTweetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2405E7C01EB7DFC70086873E /* SmashTweetTableViewController.swift */; };
 		241C54DF1EE62B6C00FE0726 /* RecentSearchesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241C54DE1EE62B6C00FE0726 /* RecentSearchesTableViewController.swift */; };
 		242865141EE8B60600D83F0D /* RecentSearches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242865131EE8B60600D83F0D /* RecentSearches.swift */; };
+		243F1DA11F3A7DA50083FF1C /* CD_Mention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 243F1DA01F3A7DA50083FF1C /* CD_Mention.swift */; };
 		244D073A1EB2999900A228E9 /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244D07391EB2999900A228E9 /* TweetTableViewCell.swift */; };
 		246494131EB6B5DE000A0816 /* SmashTag3.1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 246494111EB6B5DE000A0816 /* SmashTag3.1.xcdatamodeld */; };
 		246601A01EB7D826001038CE /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2466019F1EB7D826001038CE /* Tweet.swift */; };
@@ -27,6 +28,7 @@
 		24AC1A401EB1574A005252C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24AC1A3F1EB1574A005252C0 /* Assets.xcassets */; };
 		24AC1A431EB1574A005252C0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24AC1A411EB1574A005252C0 /* LaunchScreen.storyboard */; };
 		24AC1A4C1EB1580D005252C0 /* TweetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC1A4B1EB1580D005252C0 /* TweetTableViewController.swift */; };
+		24AD25CC1F392395003863B9 /* PopularityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AD25CB1F392395003863B9 /* PopularityTableViewController.swift */; };
 		24E9321B1F293EAE003ED4A4 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E9321A1F293EAE003ED4A4 /* Twitter.framework */; };
 		24E9321C1F293EAE003ED4A4 /* Twitter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 24E9321A1F293EAE003ED4A4 /* Twitter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		24ED7D381EBBE70500F2E919 /* UITableViewDataSource+NSFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ED7D371EBBE70500F2E919 /* UITableViewDataSource+NSFetchedResultsController.swift */; };
@@ -54,6 +56,7 @@
 		2405E7C01EB7DFC70086873E /* SmashTweetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmashTweetTableViewController.swift; sourceTree = "<group>"; };
 		241C54DE1EE62B6C00FE0726 /* RecentSearchesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentSearchesTableViewController.swift; sourceTree = "<group>"; };
 		242865131EE8B60600D83F0D /* RecentSearches.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentSearches.swift; sourceTree = "<group>"; };
+		243F1DA01F3A7DA50083FF1C /* CD_Mention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CD_Mention.swift; sourceTree = "<group>"; };
 		244D07391EB2999900A228E9 /* TweetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
 		246494121EB6B5DE000A0816 /* SmashTag3.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SmashTag3.1.xcdatamodel; sourceTree = "<group>"; };
 		2466019F1EB7D826001038CE /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
@@ -71,6 +74,7 @@
 		24AC1A421EB1574A005252C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		24AC1A441EB1574A005252C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24AC1A4B1EB1580D005252C0 /* TweetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewController.swift; sourceTree = "<group>"; };
+		24AD25CB1F392395003863B9 /* PopularityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularityTableViewController.swift; sourceTree = "<group>"; };
 		24E9321A1F293EAE003ED4A4 /* Twitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Twitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		24ED7D371EBBE70500F2E919 /* UITableViewDataSource+NSFetchedResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewDataSource+NSFetchedResultsController.swift"; sourceTree = "<group>"; };
 		24F8EFED1ECB9EBF00F8AEF3 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
@@ -96,6 +100,7 @@
 		246601A31EB7D84C001038CE /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				243F1DA01F3A7DA50083FF1C /* CD_Mention.swift */,
 				2466019F1EB7D826001038CE /* Tweet.swift */,
 				246601A11EB7D83C001038CE /* TwitterUser.swift */,
 				240275EC1EBA93F800004204 /* FetchedResultsTableViewController.swift */,
@@ -120,6 +125,7 @@
 				24AC1A4B1EB1580D005252C0 /* TweetTableViewController.swift */,
 				248FD2361EC13B4300A918FC /* MentionsTableViewController.swift */,
 				2491AFEC1EF352B10092D04F /* ImagesCollectionViewController.swift */,
+				24AD25CB1F392395003863B9 /* PopularityTableViewController.swift */,
 				241C54DE1EE62B6C00FE0726 /* RecentSearchesTableViewController.swift */,
 				24FE95A11EDE365500EB6A6A /* ImageViewController.swift */,
 				2405E7C01EB7DFC70086873E /* SmashTweetTableViewController.swift */,
@@ -327,7 +333,9 @@
 			files = (
 				2405E7C11EB7DFC70086873E /* SmashTweetTableViewController.swift in Sources */,
 				240275ED1EBA93F800004204 /* FetchedResultsTableViewController.swift in Sources */,
+				24AD25CC1F392395003863B9 /* PopularityTableViewController.swift in Sources */,
 				24ED7D381EBBE70500F2E919 /* UITableViewDataSource+NSFetchedResultsController.swift in Sources */,
+				243F1DA11F3A7DA50083FF1C /* CD_Mention.swift in Sources */,
 				24A300DE1EC3C8D3007B12C7 /* VCLoggingViewController.swift in Sources */,
 				24AC1A391EB1574A005252C0 /* AppDelegate.swift in Sources */,
 				246601A01EB7D826001038CE /* Tweet.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  CD_Mention.swift
+//  Mention.swift
 //  SmashTag3.1
 //
 //  Created by Lawrence Flancbaum on 9/8/17.
@@ -9,6 +9,6 @@
 import UIKit
 import CoreData
 
-class CD_Mention: NSManagedObject {
+class Mention: NSManagedObject {
 
 }

@@ -93,7 +93,7 @@ class TweetTableViewCell: UITableViewCell {
     
     /// Add colour to a mention. mentions are an array of one type of mention ie [hashtags] or [urls].
     /// mentions know their range within their containing string
-    private func addMentionsColor(attribString: NSMutableAttributedString, mentions: [Mention], color: UIColor) -> NSMutableAttributedString {
+    private func addMentionsColor(attribString: NSMutableAttributedString, mentions: [Twitter.Mention], color: UIColor) -> NSMutableAttributedString {
         let string = attribString
         for mention in mentions {
             string.addAttribute(NSForegroundColorAttributeName, value: color, range: mention.nsrange)
@@ -123,7 +123,7 @@ class TweetTableViewCell: UITableViewCell {
 
 extension NSMutableAttributedString {
     
-    func setMentionsColor(mentions: [Mention], color: UIColor ) {
+    func setMentionsColor(mentions: [Twitter.Mention], color: UIColor ) {
         for mention in mentions {
             self.addAttribute(NSForegroundColorAttributeName, value: color, range: mention.nsrange)
         }

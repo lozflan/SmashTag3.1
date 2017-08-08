@@ -23,7 +23,7 @@ class PopularityTableViewController: FetchedResultsTableViewController {
     var searchText: String? { didSet { updateUI() }}
     var container = AppDelegate.container { didSet { updateUI() }}
     
-    var fetchedResultsController = NSFetchedResultsController<CD_Mention>()
+    var fetchedResultsController = NSFetchedResultsController<Mention>()
     
     
     private func updateUI() {

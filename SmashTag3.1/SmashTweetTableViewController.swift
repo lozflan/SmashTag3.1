@@ -22,21 +22,47 @@ class SmashTweetTableViewController: TweetTableViewController {
     override func insertTweets(newTweets: [Twitter.Tweet]) {
         super.insertTweets(newTweets: newTweets)
         updateDatabase(with: newTweets)
+        
     }
 
     private func updateDatabase(with newTweets: [Twitter.Tweet]) {
         // update db off the mainQ. hands you an off-Q context
         print("about to load database")
         container?.performBackgroundTask { [weak self] (context) in
-            for twitterInfo in newTweets {
+            for newTweet in newTweets {
                 // create a factory func within Tweet to find an existing tweet or create a new one.
                 // add the tweet to coredata
-                _ = try? Tweet.findOrCreateTweet(matching: twitterInfo, in: context)
+                _ = try? Tweet.findOrCreateTweet(matching: newTweet, in: context)
+                // add mention to coredata
+                self?.updateMentions(from: newTweet, context: context)
             }
             try? context.save()
             print("done loading database")
             self?.printDatabaseStatistics() // calling this func from oth queue
+            let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+            print("core data path = \(paths[0])")
         }
+    }
+    
+    private struct MentionType {
+        static let hashtag = "hashtag"
+        static let userMention = "userMention"
+    }
+    
+    
+    private func updateMentions(from newTweet: Twitter.Tweet, context: NSManagedObjectContext) {
+        
+        if let searchText = searchText {
+            //update hashtag mentions
+            for hashtag in newTweet.hashtags {
+                _ =  try? Mention.updateOrAddMention(keyword: hashtag.keyword, searchTerm: searchText, newTweet: newTweet, type: MentionType.hashtag, context: context)
+            }
+            for userMention in newTweet.userMentions {
+                _ = try? Mention.updateOrAddMention(keyword: userMention.keyword, searchTerm: searchText, newTweet: newTweet, type: MentionType.userMention, context: context)
+            }
+        }
+        
+        
     }
     
     
@@ -52,6 +78,10 @@ class SmashTweetTableViewController: TweetTableViewController {
                 let tweeterRequest: NSFetchRequest<TwitterUser> = TwitterUser.fetchRequest()
                 if let tweeterCount = try? context.count(for: TwitterUser.fetchRequest()) { //used db side count = better than fetch then count above. 
                     print("\(tweeterCount) twitter users in coredata")
+                }
+                let mentionRequest: NSFetchRequest<Mention> = Mention.fetchRequest()
+                if let mentionCount = try? context.count(for: mentionRequest) {
+                    print("\(mentionCount) mentions in database")
                 }
             }
         }

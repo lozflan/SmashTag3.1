@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Mention" representedClassName=".Mention" syncable="YES" codeGenerationType="category">
-        <attribute name="count" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="count" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="keyword" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="searchTerm" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
@@ -20,8 +20,8 @@
         <relationship name="tweets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tweet" inverseName="tweeter" inverseEntity="Tweet" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Tweet" positionX="-891" positionY="-234" width="128" height="28"/>
-        <element name="TwitterUser" positionX="-576" positionY="-61" width="128" height="88"/>
-        <element name="Mention" positionX="-560" positionY="-297" width="128" height="28"/>
+        <element name="Mention" positionX="-560" positionY="-297" width="128" height="118"/>
+        <element name="Tweet" positionX="-839" positionY="-288" width="128" height="118"/>
+        <element name="TwitterUser" positionX="-578" positionY="-144" width="128" height="88"/>
     </elements>
 </model>

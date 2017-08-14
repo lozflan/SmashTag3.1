@@ -21,20 +21,24 @@ class SmashTweetTableViewController: TweetTableViewController {
     /// Overrides insertTweets func of non-core data superclass to update coredata with new tweets array
     override func insertTweets(newTweets: [Twitter.Tweet]) {
         super.insertTweets(newTweets: newTweets)
+        //main role of subclass to override insertTweets and save to coredata
         updateDatabase(with: newTweets)
         
     }
 
-    private func updateDatabase(with newTweets: [Twitter.Tweet]) {
+    
+    /// Takes array of twitterTweets and saves data to coredata
+    private func updateDatabase(with twitterTweets: [Twitter.Tweet]) {
         // update db off the mainQ. hands you an off-Q context
         print("about to load database")
+        // load on background queue
         container?.performBackgroundTask { [weak self] (context) in
-            for newTweet in newTweets {
-                // create a factory func within Tweet to find an existing tweet or create a new one.
-                // add the tweet to coredata
-                _ = try? Tweet.findOrCreateTweet(matching: newTweet, in: context)
-                // add mention to coredata
-                self?.updateMentions(from: newTweet, context: context)
+            for twitterTweet in twitterTweets {
+                // call factory func within Tweet to find an existing tweet in database or create a new one in database
+                if let (cdTweet,new) = try? Tweet.findOrCreateTweet(matching: twitterTweet, in: context), new == true {
+                    // if tweet returned and if tweet is new, add mention to coredata for this tweet
+                    self?.updateMentions(twitterTweet: twitterTweet, cdTweet: cdTweet)
+                }
             }
             try? context.save()
             print("done loading database")
@@ -50,16 +54,16 @@ class SmashTweetTableViewController: TweetTableViewController {
     }
     
     
-    private func updateMentions(from newTweet: Twitter.Tweet, context: NSManagedObjectContext) {
-        
+    /// Call Mention MOSubclass static functions to manage creating or incrementing mentions
+    private func updateMentions(twitterTweet: Twitter.Tweet, cdTweet: Tweet) {
         if let searchText = searchText {
-            //update hashtag mentions
-            for hashtag in newTweet.hashtags {
-                _ =  try? Mention.updateOrAddMention(keyword: hashtag.keyword, searchTerm: searchText, newTweet: newTweet, type: MentionType.hashtag, context: context)
+            for hashtag in twitterTweet.hashtags {
+                _ =  try? Mention.checkMention(keyword: hashtag.keyword, searchText: searchText, cdTweet: cdTweet, type: MentionType.hashtag)
             }
-            for userMention in newTweet.userMentions {
-                _ = try? Mention.updateOrAddMention(keyword: userMention.keyword, searchTerm: searchText, newTweet: newTweet, type: MentionType.userMention, context: context)
+            for userMention in twitterTweet.userMentions {
+                _ =  try? Mention.checkMention(keyword: userMention.keyword, searchText: searchText, cdTweet: cdTweet, type: MentionType.userMention)
             }
+            
         }
         
         

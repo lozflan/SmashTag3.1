@@ -12,7 +12,7 @@ import CoreData
 
 class Mention: NSManagedObject {
     
-    /// Calls findOrCreateMention but adds check to see if the tweet already exists in the returned mention's tweet array ie dont add or increment the mention count if this tweet's mentions have already been counted.
+    /// Calls findOrCreateMention but adds a check to see if the tweet already exists in the returned mention's tweet array ie dont add or increment the mention count if this tweet's mentions have already been counted.
     static func checkMention(keyword: String, searchText: String, cdTweet: Tweet, type: String) throws -> Mention {
         do {
             let mention = try findOrCreateMention(keyword: keyword, searchText: searchText, type: type, context: cdTweet.managedObjectContext!)
@@ -45,7 +45,6 @@ class Mention: NSManagedObject {
             if mentionMatch.count > 0 {
                 // there should only ever be 0 or 1 matches
                 assert(mentionMatch.count == 1, "mentions.count > 1 error" )
-                //increemnt the count
                 return mentionMatch[0]
             } else {
                 //ow no matching Mention in coredata so create one

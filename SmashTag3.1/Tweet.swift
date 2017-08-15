@@ -43,6 +43,14 @@ class Tweet: NSManagedObject {
     }
     
     
+    /// Takes an array of tweets and replicates findOrCreateTweet functionality for batch processing.
+    class func findOrCreateMultipleTweets(tweets: [Twitter.Tweet], context: NSManagedObjectContext) -> throws [Tweet] {
+        
+        //get array of tweet identifiers
+        let identifiers = tweets.map { $0.identifier }
+        
+    }
+    
     
 
 }

@@ -11,38 +11,68 @@ import CoreData
 
 
 
-class PopularityTableViewController: FetchedResultsTableViewController {
+class PopularTableViewController: FetchedResultsTableViewController {
     
     // MARK: - Overview
     // TVC listing the most popular user and hashtag mentions in all tweets fetched (and stored in coredata) for a particular searchTerm
     
     // MARK: - Model 
     // need the searchText, the container. 
-    // use the searchText to search text of all tweets stored in coredata 
+    // use the searchText to search text of all tweets stored in coredata
     
     var searchText: String? { didSet { updateUI() }}
     var container = AppDelegate.container { didSet { updateUI() }}
     
-    var fetchedResultsController = NSFetchedResultsController<Mention>()
+    // required var for superclass FetchedResultsTableViewController to work
+    var fetchedResultsController: NSFetchedResultsController<Mention>?
+    
     
     
     private func updateUI() {
-        fetchTweeters()
-        tableView.reloadData()
+        fetchMentions()
+        
+    }
+    
+    private struct SortKey {
+        static let type = "type"
+        static let keyword = "keyword"
+        static let count = "count"
+        static let sectionKey = "type"
     }
     
     /// fetches tweeters from coredata that have searchText in their tweets.
-    private func fetchTweeters() {
+    private func fetchMentions() {
         
-        //Tuesday, 8 August 2017 UP TO HERE
+        if let context = container?.viewContext, searchText != nil {
+            let request: NSFetchRequest<Mention> = Mention.fetchRequest()
+            let predicate = NSPredicate(format: "searchTerm = %@", searchText!)
+            let sortDescriptors = [NSSortDescriptor(key: SortKey.type, ascending: true)]
+            request.predicate = predicate
+            request.sortDescriptors = sortDescriptors
+            fetchedResultsController = NSFetchedResultsController(
+                fetchRequest: request,
+                managedObjectContext: context,
+                sectionNameKeyPath: SortKey.sectionKey,
+                cacheName: nil)
+            try? fetchedResultsController?.performFetch()
+            tableView.reloadData()
+            fetchedResultsController?.delegate = self
+        }
+        
         
     }
+
+
+    
+    
+    
+    
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Popularity"
+        self.title = "Popular"
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -59,23 +89,35 @@ class PopularityTableViewController: FetchedResultsTableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return fetchedResultsController?.sections?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        if let sections = fetchedResultsController?.sections, sections.count > 0 {
+            return sections[section].numberOfObjects
+        } else {
+            return 0
+        }
     }
 
-    /*
+    
+    private struct Storyboard {
+        static let mentionCell = "Mention Cell"
+    }
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.mentionCell, for: indexPath)
 
         // Configure the cell...
-
+        if let mention = fetchedResultsController?.object(at: indexPath) {
+            cell.textLabel?.text = mention.keyword
+            cell.detailTextLabel?.text = String(mention.count)
+        }
         return cell
     }
-    */
+
 
     /*
     // Override to support conditional editing of the table view.

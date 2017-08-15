@@ -28,7 +28,7 @@
 		24AC1A401EB1574A005252C0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24AC1A3F1EB1574A005252C0 /* Assets.xcassets */; };
 		24AC1A431EB1574A005252C0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 24AC1A411EB1574A005252C0 /* LaunchScreen.storyboard */; };
 		24AC1A4C1EB1580D005252C0 /* TweetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AC1A4B1EB1580D005252C0 /* TweetTableViewController.swift */; };
-		24AD25CC1F392395003863B9 /* PopularityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AD25CB1F392395003863B9 /* PopularityTableViewController.swift */; };
+		24AD25CC1F392395003863B9 /* PopularTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24AD25CB1F392395003863B9 /* PopularTableViewController.swift */; };
 		24E9321B1F293EAE003ED4A4 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24E9321A1F293EAE003ED4A4 /* Twitter.framework */; };
 		24E9321C1F293EAE003ED4A4 /* Twitter.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 24E9321A1F293EAE003ED4A4 /* Twitter.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		24ED7D381EBBE70500F2E919 /* UITableViewDataSource+NSFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24ED7D371EBBE70500F2E919 /* UITableViewDataSource+NSFetchedResultsController.swift */; };
@@ -74,7 +74,7 @@
 		24AC1A421EB1574A005252C0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		24AC1A441EB1574A005252C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24AC1A4B1EB1580D005252C0 /* TweetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetTableViewController.swift; sourceTree = "<group>"; };
-		24AD25CB1F392395003863B9 /* PopularityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularityTableViewController.swift; sourceTree = "<group>"; };
+		24AD25CB1F392395003863B9 /* PopularTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopularTableViewController.swift; sourceTree = "<group>"; };
 		24E9321A1F293EAE003ED4A4 /* Twitter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Twitter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		24ED7D371EBBE70500F2E919 /* UITableViewDataSource+NSFetchedResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewDataSource+NSFetchedResultsController.swift"; sourceTree = "<group>"; };
 		24F8EFED1ECB9EBF00F8AEF3 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
@@ -125,7 +125,7 @@
 				24AC1A4B1EB1580D005252C0 /* TweetTableViewController.swift */,
 				248FD2361EC13B4300A918FC /* MentionsTableViewController.swift */,
 				2491AFEC1EF352B10092D04F /* ImagesCollectionViewController.swift */,
-				24AD25CB1F392395003863B9 /* PopularityTableViewController.swift */,
+				24AD25CB1F392395003863B9 /* PopularTableViewController.swift */,
 				241C54DE1EE62B6C00FE0726 /* RecentSearchesTableViewController.swift */,
 				24FE95A11EDE365500EB6A6A /* ImageViewController.swift */,
 				2405E7C01EB7DFC70086873E /* SmashTweetTableViewController.swift */,
@@ -334,7 +334,7 @@
 				2405E7C11EB7DFC70086873E /* SmashTweetTableViewController.swift in Sources */,
 				243F1DA31F3A81700083FF1C /* Mention.swift in Sources */,
 				240275ED1EBA93F800004204 /* FetchedResultsTableViewController.swift in Sources */,
-				24AD25CC1F392395003863B9 /* PopularityTableViewController.swift in Sources */,
+				24AD25CC1F392395003863B9 /* PopularTableViewController.swift in Sources */,
 				24ED7D381EBBE70500F2E919 /* UITableViewDataSource+NSFetchedResultsController.swift in Sources */,
 				24A300DE1EC3C8D3007B12C7 /* VCLoggingViewController.swift in Sources */,
 				24AC1A391EB1574A005252C0 /* AppDelegate.swift in Sources */,

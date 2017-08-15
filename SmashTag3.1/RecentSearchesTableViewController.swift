@@ -115,7 +115,7 @@ class RecentSearchesTableViewController: UITableViewController {
                     }
                 }
             case Storyboard.ShowMentionPopularitySegue:
-                if let destVC = segue.destination as? PopularityTableViewController {
+                if let destVC = segue.destination as? PopularTableViewController {
                     if let cell = sender as? UITableViewCell {
                         destVC.searchText = cell.textLabel?.text
                     }
